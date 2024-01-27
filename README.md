@@ -9,7 +9,7 @@
 
 # 使用说明
 进入配置界面<br>
-<img src="![359F13F23B22BDDE17DCB4870745335E](https://github.com/WildFox404/AUST-APP/assets/79531073/fe84c127-2f57-4c03-b7a6-6ecabdbeb088)" width="300" height="200">
+<img src="example" width="300" height="600">
 输入学号和教务系统密码<br>
 点击保存->弹出saved<br>
 
