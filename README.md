@@ -2,6 +2,7 @@
 进行课表,成绩,考试的查询<br>
 欢迎大家提出issues<br>
 或者加入QQ群:956026820<br>
+<img src="https://s1.imagehub.cc/images/2024/01/27/58b0238fac8bb50ab2b0f86d694e296a.md.jpeg" width="300" height="600"><br>
 提出建议<br>
 欢迎大佬pull requests
 
@@ -11,7 +12,7 @@
 
 # 使用说明
 进入配置界面<br>
-<img src="https://www.imagehub.cc/image/1viEgb"><img src="https://s1.imagehub.cc/images/2024/01/27/425d2bcb351ba549e197cd4a59d60e66.md.png" width="300" height="600"><br>
+<img src="https://s1.imagehub.cc/images/2024/01/27/425d2bcb351ba549e197cd4a59d60e66.md.png" width="300" height="600"><br>
 输入学号和教务系统密码<br>
 点击保存->弹出saved<br>
 
