@@ -9,7 +9,7 @@
 
 # 使用说明
 进入配置界面<br>
-<img src="https://www.imagehub.cc/image/1viEgb"><img src="https://s1.imagehub.cc/images/2024/01/27/425d2bcb351ba549e197cd4a59d60e66.md.png" width="300" height="600">
+<img src="https://www.imagehub.cc/image/1viEgb"><img src="https://s1.imagehub.cc/images/2024/01/27/425d2bcb351ba549e197cd4a59d60e66.md.png" width="300" height="600"><br>
 输入学号和教务系统密码<br>
 点击保存->弹出saved<br>
 
