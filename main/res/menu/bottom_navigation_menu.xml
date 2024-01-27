@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/navigation_config"
+            android:title="配置"
+            android:icon="@drawable/config" />
+    <item
+            android:id="@+id/navigation_class"
+            android:title="课表"
+            android:icon="@drawable/classtimeable" />
+    <item
+            android:id="@+id/navigation_grade"
+            android:title="成绩"
+            android:icon="@drawable/grade" />
+    <item
+            android:id="@+id/navigation_test"
+            android:title="考试"
+            android:icon="@drawable/test" />
+</menu>
