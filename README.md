@@ -2,8 +2,8 @@
 进行课表,成绩,考试的查询<br>
 欢迎大家提出issues<br>
 或者加入QQ群:956026820<br>
-<img src="https://s1.imagehub.cc/images/2024/01/27/58b0238fac8bb50ab2b0f86d694e296a.md.jpeg" width="300" height="600"><br>
 提出建议<br>
+<img src="https://s1.imagehub.cc/images/2024/01/27/58b0238fac8bb50ab2b0f86d694e296a.md.jpeg" width="300" height="400"><br>
 欢迎大佬pull requests
 
 # 免责声明
@@ -30,4 +30,5 @@
 
 # 困难
 手里没有Mac本QAQ,没法开发iOS软件<br>
-有想一起的大佬可以加Q联系
+有想一起的大佬可以加Q联系<br>
+<img src="https://s1.imagehub.cc/images/2024/01/27/4174666eb49a5916e4623414b29e471d.md.jpeg" width="300" height="400">
