@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="EditTextNoUnderline" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item> <!-- 设置背景为透明 -->
+        <item name="android:backgroundTint">@android:color/transparent</item> <!-- 设置底部边框颜色为透明 -->
+    </style>
+</resources>

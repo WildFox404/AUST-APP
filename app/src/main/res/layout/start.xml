@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent" android:background="#E5EFFF">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="101dp" android:id="@+id/imageView2" app:srcCompat="@drawable/top2"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="-10dp"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="95dp" android:id="@+id/imageView"
+            app:srcCompat="@drawable/top1" android:rotationX="3"
+            tools:layout_editor_absoluteX="0dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="-35dp"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="105dp" android:id="@+id/imageView3" app:srcCompat="@drawable/top3"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" android:layout_marginTop="43dp"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/imageView6" app:srcCompat="@drawable/bottom3"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+    <ImageView
+            android:layout_width="273dp"
+            android:layout_height="212dp" android:id="@+id/imageView4"
+            app:srcCompat="@drawable/bottom2"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="-80dp" android:layout_marginBottom="-5dp"/>
+    <ImageView
+            android:layout_width="93dp"
+            android:layout_height="98dp" android:id="@+id/imageView5" app:srcCompat="@drawable/bottom1"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            android:layout_marginTop="644dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"/>
+    <ImageView
+            android:layout_width="151dp"
+            android:layout_height="155dp" android:id="@+id/imageView7"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32999998" app:srcCompat="@drawable/logo"/>
+    <ImageView
+            android:layout_width="272dp"
+            android:layout_height="180dp" android:id="@+id/imageView8"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="@+id/imageView7" app:srcCompat="@drawable/logotext"
+            android:layout_marginTop="-70dp" app:layout_constraintHorizontal_bias="0.504"/>
+    <TextView
+            android:text="开启校园美好生活"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="@+id/imageView8" app:layout_constraintStart_toStartOf="@+id/imageView8"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7"
+            android:textSize="20dp"
+            android:textColor="#212121"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
