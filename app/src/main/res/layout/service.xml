@@ -318,23 +318,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
+                            app:srcCompat="@drawable/b4"
                             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/imageView20"/>
+                            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/testview"/>
                     <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView20"
-                            app:layout_constraintStart_toStartOf="@+id/imageView20"
-                            app:layout_constraintTop_toTopOf="@+id/imageView20"/>
+                            app:srcCompat="@drawable/q1" app:layout_constraintBottom_toBottomOf="@+id/testview"
+                            app:layout_constraintEnd_toEndOf="@+id/testview"
+                            app:layout_constraintStart_toStartOf="@+id/testview"
+                            app:layout_constraintTop_toTopOf="@+id/testview"/>
                     <TextView
                             android:layout_width="0dp"
                             android:layout_height="19dp"
                             android:layout_weight="1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView20"/>
+                            app:layout_constraintTop_toBottomOf="@+id/testview" android:text="考试安排"
+                            android:textAlignment="center" android:textStyle="bold" android:typeface="normal"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 

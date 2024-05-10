@@ -42,6 +42,7 @@ public class ServiceFragment extends Fragment {
         ImageView getGradeImageView = view.findViewById(R.id.getGrade);
         ImageView gradeView= view.findViewById(R.id.gradeview);
         ImageView gpaView= view.findViewById(R.id.gpaview);
+        ImageView testView =view.findViewById(R.id.testview);
         ConstraintLayout gradeWait=view.findViewById(R.id.gradeWait);
         gradeProcess = view.findViewById(R.id.gradeProcess);
         homeFragment = new HomeFragment();
@@ -63,6 +64,13 @@ public class ServiceFragment extends Fragment {
             public void onClick(View view) {
                 // 创建 Intent 对象,指定从当前 Activity 跳转到 GradeViewActivity
                 Intent intent = new Intent(getActivity(), GradeViewerActivity.class);
+                startActivity(intent);
+            }
+        });
+        testView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getActivity(),TestViewerActivity.class);
                 startActivity(intent);
             }
         });
@@ -96,6 +104,7 @@ public class ServiceFragment extends Fragment {
                         new Thread(new GradeThread(findTerm, findYear,term,y)).start();
                     }
                 }
+                new Thread(new TestThread()).start();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -135,7 +144,6 @@ public class ServiceFragment extends Fragment {
     class GradeThread implements Runnable {
         private int findTerm;
         private int findYear;
-
         private int storeTerm;
         private int storeYear;
         public GradeThread(int findTerm, int findYear,int term ,int y) {
@@ -184,6 +192,45 @@ public class ServiceFragment extends Fragment {
         protected void onPostExecute(List<Map<String, String>> result) {
             if (result != null && !result.isEmpty() && getView() != null) {
                 myDBHelper.insertGradeData(user.getUsername(), storeYear.toString(), storeTerm.toString(), result);
+                completedTasks++;
+            }
+        }
+    }
+
+    class TestThread implements Runnable {
+
+        public TestThread() {
+
+        }
+
+        @Override
+        public void run() {
+            // 在此处执行需要在后台线程中进行的任务
+            // 例如调用异步任务中的代码
+            new TestAsyncTask().execute();
+        }
+    }
+
+    private class TestAsyncTask extends AsyncTask<Void, Void, List<Map<String, String>>> {
+        List<Map<String, String>> test_result;
+        public TestAsyncTask() {
+
+        }
+        @Override
+        protected List<Map<String, String>> doInBackground(Void... params) {
+            try {
+                user.loginIn();
+                test_result = user.getTd_test(user.get_test());
+                Log.d("UserCreation", test_result.toString());
+            } catch (IOException e) {
+                e.printStackTrace(); // 处理异常
+            }
+            return test_result;
+        }
+        @Override
+        protected void onPostExecute(List<Map<String, String>> test_result) {
+            if (result != null && !result.isEmpty() && getView() != null) {
+                myDBHelper.insertTestData(user.getUsername(),test_result);
                 completedTasks++;
             }
         }

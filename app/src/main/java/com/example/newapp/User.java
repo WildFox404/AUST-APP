@@ -312,6 +312,8 @@ public class User {
         }
         return result;
     }
+
+
     public String cleanCourseName(String courseName) {
         String cleanName = courseName.replaceAll("<.*?>", "");  // Remove any HTML tags
         cleanName = cleanName.replace("\t", "");  // Remove tab characters

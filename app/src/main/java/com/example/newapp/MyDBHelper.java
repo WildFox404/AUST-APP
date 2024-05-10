@@ -17,7 +17,7 @@ import java.util.Map;
 public class MyDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "my_database";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public MyDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,12 +40,21 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 + "term VARCHAR(1),"
                 + "content TEXT)";
         db.execSQL(createGradeTableQuery);
+
+        String createTestTableQuery = "CREATE TABLE IF NOT EXISTS my_test ("
+                + "username VARCHAR(10),"
+                + "content TEXT)";
+        db.execSQL(createTestTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 升级数据库时的处理逻辑
         // 在数据库升级时执行的操作
+        String createTestTableQuery = "CREATE TABLE IF NOT EXISTS my_test ("
+                + "username VARCHAR(10),"
+                + "content TEXT)";
+        db.execSQL(createTestTableQuery);
     }
     public void insertGradeData(String username, String year, String term, List<Map<String, String>> content) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -58,6 +67,46 @@ public class MyDBHelper extends SQLiteOpenHelper {
         values.put("content", jsonContent);
         db.insert("my_grade", null, values);
         db.close();
+    }
+
+    public void insertTestData(String username, List<Map<String, String>> test_result){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(test_result);
+        values.put("username", username);
+        values.put("content", jsonContent);
+        db.insert("my_test", null, values);
+        db.close();
+    }
+
+    public List<Map<String, String>> getTestData(String username){
+        List<Map<String, String>> result = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Gson gson = new Gson();
+
+        String[] columns = {"content"};
+        String selection = "username = ?";
+        String[] selectionArgs = {username};
+
+        Cursor cursor = db.query("my_test", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            String jsonContent = null;
+            int columnIndex = cursor.getColumnIndex("content");
+            if (columnIndex != -1) {
+                jsonContent = cursor.getString(columnIndex);
+                Type type = new TypeToken<List<Map<String, String>>>() {}.getType();
+                result = gson.fromJson(jsonContent, type);
+            } else {
+                // 处理列索引不存在的情况
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return result;
     }
 
     public void insertCourseData(String username, String year, String term, String week, HashMap<Integer, List<Course>> content) {

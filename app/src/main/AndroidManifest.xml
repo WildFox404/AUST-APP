@@ -28,6 +28,7 @@
         <activity android:name=".UserFragment" />
         <activity android:name=".GradeViewerActivity" />
         <activity android:name=".GPAViewerActivity" />
+        <activity android:name=".TestViewerActivity" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
