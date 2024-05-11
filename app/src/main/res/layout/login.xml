@@ -27,59 +27,75 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="350dp" app:layout_constraintEnd_toEndOf="parent"/>
     <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
             android:id="@+id/agreementFalse"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="427dp"
-            android:layout_marginStart="33dp"
-            app:srcCompat="@drawable/agreementfalse"
-            android:visibility="visible"/> <!-- 设置初始可见性为 visible -->
-    <ImageView
+            android:visibility="visible"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:id="@+id/agreementTrue"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="427dp"
-            android:layout_marginStart="33dp"
-            app:srcCompat="@drawable/agreementtrue"
-            android:visibility="invisible"/>
+            android:layout_marginStart="-25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
+
+            app:srcCompat="@drawable/agreementfalse" /> <!-- 设置初始可见性为 visible -->
+
+    <ImageView
+        android:id="@+id/agreementTrue"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="-25dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+
+        app:srcCompat="@drawable/agreementtrue" />
+
     <ImageView
             android:layout_width="350dp"
             android:layout_height="70dp" android:id="@+id/loginButton"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="500dp" app:srcCompat="@drawable/loginbutton"
             app:layout_constraintEnd_toEndOf="parent"/>
+
     <EditText
-            android:id="@+id/editTextAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:hint="账号"
-            android:textColorHint="#0C0D0F"
-            app:layout_constraintStart_toStartOf="@+id/imageView13"
-            app:layout_constraintTop_toTopOf="@+id/imageView13"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView13" />
+        android:id="@+id/editTextAccount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:hint="账号"
+        android:textColorHint="#0C0D0F"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="@id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="@+id/imageView13" />
     <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:hint="密码"
-            android:textColorHint="#0C0D0F"
-            android:textColor="#0C0D0F"
-            app:layout_constraintStart_toStartOf="@+id/imageView14"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView14"
-            android:inputType="textPassword"/>
+        android:id="@+id/editTextPassword"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:hint="密码"
+        android:textColorHint="#0C0D0F"
+        android:textColor="#0C0D0F"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="@id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14"
+        app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        android:inputType="textPassword" />
+
     <TextView
-            android:text="我已阅读 用户手册 和 隐私政策"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView6"
-            android:textColor="#0C0D0F"
-            app:layout_constraintTop_toTopOf="@+id/agreementFalse"
-            app:layout_constraintBottom_toBottomOf="@+id/agreementFalse"
-            app:layout_constraintStart_toEndOf="@+id/agreementFalse"/>
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="424dp"
+        android:gravity="center"
+        android:text="我已阅读 用户手册 和 隐私政策"
+        android:textColor="#0C0D0F"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
