@@ -25,6 +25,8 @@ public class MainNextActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 在点击事件中执行的操作
                 // 这里可以放置您希望执行的代码，比如跳转到其他页面
+                Intent intent =new Intent(MainNextActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -33,6 +35,8 @@ public class MainNextActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                Intent intent =new Intent(MainNextActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
             }
         }, 500);
