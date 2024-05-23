@@ -51,9 +51,12 @@
     <ImageView
             android:layout_width="586dp"
             android:layout_height="819dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/top"
-            android:layout_marginTop="-580dp" android:id="@+id/imageView55"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/top"
+            android:layout_marginTop="-580dp"
+            android:id="@+id/imageView55"/>
     <TextView
             android:text="课程表"
             android:textSize="30dp"
@@ -64,9 +67,18 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
             android:layout_marginTop="40dp" android:id="@+id/textView22"/>
     <TextView
-            android:text="QQ群:956026820\nGitHub:https://github.com/WildFox404/AUST-APP"
+            android:text="QQ群:956026820"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView46"
+            android:layout_height="wrap_content"
+            android:id="@+id/qqlink"
+            app:layout_constraintBottom_toTopOf="@+id/githublink"
+            app:layout_constraintEnd_toEndOf="@+id/githublink"
+            app:layout_constraintStart_toStartOf="@+id/githublink"/>
+    <TextView
+            android:text="GitHub:\nhttps://github.com/WildFox404/AUST-APP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/githublink"
             app:layout_constraintStart_toEndOf="@+id/textView22" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/textView22"
             app:layout_constraintTop_toTopOf="@+id/textView22" android:textAlignment="center" android:textSize="12sp"/>

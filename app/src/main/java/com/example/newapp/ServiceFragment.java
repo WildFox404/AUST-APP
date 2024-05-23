@@ -57,6 +57,7 @@ public class ServiceFragment extends Fragment {
                 fragmentTransaction.replace(R.id.fragment_container, homeFragment);
                 fragmentTransaction.addToBackStack(null); // 可选，添加到返回栈
                 fragmentTransaction.commit();
+
             }
         });
         gradeView.setOnClickListener(new View.OnClickListener() {

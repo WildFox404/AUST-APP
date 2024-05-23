@@ -131,7 +131,11 @@ public class User {
                 .build();
 
         try (Response loginResponse = client.newCall(loginRequest).execute()) {
-            Log.d("Cookie", loginResponse.headers("Cookie").toString());
+            Log.d("Cookie", loginResponse.headers("Set-Cookie").toString());
+
+//            // 保存服务器返回的cookie
+//            List<Cookie> cookies = Cookie.parseAll(loginResponse.request().url(), loginResponse.headers());
+//            cookieJar.saveFromResponse(loginResponse.request().url(), cookies);
         } catch (IOException e) {
             e.printStackTrace();
         }

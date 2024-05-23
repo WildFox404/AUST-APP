@@ -1,8 +1,10 @@
 package com.example.newapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.*;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +113,49 @@ public class HomeFragment extends Fragment {
             viewModel.setUserExist(true);
         }
 
+        TextView qqTextView =view.findViewById(R.id.qqlink);
+        TextView githubTextView=view.findViewById(R.id.githublink);
+        qqTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = "tPPUYS7eP54EcUs6qdDLt4m-Ufr_hzVb"; // 获取TextView中的QQ号
+                // 构造跳转到QQ群页面的Intent
+                Intent intent = new Intent();
+                intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D" + key));
+                // 启动Intent，跳转到QQ群页面
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    // 未安装手Q或安装的版本不支持
+                }
+            }
+        });
+        githubTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String githubLink = "https://github.com/";  // 替换成你要跳转的 GitHub 链接
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setComponent(null);
+                intent.setSelector(null);
+
+                PackageManager packageManager = getContext().getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+                boolean isIntentSafe = activities.size() > 0;
+
+                if (isIntentSafe) {
+                    // 有应用可以处理该 Intent，直接启动
+                    startActivity(intent);
+                } else {
+                    // 没有应用可以处理该 Intent，提示用户打开浏览器
+                    Toast.makeText(getContext(), "没有找到GitHub应用，将在浏览器中打开", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
+                    startActivity(intent);
+                }
+            }
+        });
+
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -193,89 +240,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (myDBHelper.getCourseCountByUsername(user.getUsername().toString()) == 0) {
+        if (myDBHelper.getCourseCountByUsername(user.getUsername().toString()) == 0&&courseWait.getVisibility() == View.INVISIBLE) {
             Log.d("数据获取", "开始获取数据");
-            int year = Integer.parseInt(user.getUsername().substring(0, 4));
-            int findYear = 0;
-            int findTerm = 0;
-            int totalTasks = 4 * 2 * 21 + 8; // 总的异步任务数量
-            // 创建 CountDownLatch，参数为异步任务的数量
-//            latch = new CountDownLatch(totalTasks); // 假设有 2 * 2 * 21 个异步任务
-
-            // 将视图设置为可见
             courseWait.setVisibility(View.VISIBLE);
-
-            for (int y = year; y <= year + 4; y++) {
-                for (int term = 1; term <= 2; term++) {
-                    for (int week = 1; week <= 21; week++) {
-                        findYear = (y - 2018) * 40 + 20;
-                        if (term == 1) {
-                            findTerm = 0;
-                        } else if (term == 2) {
-                            findTerm = 20;
-                        } else {
-                            Log.d("课表数据库存储", "出错了");
-                        }
-                        // 创建线程并启动
-                        new Thread(new ClassThread(findTerm, findYear, week, term, y, week)).start();
-                    }
-                }
-            }
-
-            findYear=0;
-            findTerm=0;
-            year = Integer.parseInt(user.getUsername().substring(0, 4));
-            for (int y = year; y <= year + 4; y++) {
-                for (int term = 1; term <= 2; term++) {
-                    findYear = (y - 2018) * 40 + 20;
-                    if (term == 1) {
-                        findTerm = 0;
-                    } else if (term == 2) {
-                        findTerm = 20;
-                    } else {
-                        Log.d("成绩数据库存储", "出错了");
-                    }
-                    // 创建线程并启动
-                    new Thread(new HomeFragment.GradeThread(findTerm, findYear,term,y)).start();
-                }
-            }
-            completedTasks=0;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (completedTasks < totalTasks) {
-                        try {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    courseProcess.setText(completedTasks + "/" + totalTasks);
-                                }
-                            });
-
-                            // 暂停五秒钟
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 将视图设置为不可见
-                            courseWait.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                }
-            }).start();
-//            try {
-//                // 等待所有异步操作完成
-//                latch.await();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-
-
+            Intent serviceIntent = new Intent(getActivity(), MyService.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("savedIds", savedIds);
+            bundle.putString("savedUsername",savedUsername);
+            bundle.putString("savedPassword",savedPassword);
+//            bundle.putInt("param2", param2Value);
+            // 将更多的参数放入bundle中
+            serviceIntent.putExtra("bundle", bundle);
+            getActivity().startService(serviceIntent);
+            UpdateCourseTable();
         }
         String firstFourChars;
         if (savedYear.length() >= 5) {
@@ -345,206 +322,37 @@ public class HomeFragment extends Fragment {
             gridLayout.addView(textView);
         }
     }
-    // 定义线程任务
-    class ClassThread implements Runnable {
-        private int findTerm;
-        private int findYear;
-        private int findWeek;
-        private int term;
-        private int y;
-        private int week;
-
-        public ClassThread(int findTerm, int findYear, int findWeek, int term, int y, int week) {
-            this.findTerm = findTerm;
-            this.findYear = findYear;
-            this.findWeek = week;
-            this.term = term;
-            this.y = y;
-            this.week = week;
-        }
-
+    private BroadcastReceiver progressReceiver = new BroadcastReceiver() {
+        int totalTasks=176;
         @Override
-        public void run() {
-            // 在此处执行需要在后台线程中进行的任务
-            // 例如调用异步任务中的代码
-            new ClassAsyncTask(findTerm, findYear, week, term, y, week).execute();
+        public void onReceive(Context context, Intent intent) {
+            int completedTasks = intent.getIntExtra("completed_tasks", 0);
+            // 更新UI
+            courseProcess.setText(completedTasks + "/" + totalTasks);
         }
-    }
-    private class ClassAsyncTask extends AsyncTask<Void, Void, List<List<String>>> {
-        private Integer findTerm;
-        private Integer findYear;
-        private Integer findWeek;
-        private Integer storeterm;
-        private Integer storeyear;
-        private Integer storeweek;
-        public ClassAsyncTask(Integer findTerm,Integer findYear,Integer findweek,Integer term,Integer year,Integer week) {
-            this.findTerm=findTerm;
-            this.findYear=findYear;
-            this.findWeek=findweek;
-            this.storeterm=term;
-            this.storeyear=year;
-            this.storeweek=week;
-        }
+    };
+
+    private BroadcastReceiver hideWaitViewReceiver = new BroadcastReceiver() {
         @Override
-        protected List<List<String>> doInBackground(Void... params) {
-            try {
-                user.loginIn();
-                try {
-                    Thread.sleep(500); // 500毫秒 = 0.5秒
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                result = user.getTd_class(user.get_class(String.valueOf(findTerm + findYear),String.valueOf(findWeek),String.valueOf(savedIds)));
-                Log.d("UserCreation", result.toString());
-            } catch (IOException e) {
-                e.printStackTrace(); // 处理异常
-            }
-            return result;
+        public void onReceive(Context context, Intent intent) {
+            // 隐藏等待视图
+            courseWait.setVisibility(View.INVISIBLE);
         }
-        @Override
-        protected void onPostExecute(List<List<String>> result) {
-//            if (result != null && !result.isEmpty() && getView() != null) {
-//                // 初始化容器
-//                HashMap<Integer, List<Course>> courseContainer = new HashMap<>();
-//                for (int i = 1; i <= 12; i++) {
-//                    courseContainer.put(i, new ArrayList<>());
-//                }
-//
-//                for (List<String> courseInfo : result) {
-//                    String courseName = courseInfo.get(0);
-//                    String courseLocation = courseInfo.get(1);
-//
-//                    for (int i = 2; i < courseInfo.size(); i += 2) {
-//                        int week = Integer.parseInt(courseInfo.get(i)) + 1;
-//                        int section = Integer.parseInt(courseInfo.get(i + 1)) / 2 + 1;
-//                        Course course = new Course(courseName, courseLocation, week, section);
-//                        courseContainer.get(section).add(course);
-//                    }
-//                }
-//
-//                // 将课程容器的数据存入数据库
-//                HashMap<Integer, List<Course>> newCourseContainer = new HashMap<>();
-//                for (int i = 1; i <= 12; i++) {
-//                    List<Course> courses = courseContainer.get(i);
-//                    if (!courses.isEmpty()) {
-//                        newCourseContainer.put(i, courses);
-//                    }
-//                }
-//                myDBHelper.insertCourseData(user.getUsername(), storeyear.toString(), storeterm.toString(), storeweek.toString(), newCourseContainer);
-//                completedTasks++;
-                // 打印新的课程容器中的内容
-//                    for (int i = 1; i <= 6; i++) {
-//                        List<Course> courses = newCourseContainer.get(i);
-//                        if (courses != null) {
-//                            Log.d("NewCourseContainer", "第" + i + "节课的课程有：");
-//                            for (Course course : courses) {
-//                                Log.d("NewCourseContainer", "课程名称：" + course.getCourseName());
-//                                Log.d("NewCourseContainer", "上课地点：" + course.getCourseLocation());
-//                                Log.d("NewCourseContainer", "上课周：" + course.getWeek());
-//                                Log.d("NewCourseContainer", "节课数：" + course.getSection());
-//                                Log.d("NewCourseContainer", "----------------------");
-//                            }
-//                        }
-//                    }
-            if (result != null && !result.isEmpty() && getView() != null) {
-                // 初始化容器
-                HashMap<Integer, List<Course>> courseContainer = new HashMap<>();
-                for (int i = 1; i <= 12; i++) {
-                    courseContainer.put(i, new ArrayList<>());
-                }
+    };
 
-                Set<String> uniqueCourseSet = new HashSet<>(); // 用于存储唯一课程标识
-
-                for (List<String> courseInfo : result) {
-                    String courseName = courseInfo.get(0);
-                    String courseLocation = courseInfo.get(1);
-
-                    for (int i = 2; i < courseInfo.size(); i += 2) {
-                        int week = Integer.parseInt(courseInfo.get(i)) + 1;
-                        int section = Integer.parseInt(courseInfo.get(i + 1)) / 2 + 1;
-                        String courseKey = courseName + "_" + courseLocation + "_" + week + "_" + section; // 生成唯一标识
-
-                        if (!uniqueCourseSet.contains(courseKey)) {
-                            uniqueCourseSet.add(courseKey);
-
-                            Course course = new Course(courseName, courseLocation, week, section);
-                            courseContainer.get(section).add(course);
-                        }
-                    }
-                }
-
-                // 将课程容器的数据存入数据库
-                HashMap<Integer, List<Course>> newCourseContainer = new HashMap<>();
-                for (int i = 1; i <= 6; i++) {
-                    List<Course> courses = courseContainer.get(i);
-                    if (!courses.isEmpty()) {
-                        newCourseContainer.put(i, courses);
-                    }
-                }
-                myDBHelper.insertCourseData(user.getUsername(), storeyear.toString(), storeterm.toString(), storeweek.toString(), newCourseContainer);
-                completedTasks++;
-            }
-        }
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 注册广播接收器
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(progressReceiver, new IntentFilter("progress_update"));
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(hideWaitViewReceiver, new IntentFilter("hide_wait_view"));
     }
 
-
-
-
-    // 定义线程任务
-    class GradeThread implements Runnable {
-        private int findTerm;
-        private int findYear;
-
-        private int storeTerm;
-        private int storeYear;
-        public GradeThread(int findTerm, int findYear,int term ,int y) {
-            this.findTerm = findTerm;
-            this.findYear = findYear;
-            this.storeTerm=term;
-            this.storeYear=y;
-        }
-
-        @Override
-        public void run() {
-            // 在此处执行需要在后台线程中进行的任务
-            // 例如调用异步任务中的代码
-            new HomeFragment.GradeAsyncTask(findTerm, findYear,storeTerm,storeYear).execute();
-        }
-    }
-
-    private class GradeAsyncTask extends AsyncTask<Void, Void, List<Map<String, String>>> {
-        private Integer Term;
-        private Integer Year;
-        private Integer storeTerm;
-        private Integer storeYear;
-        public GradeAsyncTask(Integer findTerm,Integer findYear,Integer Term,Integer Year) {
-            this.Term=findTerm;
-            this.Year=findYear;
-            this.storeTerm=Term;
-            this.storeYear=Year;
-        }
-        @Override
-        protected List<Map<String, String>> doInBackground(Void... params) {
-            try {
-                user.loginIn();
-                try {
-                    Thread.sleep(500); // 500毫秒 = 0.5秒
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                grade_result = user.getTd(user.get_grade(String.valueOf(Term + Year)));
-                Log.d("UserCreation", grade_result.toString());
-            } catch (IOException e) {
-                e.printStackTrace(); // 处理异常
-            }
-            return grade_result;
-        }
-        @Override
-        protected void onPostExecute(List<Map<String, String>> result) {
-            if (result != null && !result.isEmpty() && getView() != null) {
-                myDBHelper.insertGradeData(user.getUsername(), storeYear.toString(), storeTerm.toString(), result);
-                completedTasks++;
-            }
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 注销广播接收器
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(progressReceiver);
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(hideWaitViewReceiver);
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+            android:layout_width="586dp"
+            android:layout_height="819dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/top"
+            android:layout_marginTop="-580dp" android:id="@+id/imageView55"/>
+    <TextView
+            android:text="添加课程"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#244CAA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp" android:id="@+id/textView22"/>
+    <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp" android:id="@+id/exitButton"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/exit_button" android:layout_marginTop="25dp" android:layout_marginEnd="25dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
