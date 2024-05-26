@@ -15,11 +15,13 @@
   <td><center><img src="./public/2.png" style="max-width: 250px; height: auto;"></td>
 </tr>
 4.选择学期和学年
-<tr>
-  <td><center><img src="./public/1.png" style="max-width: 250px; height: auto;"></td>
-  <td><center><img src="./public/3.png" style="max-width: 250px; height: auto;"></td>
-  <td><center><img src="./public/4.png" style="max-width: 250px; height: auto;"></td>
-</tr>
+<table>
+  <tr>
+    <td><center><img src="./public/1.png" style="max-width: 250px; height: auto;"></td>
+    <td><center><img src="./public/3.png" style="max-width: 250px; height: auto;"></td>
+    <td><center><img src="./public/4.png" style="max-width: 250px; height: auto;"></td>
+  </tr>
+</table>
 
 # TODO<br>
 1.添加额外课程功能
