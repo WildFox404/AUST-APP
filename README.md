@@ -2,7 +2,6 @@
   <img width="180" src="./public/图片2.png" alt="ChatGPT">
   <p align="center">AUST Application (Available on Android)</p>
 </p>
-[![ChatGPT downloads](https://img.shields.io/github/downloads/lencx/ChatGPT/total.svg?style=flat-square)](https://github.com/WildFox404/AUST-APP/releases)
 # AUST-APP<br>
 此软件在采集完数据后存储在本地<br>
 之后使用无需链接校园网<br>
