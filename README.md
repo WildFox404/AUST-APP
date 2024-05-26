@@ -11,6 +11,15 @@
 1.链接校园网<br>
 2.登录<br>
 3.等待数据获取完成<br>
+<tr>
+  <td><center><img src="./public/2.png"></td>
+</tr>
+4.选择学期和学年
+<tr>
+  <td><center><img src="./public/1.png"></td>
+  <td><center><img src="./public/3.png"></td>
+  <td><center><img src="./public/4.png"></td>
+</tr>
 
 # TODO<br>
 1.添加额外课程功能
