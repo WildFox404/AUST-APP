@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
         githubTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String githubLink = "https://github.com/";  // 替换成你要跳转的 GitHub 链接
+                String githubLink = "https://github.com/WildFox404/AUST-APP";  // 替换成你要跳转的 GitHub 链接
 
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
