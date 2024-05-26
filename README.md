@@ -13,7 +13,7 @@
 3.等待数据获取完成<br>
 <table>
   <tr>
-    <td><center><img src="./public/2.png" style="max-width: 250px; height: auto;"></center></td>
+    <td><center><img src="./public/2.png" style="max-width: 50px; height: 250px;"></center></td>
   </tr>
 </table>
 4.选择学期和学年
