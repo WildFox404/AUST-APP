@@ -11,15 +11,17 @@
 1.链接校园网<br>
 2.登录<br>
 3.等待数据获取完成<br>
-<tr>
-  <td><center><img src="./public/2.png" style="max-width: 250px; height: auto;"></td>
-</tr>
+<table>
+  <tr>
+    <td><center><img src="./public/2.png" style="max-width: 250px; height: auto;"></center></td>
+  </tr>
+</table>
 4.选择学期和学年
 <table>
   <tr>
-    <td><center><img src="./public/1.png" style="max-width: 250px; height: auto;"></td>
-    <td><center><img src="./public/3.png" style="max-width: 250px; height: auto;"></td>
-    <td><center><img src="./public/4.png" style="max-width: 250px; height: auto;"></td>
+    <td><center><img src="./public/1.png" style="max-width: 250px; height: auto;"></center></td>
+    <td><center><img src="./public/3.png" style="max-width: 250px; height: auto;"></center></td>
+    <td><center><img src="./public/4.png" style="max-width: 250px; height: auto;"></center></td>
   </tr>
 </table>
 
