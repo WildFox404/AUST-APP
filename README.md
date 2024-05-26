@@ -19,9 +19,9 @@
 4.选择学期和学年
 <table>
   <tr>
-    <td><center><img src="./public/1.png" style="max-width: 250px; height: auto;"></center></td>
-    <td><center><img src="./public/3.png" style="max-width: 250px; height: auto;"></center></td>
-    <td><center><img src="./public/4.png" style="max-width: 250px; height: auto;"></center></td>
+    <td><center><img src="./public/1.png" style="max-width: 150px; height: 400px;"></center></td>
+    <td><center><img src="./public/3.png" style="max-width: 150px; height: 400px;"></center></td>
+    <td><center><img src="./public/4.png" style="max-width: 150px; height: 400px;"></center></td>
   </tr>
 </table>
 
