@@ -12,13 +12,13 @@
 2.登录<br>
 3.等待数据获取完成<br>
 <tr>
-  <td><center><img src="./public/2.png" style="max-width: 25%; height: auto;"></td>
+  <td><center><img src="./public/2.png" style="width: 250; height: auto;"></td>
 </tr>
 4.选择学期和学年
 <tr>
-  <td><center><img src="./public/1.png" style="max-width: 25%; height: auto;"></td>
-  <td><center><img src="./public/3.png" style="max-width: 25%; height: auto;"></td>
-  <td><center><img src="./public/4.png" style="max-width: 25%; height: auto;"></td>
+  <td><center><img src="./public/1.png" style="width: 250; height: auto;"></td>
+  <td><center><img src="./public/3.png" style="width: 250; height: auto;"></td>
+  <td><center><img src="./public/4.png" style="width: 250; height: auto;"></td>
 </tr>
 
 # TODO<br>
