@@ -1,7 +1,8 @@
 <p align="center">
   <img width="180" src="./public/图片2.png" alt="ChatGPT">
-  <p align="center">ChatGPT Desktop Application (Available on Mac, Windows, and Linux)</p>
+  <p align="center">AUST Application (Available on Android)</p>
 </p>
+[![ChatGPT downloads](https://img.shields.io/github/downloads/lencx/ChatGPT/total.svg?style=flat-square)](https://github.com/WildFox404/AUST-APP/releases)
 # AUST-APP<br>
 此软件在采集完数据后存储在本地<br>
 之后使用无需链接校园网<br>
@@ -11,3 +12,8 @@
 1.链接校园网<br>
 2.登录<br>
 3.等待数据获取完成<br>
+
+# TODO<br>
+1.添加额外课程功能
+2.充电桩,洗衣扫码(爬虫,有考试)
+3.社交平台,发帖(将发布一个在线版本)
