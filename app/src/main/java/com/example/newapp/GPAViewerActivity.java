@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -43,7 +42,7 @@ public class GPAViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gpaview);
+        setContentView(R.layout.gradeview);
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         savedUsername = sharedPreferences.getString("username", "");

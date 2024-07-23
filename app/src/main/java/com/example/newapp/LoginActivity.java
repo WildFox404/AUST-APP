@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
-    User user= new User("","");
+    private User user=User.getInstance();
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,39 +65,31 @@ public class LoginActivity extends AppCompatActivity {
                     // 两个 EditText 内容不为空且 agreementTrue 可见
                     user.setUsername(userName);
                     user.setPassword(password);
-                    new GetIdsTask().execute();
+                    new GetLoginTask().execute();
                 } else {
                     Toast.makeText(LoginActivity.this, "请填写完整信息并同意协议", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    private class GetIdsTask extends AsyncTask<Void, Void, String> {
+    private class GetLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected String doInBackground(Void... voids) {
-            Log.d("",user.getUsername());
-            Log.d("",user.getPassword());
+        protected Boolean doInBackground(Void... voids) {
             try {
-                user.loginIn();
-                user.get_ids();
+                user.login();
+                String token=user.getToken();
+                return !token.equals(""); // 返回登录是否成功
             } catch (IOException e) {
                 Log.d("e",e.toString());
-                return "False";
+                return false;
             }
-            return user.getIds();
         }
 
         @Override
-        protected void onPostExecute(String ids) {
-            Log.d("",ids);
-            if(ids=="False"){
-                Toast.makeText(LoginActivity.this, "链接失败 检查链接校园网", Toast.LENGTH_SHORT).show();
-            }else if(ids==""){
-                Toast.makeText(LoginActivity.this, "登录失败 账号或密码错误", Toast.LENGTH_SHORT).show();
-            }else{
+        protected void onPostExecute(Boolean success) {
+            if(success){
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("ids", ids);
                 editor.putString("username", user.getUsername());
                 editor.putString("password", user.getPassword());
                 editor.apply();
@@ -105,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, BottomNavigationView.class);
                 startActivity(intent);
                 finish();
+            }else{
+                Toast.makeText(LoginActivity.this, "登录失败 账号或密码错误", Toast.LENGTH_SHORT).show();
             }
         }
     }

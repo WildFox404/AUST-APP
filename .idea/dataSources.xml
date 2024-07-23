@@ -12,7 +12,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\3220429027\AppData\Local\JetBrains\IntelliJIdea2023.2\device-explorer\vivo V2134A\data\data\com.example.newapp\databases\my_database</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/AppData/Local/JetBrains/IntelliJIdea2023.2/device-explorer/vivo V2134A/data/data/com.example.newapp/databases/my_database</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

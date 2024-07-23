@@ -411,7 +411,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/gridlayout"
                         android:rowCount="8"
-                        android:columnCount="6">
+                        android:columnCount="7">
 
                 </GridLayout>
             </ScrollView>

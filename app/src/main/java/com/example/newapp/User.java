@@ -1,52 +1,133 @@
 package com.example.newapp;
 
+import com.google.gson.*;
+import android.text.TextUtils;
 import android.util.Log;
-import android.widget.EditText;
 import okhttp3.*;
+import android.util.Base64;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
 public class User {
     private String ids;
+    private String token;
     private String username;
     private String password;
+    private static User instance;
     private OkHttpClient client;
+    private String[] years;
+    private int coverage_year;
+    private Gson gson = new Gson();
 
 
-    // Create a custom CookieJar
-    CookieJar cookieJar = new CookieJar() {
-        private final Map<String, List<Cookie>> cookieStore = new HashMap<>();
-
-        @Override
-        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-            cookieStore.put(url.host(), cookies);
-        }
-
-        @Override
-        public List<Cookie> loadForRequest(HttpUrl url) {
-            List<Cookie> cookies = cookieStore.get(url.host());
-            return cookies != null ? cookies : new ArrayList<>();
-        }
-    };
-
+//    // Create a custom CookieJar
+//    CookieJar cookieJar = new CookieJar() {
+//        private final Map<String, List<Cookie>> cookieStore = new HashMap<>();
+//
+//        @Override
+//        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//            cookieStore.put(url.host(), cookies);
+//        }
+//
+//        @Override
+//        public List<Cookie> loadForRequest(HttpUrl url) {
+//            List<Cookie> cookies = cookieStore.get(url.host());
+//            return cookies != null ? cookies : new ArrayList<>();
+//        }
+//    };
+    public User(){
+        this.username="";
+        this.password="";
+        this.token="";
+        this.client = new OkHttpClient();
+    }
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.client = new OkHttpClient.Builder().cookieJar(cookieJar).build();
-        Log.d("UserCreation", "对象创建成功");
+        this.token="";
+        this.client = new OkHttpClient();
+    }
+
+    public static synchronized User getInstance(String username,String password) {
+        if (instance == null) {
+            synchronized (User.class) {
+                if (instance == null) {
+                    instance = new User(username,password);
+                }
+            }
+        }
+        return instance;
+    }
+    public static synchronized User getInstance() {
+        if (instance == null) {
+            synchronized (User.class) {
+                if (instance == null) {
+                    instance = new User();
+                }
+            }
+        }
+        return instance;
+    }
+
+    // 加密字符串为 Base64
+    private String encodeToBase64(String content, String charsetName) {
+        Log.d("Base64", "传入加密数据: "+content);
+        if (TextUtils.isEmpty(charsetName)) {
+            charsetName = "UTF-8";
+        }
+        try {
+            byte[] contentByte = content.getBytes(charsetName);
+            Log.d("Base64", "加密成功: "+Base64.encodeToString(contentByte, Base64.DEFAULT));
+            return Base64.encodeToString(contentByte, Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    // 解码 Base64 字符串为原始字符串
+    private String decodeFromBase64(String content, String charsetName) {
+        Log.d("Base64", "传入解密数据: "+content);
+        if (TextUtils.isEmpty(charsetName)) {
+            charsetName = "UTF-8";
+        }
+        byte[] contentByte = Base64.decode(content, Base64.DEFAULT);
+        try {
+            String result= new String(contentByte, charsetName);
+            Log.d("Base64", "解密成功: "+result);
+            return result;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public JsonObject decodeFromBase64ToJsonObj(String content, String charsetName) {
+        Log.d("Base64", "传入解密数据: " + content);
+        if (TextUtils.isEmpty(charsetName)) {
+            charsetName = "UTF-8";
+        }
+        byte[] contentByte = Base64.decode(content, Base64.DEFAULT);
+        try {
+            String jsonString = new String(contentByte, charsetName);
+            Log.d("Base64", "解密成功: " + jsonString);
+
+            // 使用 Gson 将解密后的字符串转换为 JsonArray
+            JsonObject jsonArray = gson.fromJson(jsonString, JsonObject.class);
+            return jsonArray;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            Log.e("Base64", "解密后的字符串不是有效的 JSON: " + e.getMessage());
+        }
+        return null; // 返回 null 以指示解析失败
     }
 
     public String getIds() {
@@ -92,139 +173,260 @@ public class User {
         return encryptedData;
     }
 
-    public void loginIn() throws IOException {
-        String Url = "http://jwgl.aust.edu.cn/eams/login.action";
-        Request request = new Request.Builder()
-                .url(Url)
-                .build();
-        Log.d("UserCreation", request.toString());
+    public void login() throws IOException {
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/login";
 
-        Response response = client.newCall(request).execute();
-        Log.d("response", response.toString());
-        String content = null;
-        System.out.println(response);
-        Pattern pattern = Pattern.compile("CryptoJS\\.SHA1\\('([a-f0-9-]+)' \\+ form\\['password'\\]\\.value\\);");
-        Matcher matcher = pattern.matcher(response.body().string());
-        if (matcher.find()) {
-            content = matcher.group(1);
-            Log.d("UserCreation", content.toString());
-        }
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String password = content + this.password;
-        String encryptedPassword = SHA1(password);
-        Log.d("UserCreation", encryptedPassword.toString());
-        RequestBody requestBody = new FormBody.Builder()
-                .add("username", this.username)
-                .add("password", encryptedPassword)
-                .add("encodedPassword", "")
-                .add("session_locale", "zh_CN")
-                .build();
-
-        Request loginRequest = new Request.Builder()
-                .url(Url)
-                .addHeader("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36 Edg/115.0.1901.188")
-                .post(requestBody)
-                .build();
-
-        try (Response loginResponse = client.newCall(loginRequest).execute()) {
-            Log.d("Cookie", loginResponse.headers("Set-Cookie").toString());
-
-//            // 保存服务器返回的cookie
-//            List<Cookie> cookies = Cookie.parseAll(loginResponse.request().url(), loginResponse.headers());
-//            cookieJar.saveFromResponse(loginResponse.request().url(), cookies);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String get_grade(String semesterId) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://jwgl.aust.edu.cn/eams/teach/grade/course/person!search.action")
-                .newBuilder()
-                .addQueryParameter("semesterId", semesterId);
-
-        String second_url = urlBuilder.build().toString();
-
-        Request second_request = new Request.Builder()
-                .url(second_url)
-                .build();
-//        List<Cookie> currentCookies = client.cookieJar().loadForRequest(HttpUrl.parse("http://jwgl.aust.edu.cn/eams/login.action"));
-//            for (Cookie cookie : currentCookies) {
-//                Log.d("UserCreation", "Cookie: " + cookie.name() + "=" + cookie.value());
-//            }
-
-        Log.d("UserCreation", "开始请求");
-        try (Response result = client.newCall(second_request).execute()) {
-            return result.body().string();
-        }
-    }
-    public String get_test() throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://jwgl.aust.edu.cn/eams/stdExamTable!examTable.action")
-                .newBuilder()
-                .addQueryParameter("examBatch.id", "1062");
-
-        String second_url = urlBuilder.build().toString();
-
-        Request second_request = new Request.Builder()
-                .url(second_url)
-                .build();
-//        List<Cookie> currentCookies = client.cookieJar().loadForRequest(HttpUrl.parse("http://jwgl.aust.edu.cn/eams/login.action"));
-//            for (Cookie cookie : currentCookies) {
-//                Log.d("UserCreation", "Cookie: " + cookie.name() + "=" + cookie.value());
-//            }
-
-        Log.d("UserCreation", "开始请求");
-        try (Response result = client.newCall(second_request).execute()) {
-            return result.body().string();
-        }
-    }
-    public void get_ids() throws IOException{
-        String ids_result;
-        String pattern = "bg\\.form\\.addInput\\(form,\"[^\"]+\",\"([^\"]+)\"\\);";
-        Pattern r = Pattern.compile(pattern);
-        long timestamp = System.currentTimeMillis();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://jwgl.aust.edu.cn/eams/courseTableForStd.action").newBuilder();
-        urlBuilder.addQueryParameter("_", String.valueOf(timestamp));
-        String ids_url = urlBuilder.build().toString();
-
-        Request ids_request = new Request.Builder()
-                .url(ids_url)
-                .build();
-        Response ids_response = client.newCall(ids_request).execute();
-        ids_result=ids_response.body().string();
-        Matcher m = r.matcher(ids_result);
-        Log.d("UserCreation", ids_result);
-        if (m.find()) {
-            String input_value = m.group(1);
-            ids=input_value;
-        } else {
-            ids="";
-        }
-        Log.d("UserCreation", ids);
-    }
-    public String get_class(String semesterId,String startweek,String ids) throws IOException {
-        String url = "http://jwgl.aust.edu.cn/eams/courseTableForStd!courseTable.action";
-        FormBody requestBody = new FormBody.Builder()
-                .add("semester.id", semesterId)
-                .add("setting.kind", "std")
-                .add("project.id", "1")
-                .add("ids", ids)
-                .add("startWeek", startweek)
-                .build();
-
-        Request request = new Request.Builder()
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
                 .url(url)
-                .post(requestBody)
-                .build();
-        Log.d("UserCreation", "开始请求");
+                .addHeader("content-type", "application/x-www-form-urlencoded");
+
+        // Prepare the request body
+        String encodedPassword = encodeToBase64(this.password,"");
+        String requestBody = "passwd=" + encodedPassword + "&user_code=" + this.username;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+
+        // Execute the request
         try (Response response = client.newCall(request).execute()) {
-            String responseBody = response.body().string();
-            Log.d("UserCreation", responseBody);
-            return responseBody;
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                // 检查 "business_data" 字段是否存在
+                if (json.has("business_data")) {
+                    String businessData = json.get("business_data").getAsString();
+
+                    // 检查值是否为对象
+                    if (!businessData.isEmpty()) {
+
+                        // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                        JsonObject loginMessage = decodeFromBase64ToJsonObj(businessData, "");
+                        System.out.println("登录消息：" + loginMessage.toString());
+                        saveUserMessage(loginMessage);
+                        // 处理 business_data 内容
+                        // ...
+                    } else {
+                        // 处理 business_data 字段不是对象的情况
+                        System.out.println("business_data 字段不是对象");
+                    }
+                } else {
+                    // 处理没有 business_data 字段的情况
+                    System.out.println("business_data 字段不存在");
+                }
+            } else {
+                System.out.println("登录失败：" + response.message());
+                this.token = "";
+            }
         }
+    }
+
+    private void saveUserMessage(JsonObject loginMessage) {
+        if (username.length() >= 4) {
+            String firstFourChars = username.substring(0, 4);
+            if (firstFourChars.matches("\\d+")) {
+                coverage_year=Integer.parseInt(firstFourChars);
+                int year = Integer.parseInt(firstFourChars);
+                years = new String[]{year + "-" + (year + 1), (year + 1) + "-" + (year + 2), (year + 2) + "-" + (year + 3), (year + 3) + "-" + (year + 4)};
+                Log.d("入学年份", "入学年份:" + firstFourChars);
+            }
+        }
+        if (loginMessage != null) {
+            // 检查 token 是否存在
+            if (loginMessage.has("token") && !loginMessage.get("token").isJsonNull()) {
+                String token = loginMessage.get("token").getAsString();
+                // 处理 token
+                Log.d("saveToken", "token获取成功: " + token);
+                this.token = token; // 保存 token
+            } else {
+                Log.e("saveToken", "token 不存在或为 null");
+            }
+        }
+    }
+
+    public JsonObject get_grade() throws IOException {
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/exam/grade/get-grades";
+        Log.d("get_grade", "token: "+this.token);
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&kind=all&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+                Log.d("get_grade", "get_grade: "+responseData);
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                // 检查 "business_data" 字段是否存在
+                if (json != null && json.has("business_data")) {
+                    String businessData = json.get("business_data").getAsString();
+
+                    // 检查值是否为对象
+                    if (!businessData.isEmpty()) {
+
+                        // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                        JsonObject loginMessage = decodeFromBase64ToJsonObj(businessData, "");
+                        System.out.println("登录消息：" + loginMessage.toString());
+                        return loginMessage;
+                        // 处理 business_data 内容
+                        // ...
+                    } else {
+                        // 处理 business_data 字段不是对象的情况
+                        System.out.println("business_data 字段不是对象");
+                    }
+                } else {
+                    // 处理没有 business_data 字段的情况
+                    System.out.println("business_data 字段不存在");
+                }
+            } else {
+                System.out.println("考试成绩获取失败：" + response.message());
+            }
+        }
+        return null;
+    }
+    public JsonArray get_test(String semesterId) throws IOException {
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/exam/schedule/lesson/get-exam-tasks";
+
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&semester_id="+semesterId+"&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                // 检查 "business_data" 字段是否存在
+                if (json.has("business_data")) {
+                    String businessData = json.get("business_data").getAsString();
+
+                    // 检查值是否为对象
+                    if (!businessData.isEmpty()) {
+                        JsonArray jsonArray = null;
+                        // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                        String loginMessage = decodeFromBase64(businessData, "");
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(loginMessage);
+
+                        if (element.isJsonArray()) {
+                            jsonArray = element.getAsJsonArray();
+                        }else{
+                            Log.d("test_json_process", "考试安排数据不符合json格式");
+                        }
+                        System.out.println("考试安排消息："+jsonArray.toString());
+                        return jsonArray;
+                    } else {
+                        // 处理 business_data 字段不是对象的情况
+                        System.out.println("business_data 字段不是对象");
+                    }
+                } else {
+                    // 处理没有 business_data 字段的情况
+                    System.out.println("business_data 字段不存在");
+                }
+            } else {
+                System.out.println("考试安排获取失败：" + response.message());
+            }
+        }
+        return null;
+    }
+
+    public JsonArray get_class(String semesterId,String start_date,String end_date) throws IOException {
+
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/course/schedule/get-course-tables";
+        Log.d("get_class", "token: "+this.token);
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&end_date="+end_date+"&start_date="+start_date+"&semester_id="+semesterId+"&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+                Log.d("get_class", "get_class内容: "+responseData);
+                Log.d("get_class", "get_class长度: "+responseData.length());
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+//                String log_result=json.toString();
+////                int maxLogSize = 1000;
+////                for(int i = 0; i <= log_result.length() / maxLogSize; i++) {
+////                    int start = i * maxLogSize;
+////                    int end = (i+1) * maxLogSize;
+////                    end = end > log_result.length() ? log_result.length() : end;
+////                    Log.d("JSON Part " + (i+1), log_result.substring(start, end));
+////                }
+                // 检查 "business_data" 字段是否存在
+                String err_code = json.get("err_code").getAsString();
+                Log.d("get_class", "err_code: "+err_code);
+                if (err_code.equals("00000")) {
+                    String businessData = json.get("business_data").getAsString();
+                    Log.d("class businessData", String.valueOf(businessData.length()));
+                    // 检查值是否为对象
+                    if (!businessData.isEmpty()) {
+                        // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                        String loginMessage = decodeFromBase64(businessData, "");
+//                        int maxLogSize = 1000;
+//                        for(int i = 0; i <= loginMessage.length() / maxLogSize; i++) {
+//                            int start = i * maxLogSize;
+//                            int end = (i+1) * maxLogSize;
+//                            end = end > loginMessage.length() ? loginMessage.length() : end;
+//                            Log.d("JSON Part " + (i+1), loginMessage.substring(start, end));
+//                        }
+                        JsonArray classMessage=gson.fromJson(loginMessage,JsonArray.class);
+                        System.out.println("登录消息：" + classMessage.toString());
+                        return classMessage;
+                        // 处理 business_data 内容
+                        // ...
+                    } else {
+                        // 处理 business_data 字段不是对象的情况
+                        System.out.println("business_data 字段不是对象");
+                    }
+                } else {
+                    // 处理没有 business_data 字段的情况
+                    System.out.println("business_data 字段不存在");
+                }
+            } else {
+                System.out.println("考试成绩获取失败：" + response.message());
+            }
+        }
+        return null;
     }
     public static String removeHtmlTags(String text) {
         return text.replaceAll("<.*?>", "");
@@ -356,5 +558,29 @@ public class User {
             }
         }
         return result;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getCoverage_year() {
+        return coverage_year;
+    }
+
+    public void setCoverage_year(int coverage_year) {
+        this.coverage_year = coverage_year;
+    }
+
+    public String[] getYears() {
+        return years;
+    }
+
+    public void setYears(String[] years) {
+        this.years = years;
     }
 }

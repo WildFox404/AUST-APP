@@ -180,13 +180,13 @@ public class MyService extends Service {
         @Override
         protected List<List<String>> doInBackground(Void... params) {
             try {
-                user.loginIn();
+                user.login();
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = user.getTd_class(user.get_class(String.valueOf(findTerm + findYear),String.valueOf(findWeek),String.valueOf(savedIds)));
+                //result = user.getTd_class(user.get_class(String.valueOf(findTerm + findYear),String.valueOf(findWeek),String.valueOf(savedIds)));
                 Log.d("UserCreation", result.toString());
             } catch (IOException e) {
                 e.printStackTrace(); // 处理异常
@@ -271,13 +271,13 @@ public class MyService extends Service {
         @Override
         protected List<Map<String, String>> doInBackground(Void... params) {
             try {
-                user.loginIn();
+                user.login();
                 try {
                     Thread.sleep(500); // 500毫秒 = 0.5秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                grade_result = user.getTd(user.get_grade(String.valueOf(Term + Year)));
+                //grade_result = user.getTd(user.get_grade(String.valueOf(Term + Year)));
                 Log.d("UserCreation", grade_result.toString());
             } catch (IOException e) {
                 e.printStackTrace(); // 处理异常

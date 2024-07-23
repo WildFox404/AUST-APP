@@ -176,13 +176,13 @@ public class ServiceFragment extends Fragment {
         @Override
         protected List<Map<String, String>> doInBackground(Void... params) {
             try {
-                user.loginIn();
+                user.login();
                 try {
                     Thread.sleep(500); // 500毫秒 = 0.5秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                result = user.getTd(user.get_grade(String.valueOf(Term + Year)));
+                //result = user.getTd(user.get_grade(String.valueOf(Term + Year)));
                 Log.d("UserCreation", result.toString());
             } catch (IOException e) {
                 e.printStackTrace(); // 处理异常
@@ -220,8 +220,8 @@ public class ServiceFragment extends Fragment {
         @Override
         protected List<Map<String, String>> doInBackground(Void... params) {
             try {
-                user.loginIn();
-                test_result = user.getTd_test(user.get_test());
+                user.login();
+//                test_result = user.get_test("240");
                 Log.d("UserCreation", test_result.toString());
             } catch (IOException e) {
                 e.printStackTrace(); // 处理异常
@@ -230,10 +230,6 @@ public class ServiceFragment extends Fragment {
         }
         @Override
         protected void onPostExecute(List<Map<String, String>> test_result) {
-            if (result != null && !result.isEmpty() && getView() != null) {
-                myDBHelper.insertTestData(user.getUsername(),test_result);
-                completedTasks++;
-            }
         }
     }
 }

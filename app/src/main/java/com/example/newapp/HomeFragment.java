@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.*;
@@ -43,12 +43,9 @@ public class HomeFragment extends Fragment {
     private static final String KEY_WEEK = "week";
     private String savedIds;
     private User user;
-    List<List<String>> result;
-
-    private List<Map<String, String>> grade_result;
+    private JsonArray class_results;
     private String savedUsername;
     private String savedPassword;
-    HashMap<Integer, List<Course>> course_result;
     int term=0;
     int year=0;
     int week=0;
@@ -92,7 +89,6 @@ public class HomeFragment extends Fragment {
         // 从SharedPreferences加载之前保存的内容
         savedUsername = sharedPreferences.getString("username", "");
         savedPassword = sharedPreferences.getString("password", "");
-        savedIds =sharedPreferences.getString("ids","");
 
         // 从 SharedPreferences 中加载上次存储的数据
         savedYear = sharedPreferences.getString(KEY_YEAR, "0"); // 从SharedPreferences中获取字符串值
@@ -104,14 +100,7 @@ public class HomeFragment extends Fragment {
 
         courseWait =view.findViewById(R.id.courseWait);
         courseProcess = view.findViewById(R.id.courseProcess);
-        if(viewModel.getUserExist()){
-            user=viewModel.getUser();
-            user = new User(savedUsername,savedPassword);
-        }else{
-            user = new User(savedUsername,savedPassword);
-            viewModel.setUser(user);
-            viewModel.setUserExist(true);
-        }
+        user=User.getInstance();
 
         TextView qqTextView =view.findViewById(R.id.qqlink);
         TextView githubTextView=view.findViewById(R.id.githublink);
@@ -156,6 +145,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, user.getYears());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(adapter);
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -165,9 +157,8 @@ public class HomeFragment extends Fragment {
                     saveSelection(KEY_YEAR, selectedYear);
                     String firstFourChars = selectedYear.substring(0, 4); // 获取前四个字符
                     int number = Integer.parseInt(firstFourChars); // 转换成int类型
-                    year = number;
-                    Log.d("开始更新课表", "开始更新课表: ");
-                    UpdateCourseTable();
+                    year=(number-2020)*40+100;
+                    new ClassAsyncTask().execute();
                 }
 
             }
@@ -188,14 +179,14 @@ public class HomeFragment extends Fragment {
                     saveSelection(KEY_TERM, selectedTerm);
 
                     if (selectedTerm.equals("第一学期")) {
-                        term = 1;
+                        term=0;
                     } else if (selectedTerm.equals("第二学期")) {
-                        term = 2;
+                        term=20;
                     } else {
                         // 其他情况的处理
                     }
                     Log.d("开始更新课表", "开始更新课表: ");
-                    UpdateCourseTable();
+                    new ClassAsyncTask().execute();
                 }
 
             }
@@ -224,7 +215,7 @@ public class HomeFragment extends Fragment {
                         // 未找到匹配的内容处理
                     }
                     Log.d("开始更新课表", "开始更新课表: ");
-                    UpdateCourseTable();
+                    new ClassAsyncTask().execute();
                 }
 
             }
@@ -234,42 +225,23 @@ public class HomeFragment extends Fragment {
                 // 当没有选择任何项时触发此方法
             }
         });
-        return view;
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (myDBHelper.getCourseCountByUsername(user.getUsername().toString()) == 0&&courseWait.getVisibility() == View.INVISIBLE) {
-            Log.d("数据获取", "开始获取数据");
-            courseWait.setVisibility(View.VISIBLE);
-            Intent serviceIntent = new Intent(getActivity(), MyService.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("savedIds", savedIds);
-            bundle.putString("savedUsername",savedUsername);
-            bundle.putString("savedPassword",savedPassword);
-//            bundle.putInt("param2", param2Value);
-            // 将更多的参数放入bundle中
-            serviceIntent.putExtra("bundle", bundle);
-            getActivity().startService(serviceIntent);
-            UpdateCourseTable();
+        int number;
+        try {
+            String firstFourChars = savedYear.substring(0, 4); // 获取前四个字符
+            number = Integer.parseInt(firstFourChars); // 转换成int类型
+        }catch (Exception e){
+            Log.d("考试安排", "考试安排初始化出现问题");
+            number=user.getCoverage_year();
         }
-        String firstFourChars;
-        if (savedYear.length() >= 5) {
-            firstFourChars = savedYear.substring(0,4);
-            // 继续你的代码
-        } else {
-            // 处理字符串长度不足的情况
-            firstFourChars = "2024";
-        }
-        int number = Integer.parseInt(firstFourChars); // 转换成int类型
-        year = number;
+        year=(number-2020)*40+100;
+
         if (savedTerm.equals("第一学期")) {
-            term = 1;
+            term = 0;
         } else if (savedTerm.equals("第二学期")) {
-            term = 2;
+            term = 20;
         } else {
-            // 其他情况的处理
+            term = 0;
         }
         Pattern pattern = Pattern.compile("第(\\d+)周");
         Matcher matcher = pattern.matcher(savedWeek);
@@ -277,82 +249,114 @@ public class HomeFragment extends Fragment {
             String weekNumber = matcher.group(1);
             week = Integer.parseInt(weekNumber);
         }
-        UpdateCourseTable();
+        new ClassAsyncTask().execute();
+        return view;
+    }
+    private class ClassAsyncTask extends AsyncTask<Void, Void, JsonArray> {
+        @Override
+        protected JsonArray doInBackground(Void... voids) {
+            try {
+                JsonObject Semester_Date=myDBHelper.getJsonDataBySemesterId(String.valueOf(year+term));
+                JsonArray weekArray = Semester_Date.get("weekArray").getAsJsonArray();
+                if (week-1 < weekArray.size()) {
+                    JsonElement element = weekArray.get(week-1);
+                    if (!element.isJsonNull() && element.isJsonObject()) {
+                        JsonObject weekObject = element.getAsJsonObject();
+                        String startDate = weekObject.get("startDate").getAsString();
+                        String endDate = weekObject.get("endDate").getAsString();
+                        return user.get_class(String.valueOf(year + term), startDate, endDate);
+                    }else{
+                        // 创建一个空的JsonArray
+                        JsonArray emptyArray = new JsonArray();
+                        return emptyArray;
+                        // 处理索引超出范围的情况，可以选择抛出异常或者返回默认值
+                    }
+                } else {
+                    // 创建一个空的JsonArray
+                    JsonArray emptyArray = new JsonArray();
+                    return emptyArray;
+                    // 处理索引超出范围的情况，可以选择抛出异常或者返回默认值
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JsonArray result) {
+            if (result != null) {
+                // Assuming grade_result is a field in your class to store the JSON data
+                class_results = result;
+                Log.d("课表获取", "课表获取成功");
+                UpdateCourseTable();
+            }
+        }
     }
     private void UpdateCourseTable(){
         String yearString = String.valueOf(year);
         String termString = String.valueOf(term);
         String weekString = String.valueOf(week);
         Log.d("查询参数", "学年"+yearString+"学期"+termString+"周"+weekString);
-        course_result = myDBHelper.getCourseData(savedUsername, yearString, termString, weekString);
+
+        List<Integer> datesWithoutData = new ArrayList<>();
+        datesWithoutData.add(1);
+        datesWithoutData.add(2);
+        datesWithoutData.add(3);
+        datesWithoutData.add(4);
+        datesWithoutData.add(5);
+        datesWithoutData.add(6);
+        datesWithoutData.add(7);
         // 清空之前的内容
         gridLayout.removeAllViews();
+        for (JsonElement class_result : class_results) {
+            JsonObject arrange_lesson_object = class_result.getAsJsonObject();
+            String course_name=arrange_lesson_object.get("course_name").getAsString();
 
-        if (course_result != null && !course_result.isEmpty()) {
-            for (Map.Entry<Integer, List<Course>> entry : course_result.entrySet()) {
-                int section = entry.getKey();
-                List<Course> courses = entry.getValue();
-
-                for (Course course : courses) {
-                    // 创建TextView来显示课程名称和地点
-                    RoundedColorTextView roundedColorTextView = new RoundedColorTextView();
-                    TextView textView = roundedColorTextView.createTextViewWithRoundedColorBackground(getContext(), "Your Text Here");
-                    textView.setText(course.getCourseName() + "\n" + course.getCourseLocation());
-                    textView.setTextSize(10);
-                    textView.setGravity(Gravity.CENTER);
-                    // 设置TextView在GridLayout中的位置
-                    GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                    params.rowSpec = GridLayout.spec(section - 1, 1, 1f);  // 注意，GridLayout的行数从0开始，而节次从1开始，需要做适当的转换
-                    params.columnSpec = GridLayout.spec(course.getWeek() - 1); // 同样，周数也需要适当的转换
-                    params.setGravity(Gravity.FILL);
-                    // 设置固定的宽度和高度
-                    params.width = 146; // 设置为您希望的宽度，单位是像素或dp
-                    params.height = 360; // 设置为您希望的高度，单位是像素或dp
-                    textView.setLayoutParams(params);
-                    // 将TextView添加到GridLayout中
-                    gridLayout.addView(textView);
-                }
+            String date=arrange_lesson_object.get("date").getAsString();
+            if(datesWithoutData.contains(Integer.valueOf(DateUtils.getDayOfWeek(date)))){
+                datesWithoutData.remove(Integer.valueOf(DateUtils.getDayOfWeek(date)));
             }
-        } else {
-            // 如果没有课程数据，可以添加相应的处理逻辑，例如显示一个提示信息
-            TextView textView = new TextView(getContext());
-            textView.setText("No courses available");
+            Integer start_unit=arrange_lesson_object.get("start_unit").getAsInt();
+
+            JsonArray teachers_json=arrange_lesson_object.getAsJsonArray("teachers");
+            JsonObject teachers = teachers_json.get(0).getAsJsonObject();
+            String teachers_name=teachers.get("name").getAsString();
+
+            JsonArray lesson_arrange_json=arrange_lesson_object.getAsJsonArray("rooms");
+            JsonObject rooms = lesson_arrange_json.get(0).getAsJsonObject();
+            String rooms_name=rooms.get("name").getAsString();
+
+            // 创建TextView来显示课程名称和地点
+            RoundedColorTextView roundedColorTextView = new RoundedColorTextView();
+            TextView textView = roundedColorTextView.createTextViewWithRoundedColorBackground(getContext(), "Your Text Here");
+            textView.setText(course_name + "\n" + rooms_name+"\n"+teachers_name);
+            textView.setTextSize(10);
             textView.setGravity(Gravity.CENTER);
-            textView.setBackgroundColor(Color.LTGRAY);
+            // 设置TextView在GridLayout中的位置
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.rowSpec = GridLayout.spec(start_unit - 1, 1, 1f);  // 注意，GridLayout的行数从0开始，而节次从1开始，需要做适当的转换
+            params.columnSpec = GridLayout.spec(DateUtils.getDayOfWeek(date) - 1,1); // 同样，周数也需要适当的转换
+            params.setGravity(Gravity.FILL);
+            // 设置固定的宽度和高度
+            params.width = 146; // 设置为您希望的宽度，单位是像素或dp
+            params.height = 360; // 设置为您希望的高度，单位是像素或dp
+            textView.setLayoutParams(params);
+            // 将TextView添加到GridLayout中
             gridLayout.addView(textView);
         }
-    }
-    private BroadcastReceiver progressReceiver = new BroadcastReceiver() {
-        int totalTasks=176;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int completedTasks = intent.getIntExtra("completed_tasks", 0);
-            // 更新UI
-            courseProcess.setText(completedTasks + "/" + totalTasks);
+        Log.d("更新课表", "不存在数据的星期数: "+datesWithoutData.toString());
+        for (Integer missingDate : datesWithoutData) {
+            TextView emptyTextView = new TextView(getContext());
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.rowSpec = GridLayout.spec(0,1,1f); // 设置空TextView所在行，默认为0
+            params.columnSpec = GridLayout.spec(missingDate - 1); // 设置空TextView所在列
+
+            params.width = 146; // 设置宽度
+            params.height = 360; // 设置高度
+
+            emptyTextView.setLayoutParams(params);
+
+            gridLayout.addView(emptyTextView);
         }
-    };
-
-    private BroadcastReceiver hideWaitViewReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // 隐藏等待视图
-            courseWait.setVisibility(View.INVISIBLE);
-        }
-    };
-
-    @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // 注册广播接收器
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(progressReceiver, new IntentFilter("progress_update"));
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(hideWaitViewReceiver, new IntentFilter("hide_wait_view"));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // 注销广播接收器
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(progressReceiver);
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(hideWaitViewReceiver);
     }
 }
