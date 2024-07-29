@@ -23,7 +23,7 @@
             android:theme="@style/Theme.NewApp"
             tools:targetApi="31">
         <service
-                android:name=".MyWorker"
+                android:name=".backgroundprocess.MyWorker"
                 android:enabled="true"
                 android:exported="true" />
         <service
@@ -33,23 +33,21 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainNextActivity" />
 
-        <activity android:name=".BottomNavigationViewActivity"/>
-        <activity android:name=".ServiceFragment" />
-        <activity android:name=".ConsultationFragment" />
-        <activity android:name=".HomeFragment" />
+        <activity android:name=".navigation.BottomNavigationViewActivity"/>
+        <activity android:name=".navigation.ServiceFragment" />
+        <activity android:name=".navigation.HomeFragment" />
         <activity android:name=".SettingFragment" />
-        <activity android:name=".UserFragment" />
-        <activity android:name=".GradeViewerActivity" />
-        <activity android:name=".GPAViewerActivity" />
-        <activity android:name=".TestViewerActivity" />
-        <activity android:name=".EmptyBuildingsActivity" />
-        <activity android:name=".EmptyClassroomsActivity" />
-        <activity android:name=".CampusCalendarActivity" />
-        <activity android:name=".PlanCompletionActivity" />
-        <activity android:name=".StudyDetailsActivity" />
-        <activity android:name=".StudyDetailsCoursesActivity" />
-        <activity android:name=".IncubationProgramsActivity" />
-        <activity android:name=".IncubationProgramsChildActivity" />
+        <activity android:name=".navigation.UserFragment" />
+        <activity android:name=".grade.GradeViewerActivity" />
+        <activity android:name=".test.TestViewerActivity" />
+        <activity android:name=".emptyclassrooms.EmptyBuildingsActivity" />
+        <activity android:name=".emptyclassrooms.EmptyClassroomsActivity" />
+        <activity android:name=".campuscalender.CampusCalendarActivity" />
+        <activity android:name=".studydetails.PlanCompletionActivity" />
+        <activity android:name=".studydetails.StudyDetailsActivity" />
+        <activity android:name=".studydetails.StudyDetailsCoursesActivity" />
+        <activity android:name=".incubationprograms.IncubationProgramsActivity" />
+        <activity android:name=".incubationprograms.IncubationProgramsChildActivity" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true">

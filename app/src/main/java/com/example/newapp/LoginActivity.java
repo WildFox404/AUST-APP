@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.newapp.entries.User;
+import com.example.newapp.navigation.BottomNavigationViewActivity;
 
 import java.io.IOException;
 
