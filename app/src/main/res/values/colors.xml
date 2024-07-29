@@ -3,4 +3,19 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="bule_white">#d5deef</color>
+    <color name="bule_white1">#a1caff</color>
+    <color name="bule_white2">#3a4d8f</color>
+    <color name="bule_white3">#6a95cc</color>
+    <color name="color_EFF1F4">#eff1f4</color>
+    <color name="grey">#696969</color>
+    <color name="red">#db2828</color>
+    <color name="foreground_full">#fff</color>
+    <color name="foreground_semi">#4fff</color>
+    <color name="foreground_today">#111</color>
+    <color name="background_today">#fff</color>
+    <color name="incubation_color1">#2CCAA9</color>
+    <color name="incubation_color2">#EAB537</color>
+    <color name="incubation_color3">#2B6DE6</color>
+    <color name="incubation_color4">#103A87</color>
 </resources>

@@ -52,14 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:layout_weight="1">
                 <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
-                    <TableLayout
-                            android:id="@+id/test_tableLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:stretchColumns="*"
-                            android:shrinkColumns="*">
 
-                    </TableLayout>
                 </ScrollView>
             </LinearLayout>
         </LinearLayout>

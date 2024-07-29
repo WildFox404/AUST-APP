@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("password", user.getPassword());
                 editor.apply();
 
-                Intent intent = new Intent(LoginActivity.this, BottomNavigationView.class);
+                Intent intent = new Intent(LoginActivity.this, BottomNavigationViewActivity.class);
                 startActivity(intent);
                 finish();
             }else{

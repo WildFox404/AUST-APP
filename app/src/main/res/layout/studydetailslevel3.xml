@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bule_white"
+              android:orientation="vertical"
+              android:id="@+id/main_layout"
+              android:padding="7dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lighting2"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+        <TextView
+                android:layout_gravity="center_vertical"
+                android:text="通识教育模块"
+                android:textSize="16dp"
+                android:id="@+id/course_type_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/passed_status"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/plan_status"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/onReading"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:clickable="false">
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/group_completion_credits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/group_required_credits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/group_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:clickable="false">
+        <TextView
+                android:textSize="10dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="实修学分"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        <TextView
+                android:textSize="10dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="要求学分"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="成绩"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

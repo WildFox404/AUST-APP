@@ -62,6 +62,7 @@ public class GradeViewerActivity extends AppCompatActivity {
         user = User.getInstance(); // 获取User类的实例
         ImageView exitButton =findViewById(R.id.exitButton);
 
+
         new GradeAsyncTask().execute();
 
         UpdateGradeTable();
@@ -108,6 +109,10 @@ public class GradeViewerActivity extends AppCompatActivity {
     private void UpdateGradeTable() {
         TableLayout gpaViewer = findViewById(R.id.gpa_tableLayout);
         TableLayout headertable = findViewById(R.id.headerRow);
+        TextView gpaResult =findViewById(R.id.gpaResult);
+        gpaResult.setText("绩点:"+total_gp+" 学分:"+total_credits);
+        gpaResult.setTextSize(20);
+        headertable.removeAllViews();
         int i =0 ;
         // 动态创建表头
         TableRow headerRow = new TableRow(this);
@@ -150,6 +155,7 @@ public class GradeViewerActivity extends AppCompatActivity {
             headCategory.setText(code+"学分:"+semester_credits+"绩点:"+semester_gp);
             headCategory.setTextSize(20); // 设置字号为12号
             headCategory.setTextColor(Color.parseColor("#344CAA"));
+            headCategory.setMinHeight(180);
             gpaViewer.addView(headCategory);
             for (JsonElement lesson : lessons) {
                 TableRow row = new TableRow(this);

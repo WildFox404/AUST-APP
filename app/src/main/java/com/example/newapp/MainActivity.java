@@ -1,24 +1,28 @@
 package com.example.newapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.TypedValue;
+import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.work.*;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private User user;
     private String savedUsername;
     private String savedPassword;
     private MyDBHelper myDBHelper;
-
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +30,30 @@ public class MainActivity extends AppCompatActivity {
 //        myDBHelper = new MyDBHelper(this); // 实例化 MyDBHelper 对象
 //        SQLiteDatabase db = myDBHelper.getWritableDatabase(); // 获取可写的数据库对象
 //        myDBHelper.onUpgrade(db, 1, 2); // 调用onUpgrade方法进行数据库升级
+        getDeviceResolution(this);
+
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        Data inputData = new Data.Builder()
+                .putString("username", sharedPreferences.getString("username", ""))
+                .putString("password", sharedPreferences.getString("password", ""))
+                .build();
+
+//        Constraints constraints = new Constraints.Builder()
+//                .setRequiredNetworkType(NetworkType.UNMETERED)  // 设置为 UNMETERED 表示只有在 Wi-Fi 网络上才能运行 Worker
+//                .build();
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(
+                MyWorker.class,
+                1, TimeUnit.MINUTES)
+                .setInputData(inputData)
+                .setInitialDelay(15, TimeUnit.MINUTES)
+                .build();
+
+        WorkManager.getInstance(this).enqueue(workRequest);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // 延迟1秒后执行以下操作
                 Intent intent;
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
                 if (sharedPreferences.contains("username") && sharedPreferences.contains("password")) {
                     savedUsername = sharedPreferences.getString("username", "");
@@ -47,6 +69,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 1000); // 延迟1秒执行
+    }
+    public void getDeviceResolution(Activity activity){
+        float marginDp = 1; // 10dp 的距离
+        float marginPx = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
+        int margin_width=Math.round(marginPx);
+
+        WindowManager windowManager = activity.getWindow().getWindowManager();
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getRealSize(point);
+        //屏幕实际宽度（像素个数）
+        int width = point.x;
+        //屏幕实际高度（像素个数）
+        int height = point.y;
+        DeviceDataUtils.getInstance(width,height,margin_width);
     }
 
     private class LoginTask extends AsyncTask<User, Void, Boolean> {
@@ -68,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean success) {
             Intent intent;
             if (success) {
-                intent = new Intent(MainActivity.this, BottomNavigationView.class);
+                intent = new Intent(MainActivity.this, BottomNavigationViewActivity.class);
             } else {
                 intent = new Intent(MainActivity.this, LoginActivity.class);
             }

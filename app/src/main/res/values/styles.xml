@@ -4,4 +4,15 @@
         <item name="android:background">@null</item> <!-- 设置背景为透明 -->
         <item name="android:backgroundTint">@android:color/transparent</item> <!-- 设置底部边框颜色为透明 -->
     </style>
+
+    <style name="CalendarCell">
+        <item name="android:id">@android:id/text1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">@color/foreground_semi</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

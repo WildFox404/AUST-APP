@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bule_white"
+              android:orientation="vertical"
+              android:id="@+id/main_layout"
+              android:padding="7dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:src="@drawable/lighting1"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+        </ImageView>
+        <TextView
+                android:layout_gravity="center_vertical"
+                android:text="通识教育模块"
+                android:textSize="18dp"
+                android:id="@+id/group_course_type_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:clickable="false">
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/group_credits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/group_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:clickable="false">
+        <TextView
+                android:textSize="10dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="实修学分(转换)/要求学分"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        <TextView
+                android:textSize="10dp"
+                android:textColor="@color/grey"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="通过门数/要求门数"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

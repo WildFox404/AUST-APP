@@ -24,6 +24,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
     private Gson gson = new Gson();;
 
+    private SQLiteDatabase db;
+
     public MyDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -837,6 +839,22 @@ public class MyDBHelper extends SQLiteOpenHelper {
         semesterDBInsertData(db,"100",gson.fromJson(jsonData,JsonObject.class));
     }
 
+    // 查询数据
+    public boolean isSemesterExists(String semester) {
+        SQLiteDatabase db = this.getReadableDatabase(); // 获取可读的数据库对象
+        String[] columns = {"SEMESTER"};
+        String selection = "SEMESTER=?";
+        String[] selectionArgs = {semester};
+
+        Cursor cursor = db.query("semesterDB", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.close();
+            return true; // 数据存在
+        } else {
+            return false; // 数据不存在
+        }
+    }
     public void semesterDBInsertData(SQLiteDatabase db, String semesterId, JsonObject jsonData) {
         // 插入数据
         ContentValues values = new ContentValues();
@@ -871,6 +889,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 jsonData = gson.fromJson(jsonContent, JsonObject.class);
             } else {
                 // 处理列索引不存在的情况
+                jsonData = new JsonObject();
             };
         }
         Log.d("getJsonDataBySemesterId", "getJsonDataBySemesterId: "+jsonData);

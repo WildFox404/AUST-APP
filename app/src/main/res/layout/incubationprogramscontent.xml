@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bule_white"
+              android:orientation="horizontal"
+              android:id="@+id/main_layout"
+              android:padding="7dp">
+
+    <LinearLayout
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textSize="16dp"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/incubation_color1"
+                    android:layout_margin="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text="通识教育平台"
+                    android:textSize="16dp"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/incubation_color2"
+                    android:layout_margin="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text="学科基础教育平台"
+                    android:textSize="16dp"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/incubation_color3"
+                    android:layout_margin="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text="专业教育平台"
+                    android:textSize="16dp"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/incubation_color4"
+                    android:layout_margin="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                    android:layout_gravity="center_vertical"
+                    android:text="实践教育平台"
+                    android:textSize="16dp"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:gravity="right"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="占比"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="学分"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="35.28%"
+                    android:textSize="16dp"
+                    android:id="@+id/textview11"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="72.5"
+                    android:textSize="16dp"
+                    android:id="@+id/textview12"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="35.28%"
+                    android:textSize="16dp"
+                    android:id="@+id/textview21"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="72.5"
+                    android:textSize="16dp"
+                    android:id="@+id/textview22"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="35.28%"
+                    android:textSize="16dp"
+                    android:id="@+id/textview31"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="72.5"
+                    android:textSize="16dp"
+                    android:id="@+id/textview32"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="35.28%"
+                    android:textSize="16dp"
+                    android:id="@+id/textview41"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="72.5"
+                    android:textSize="16dp"
+                    android:id="@+id/textview42"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -31,16 +31,10 @@ public class HomeFragment extends Fragment {
 
 
     private SharedPreferences sharedPreferences;
-    private SharedViewModel viewModel;
-
-    int completedTasks=0;
-    private TextView courseProcess;
-    private LinearLayout courseWait;
-
     private MyDBHelper myDBHelper;
-    private static final String KEY_YEAR = "year";
-    private static final String KEY_TERM = "term";
-    private static final String KEY_WEEK = "week";
+    private static final String KEY_YEAR = "class_year";
+    private static final String KEY_TERM = "class_term";
+    private static final String KEY_WEEK = "class_week";
     private String savedIds;
     private User user;
     private JsonArray class_results;
@@ -56,6 +50,7 @@ public class HomeFragment extends Fragment {
     private CountDownLatch latch;
 
     private void saveSelection(String key, String value) {
+        Log.d("HomeActivity", "saveSelection: "+key+":"+value);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.apply();
@@ -77,7 +72,6 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.home, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         gridLayout = view.findViewById(R.id.gridlayout);
@@ -94,12 +88,7 @@ public class HomeFragment extends Fragment {
         savedYear = sharedPreferences.getString(KEY_YEAR, "0"); // 从SharedPreferences中获取字符串值
         savedTerm = sharedPreferences.getString(KEY_TERM, "0");
         savedWeek = sharedPreferences.getString(KEY_WEEK, "0");
-        yearSpinner.setSelection(getIndex(yearSpinner, savedYear));
-        termSpinner.setSelection(getIndex(termSpinner, savedTerm));
-        weekSpinner.setSelection(getIndex(weekSpinner, savedWeek));
 
-        courseWait =view.findViewById(R.id.courseWait);
-        courseProcess = view.findViewById(R.id.courseProcess);
         user=User.getInstance();
 
         TextView qqTextView =view.findViewById(R.id.qqlink);
@@ -145,29 +134,34 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, user.getYears());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearSpinner.setAdapter(adapter);
-        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedYear = (String) parent.getItemAtPosition(position);
-                String savedYear = sharedPreferences.getString(KEY_YEAR, "0");
-                if (!selectedYear.equals(savedYear)) { // 判断选择后的选项和之前保存的选项是否一致
-                    saveSelection(KEY_YEAR, selectedYear);
-                    String firstFourChars = selectedYear.substring(0, 4); // 获取前四个字符
-                    int number = Integer.parseInt(firstFourChars); // 转换成int类型
-                    year=(number-2020)*40+100;
-                    new ClassAsyncTask().execute();
+        ArrayAdapter<String> adapter = null;
+        if (getContext() != null && user != null && user.getYears() != null) {
+            adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, user.getYears());
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        }
+        if (adapter != null && yearSpinner != null) {
+            yearSpinner.setAdapter(adapter);
+            yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedYear = (String) parent.getItemAtPosition(position);
+                    String savedYear = sharedPreferences.getString(KEY_YEAR, "0");
+                    if (!selectedYear.equals(savedYear)) { // 判断选择后的选项和之前保存的选项是否一致
+                        saveSelection(KEY_YEAR, selectedYear);
+                        String firstFourChars = selectedYear.substring(0, 4); // 获取前四个字符
+                        int number = Integer.parseInt(firstFourChars); // 转换成int类型
+                        year = (number - 2020) * 40 + 100;
+                        new ClassAsyncTask().execute();
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // 当没有选择任何项时触发此方法
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // 当没有选择任何项时触发此方法
+                }
+            });
+        }
 
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -210,7 +204,7 @@ public class HomeFragment extends Fragment {
                     Matcher matcher = pattern.matcher(selectedWeek);
                     if (matcher.find()) {
                         String weekNumber = matcher.group(1);
-                        week = Integer.parseInt(weekNumber);
+                        week = Integer.parseInt(weekNumber)-1;
                     } else {
                         // 未找到匹配的内容处理
                     }
@@ -225,6 +219,12 @@ public class HomeFragment extends Fragment {
                 // 当没有选择任何项时触发此方法
             }
         });
+
+        yearSpinner.setSelection(getIndex(yearSpinner, savedYear));
+        termSpinner.setSelection(getIndex(termSpinner, savedTerm));
+        weekSpinner.setSelection(getIndex(weekSpinner, savedWeek));
+
+
 
         int number;
         try {
@@ -247,7 +247,7 @@ public class HomeFragment extends Fragment {
         Matcher matcher = pattern.matcher(savedWeek);
         if (matcher.find()) {
             String weekNumber = matcher.group(1);
-            week = Integer.parseInt(weekNumber);
+            week = Integer.parseInt(weekNumber)-1;
         }
         new ClassAsyncTask().execute();
         return view;
@@ -258,8 +258,8 @@ public class HomeFragment extends Fragment {
             try {
                 JsonObject Semester_Date=myDBHelper.getJsonDataBySemesterId(String.valueOf(year+term));
                 JsonArray weekArray = Semester_Date.get("weekArray").getAsJsonArray();
-                if (week-1 < weekArray.size()) {
-                    JsonElement element = weekArray.get(week-1);
+                if (week < weekArray.size()) {
+                    JsonElement element = weekArray.get(week);
                     if (!element.isJsonNull() && element.isJsonObject()) {
                         JsonObject weekObject = element.getAsJsonObject();
                         String startDate = weekObject.get("startDate").getAsString();

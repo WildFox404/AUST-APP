@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bule_white"
+              android:orientation="vertical"
+              android:id="@+id/main_layout"
+              android:padding="7dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/dingwei"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+        <TextView
+                android:layout_gravity="center_vertical"
+                android:text="通识教育模块"
+                android:textSize="16dp"
+                android:id="@+id/course_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/plan_status"
+                android:layout_width="25dp"
+                android:layout_height="25dp">
+        </ImageView>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:clickable="false">
+
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/course_credits"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        <TextView
+                android:textSize="19dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="73.5/72.5"
+                android:id="@+id/course_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

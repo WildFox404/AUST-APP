@@ -1,5 +1,7 @@
 package com.example.newapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import com.google.gson.*;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +27,14 @@ public class User {
     private String[] years;
     private int coverage_year;
     private Gson gson = new Gson();
+
+    public static final String PREFS_NAME = "MyPrefs";
+
+    public void updateUser(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        this.setUsername(prefs.getString("username", ""));
+        this.setPassword(prefs.getString("password", ""));
+    }
 
 
 //    // Create a custom CookieJar
@@ -56,6 +66,7 @@ public class User {
     }
 
     public static synchronized User getInstance(String username,String password) {
+        Log.d("User", "User创建成功"+username+"/"+password);
         if (instance == null) {
             synchronized (User.class) {
                 if (instance == null) {
@@ -250,6 +261,9 @@ public class User {
     }
 
     public JsonObject get_grade() throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
         String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/exam/grade/get-grades";
         Log.d("get_grade", "token: "+this.token);
         // Prepare headers
@@ -302,6 +316,9 @@ public class User {
         return null;
     }
     public JsonArray get_test(String semesterId) throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
         String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/exam/schedule/lesson/get-exam-tasks";
 
         // Prepare headers
@@ -360,7 +377,9 @@ public class User {
     }
 
     public JsonArray get_class(String semesterId,String start_date,String end_date) throws IOException {
-
+        if (this.token.isEmpty()){
+            login();
+        }
         String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/course/schedule/get-course-tables";
         Log.d("get_class", "token: "+this.token);
         // Prepare headers
@@ -384,36 +403,158 @@ public class User {
                 Log.d("get_class", "get_class长度: "+responseData.length());
                 // 将字符串转换为 JSON 对象
                 JsonObject json = gson.fromJson(responseData, JsonObject.class);
-//                String log_result=json.toString();
-////                int maxLogSize = 1000;
-////                for(int i = 0; i <= log_result.length() / maxLogSize; i++) {
-////                    int start = i * maxLogSize;
-////                    int end = (i+1) * maxLogSize;
-////                    end = end > log_result.length() ? log_result.length() : end;
-////                    Log.d("JSON Part " + (i+1), log_result.substring(start, end));
-////                }
+                if(json!=null) {
+                    // 检查 "business_data" 字段是否存在
+                    String err_code = json.get("err_code").getAsString();
+                    Log.d("get_class", "err_code: " + err_code);
+                    if (err_code.equals("00000")) {
+                        String businessData = json.get("business_data").getAsString();
+                        Log.d("class businessData", String.valueOf(businessData.length()));
+                        // 检查值是否为对象
+                        if (!businessData.isEmpty()) {
+                            // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                            String loginMessage = decodeFromBase64(businessData, "");
+                            //                        int maxLogSize = 1000;
+                            //                        for(int i = 0; i <= loginMessage.length() / maxLogSize; i++) {
+                            //                            int start = i * maxLogSize;
+                            //                            int end = (i+1) * maxLogSize;
+                            //                            end = end > loginMessage.length() ? loginMessage.length() : end;
+                            //                            Log.d("JSON Part " + (i+1), loginMessage.substring(start, end));
+                            //                        }
+                            JsonArray classMessage = gson.fromJson(loginMessage, JsonArray.class);
+                            System.out.println("登录消息：" + classMessage.toString());
+                            return classMessage;
+                            // 处理 business_data 内容
+                            // ...
+                        } else {
+                            // 处理 business_data 字段不是对象的情况
+                            System.out.println("business_data 字段不是对象");
+                        }
+                    } else {
+                        // 处理没有 business_data 字段的情况
+                        System.out.println("business_data 字段不存在");
+                    }
+                }
+            } else {
+                System.out.println("考试成绩获取失败：" + response.message());
+            }
+        }
+        return null;
+    }
+
+    public JsonArray get_empty_classrooms() throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/room/borrow/campus/building/search";
+
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "";
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                if(json!=null) {
+                    // 检查 "business_data" 字段是否存在
+                    if (json.has("business_data")) {
+                        String businessData = json.get("business_data").getAsString();
+
+                        // 检查值是否为对象
+                        if (!businessData.isEmpty()) {
+                            JsonArray jsonArray = null;
+                            // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                            String loginMessage = decodeFromBase64(businessData, "");
+                            JsonParser parser = new JsonParser();
+                            JsonElement element = parser.parse(loginMessage);
+
+                            if (element.isJsonArray()) {
+                                jsonArray = element.getAsJsonArray();
+                            } else {
+                                Log.d("test_json_process", "考试安排数据不符合json格式");
+                            }
+                            System.out.println("考试安排消息：" + jsonArray.toString());
+                            return jsonArray;
+                        } else {
+                            // 处理 business_data 字段不是对象的情况
+                            System.out.println("business_data 字段不是对象");
+                        }
+                    } else {
+                        // 处理没有 business_data 字段的情况
+                        System.out.println("business_data 字段不存在");
+                    }
+                }
+            } else {
+                System.out.println("考试安排获取失败：" + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+
+    }
+
+    public JsonArray get_empty_classrooms_byId(String building_id,String start_date) throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
+        Log.d("get_empty_classrooms_byId", building_id+"/"+start_date);
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/room/borrow/occupancy/search";
+
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "building_id="+building_id+"&start_date="+start_date+"&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
                 // 检查 "business_data" 字段是否存在
-                String err_code = json.get("err_code").getAsString();
-                Log.d("get_class", "err_code: "+err_code);
-                if (err_code.equals("00000")) {
+                if (json.has("business_data")) {
                     String businessData = json.get("business_data").getAsString();
-                    Log.d("class businessData", String.valueOf(businessData.length()));
+
                     // 检查值是否为对象
                     if (!businessData.isEmpty()) {
+                        JsonArray jsonArray = null;
                         // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
                         String loginMessage = decodeFromBase64(businessData, "");
-//                        int maxLogSize = 1000;
-//                        for(int i = 0; i <= loginMessage.length() / maxLogSize; i++) {
-//                            int start = i * maxLogSize;
-//                            int end = (i+1) * maxLogSize;
-//                            end = end > loginMessage.length() ? loginMessage.length() : end;
-//                            Log.d("JSON Part " + (i+1), loginMessage.substring(start, end));
-//                        }
-                        JsonArray classMessage=gson.fromJson(loginMessage,JsonArray.class);
-                        System.out.println("登录消息：" + classMessage.toString());
-                        return classMessage;
-                        // 处理 business_data 内容
-                        // ...
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(loginMessage);
+
+                        if (element.isJsonArray()) {
+                            jsonArray = element.getAsJsonArray();
+                        }else{
+                            Log.d("test_json_process", "考试安排数据不符合json格式");
+                        }
+                        System.out.println("考试安排消息："+jsonArray.toString());
+                        return jsonArray;
                     } else {
                         // 处理 business_data 字段不是对象的情况
                         System.out.println("business_data 字段不是对象");
@@ -423,141 +564,206 @@ public class User {
                     System.out.println("business_data 字段不存在");
                 }
             } else {
-                System.out.println("考试成绩获取失败：" + response.message());
+                System.out.println("考试安排获取失败：" + response.message());
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
-    public static String removeHtmlTags(String text) {
-        return text.replaceAll("<.*?>", "");
-    }
+    public JsonObject update_semester() throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/common/get-semester";
 
-    public List<List<String>> getTd_class(String text) {
-        String tableScriptPattern = "</table>\\s*<script language=\"JavaScript\">\\s*(.*?)\\s*</script>";
-        String activityPattern = "activity = new TaskActivity\\((.*?)\\);";
-        String indexPattern = "index =(.*?);";
-        String coursePattern = "actTeacherId\\.join\\('(.*?)'\\),actTeacherName\\.join\\('(.*?)'\\),\"(.*?)\\((.*?)\\)\",\"(.*?)\\((.*?)\\)\",\"(.*?)\",\"(.*?)\",\"(.*?)\",null,null,assistantName,\"\",\"\"";
-        String positionPattern = "(\\d+)\\*(.*?)\\+(\\d+)";
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
 
-        Pattern tableScript = Pattern.compile(tableScriptPattern, Pattern.DOTALL);
-        Matcher tableScriptMatcher = tableScript.matcher(text);
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
 
-        List<List<String>> resultList = new ArrayList<>();
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
 
-        if (tableScriptMatcher.find()) {
-            String result = tableScriptMatcher.group(1);
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+                if(json == null){
+                    Log.d("update_semester", "请求结果为null");
+                    return null;
+                }
+                // 检查 "business_data" 字段是否存在
+                if (json.has("business_data")) {
+                    String businessData = json.get("business_data").getAsString();
 
-            Pattern activity = Pattern.compile(activityPattern, Pattern.DOTALL);
-            Matcher activityMatcher = activity.matcher(result);
+                    // 检查值是否为对象
+                    if (!businessData.isEmpty()) {
+                        JsonObject jsonobject = null;
+                        // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                        String loginMessage = decodeFromBase64(businessData, "");
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(loginMessage);
 
-            while (activityMatcher.find()) {
-                String content = activityMatcher.group(1);
-
-                Pattern course = Pattern.compile(coursePattern);
-                Matcher courseMatcher = course.matcher(content);
-
-                if (courseMatcher.find()) {
-                    List<String> courseData = new ArrayList<>();
-                    courseData.add(courseMatcher.group(5));
-                    courseData.add(courseMatcher.group(8));
-
-                    int endIndex = result.indexOf("var teachers", activityMatcher.end());
-                    String activityText;
-                    if (endIndex != -1) {
-                        activityText = result.substring(activityMatcher.end(), endIndex);
-                    } else {
-                        // 处理找不到 "var teachers" 的情况，例如抛出异常或者给出默认值
-                        activityText = result.substring(activityMatcher.end());;
-                    }
-                    Pattern index = Pattern.compile(indexPattern);
-                    Matcher indexMatcher = index.matcher(activityText);
-
-                    List<String> positions = new ArrayList<>();
-                    while (indexMatcher.find()) {
-                        Pattern position = Pattern.compile(positionPattern);
-                        Matcher positionMatcher = position.matcher(indexMatcher.group(1));
-                        while (positionMatcher.find()) {
-                            positions.add(positionMatcher.group(1));
-                            positions.add(positionMatcher.group(3));
+                        if (element.isJsonObject()) {
+                            jsonobject = element.getAsJsonObject();
+                        }else{
+                            Log.d("update_semester", "考试安排数据不符合json格式");
+                            return null;
                         }
-                    }
-                    courseData.addAll(positions);
-                    resultList.add(courseData);
-                }
-            }
-        }
-        return resultList;
-    }
-    public static List<Map<String, String>> getTd_test(String text) {
-        List<Map<String, String>> result = new ArrayList<>();
-        Pattern pattern = Pattern.compile("<tbody(.*?)>(.*?)</tbody>", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            String content = matcher.group(2);
-            Pattern trPattern = Pattern.compile("<tr>(.*?)</tr>", Pattern.DOTALL);
-            Matcher trMatcher = trPattern.matcher(content);
-            List<List<String>> tdList = new ArrayList<>();
-            while (trMatcher.find()) {
-                String tdContent = trMatcher.group(1).trim();
-                Pattern tdPattern = Pattern.compile("<td\\s*.*?>(.*?)</td>", Pattern.DOTALL);
-                Matcher tdMatcher = tdPattern.matcher(tdContent);
-                List<String> tdContentArray = new ArrayList<>();
-                while (tdMatcher.find()) {
-                    tdContentArray.add(removeHtmlTags(tdMatcher.group(1).trim()));
-                }
-                tdList.add(tdContentArray);
-            }
-            String[] headers = {"课程序号", "课程名称", "考试类别", "考试日期", "考试安排", "考试地点", "考场座位", "考试情况", "其他说明"};
-            for (List<String> row : tdList) {
-                Map<String, String> rowMap = new HashMap<>();
-                for (int i = 0; i < headers.length; i++) {
-                    rowMap.put(headers[i], row.get(i));
-                }
-                result.add(rowMap);
-            }
-        }
-        return result;
-    }
-
-
-    public String cleanCourseName(String courseName) {
-        String cleanName = courseName.replaceAll("<.*?>", "");  // Remove any HTML tags
-        cleanName = cleanName.replace("\t", "");  // Remove tab characters
-        cleanName = cleanName.replace("\n", "");  // Remove newline characters
-        cleanName = cleanName.replace(" ", "");  // Remove any remaining spaces
-        return cleanName.trim();  // Return the cleaned course name without leading or trailing spaces
-    }
-    public List<Map<String, String>> getTd(String text) {
-        List<Map<String, String>> result = new ArrayList<>();
-        Pattern pattern = Pattern.compile("<tbody(.*?)>(.*?)</tbody>", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            String content = matcher.group(2);
-            Pattern trPattern = Pattern.compile("<tr>(.*?)</tr>", Pattern.DOTALL);
-            Matcher trMatcher = trPattern.matcher(content);
-            while (trMatcher.find()) {
-                String tr = trMatcher.group(1).trim();
-                Pattern tdPattern = Pattern.compile("<td\\s*.*?>(.*?)</td>", Pattern.DOTALL);
-                Matcher tdMatcher = tdPattern.matcher(tr);
-                List<String> contentArray = new ArrayList<>();
-                while (tdMatcher.find()) {
-                    String tdContent = tdMatcher.group(1).trim();
-                    contentArray.add(tdContent);
-                }
-
-                String[] headers = {"学年学期", "课程代码", "课程序号", "课程名称", "课程类别", "学分", "总评成绩", "最终", "绩点"};
-                Map<String, String> rowMap = new HashMap<>();
-                for (int i = 0; i < headers.length && i < contentArray.size(); i++) {
-                    if (headers[i].equals("课程名称")) {
-                        rowMap.put(headers[i], cleanCourseName(contentArray.get(i)));  // Clean the course name
+                        System.out.println("考试安排消息："+jsonobject.toString());
+                        return jsonobject;
                     } else {
-                        rowMap.put(headers[i], contentArray.get(i));
+                        // 处理 business_data 字段不是对象的情况
+                        System.out.println("business_data 字段不是对象");
+                    }
+                } else {
+                    // 处理没有 business_data 字段的情况
+                    System.out.println("business_data 字段不存在");
+                }
+            } else {
+                System.out.println("考试安排获取失败：" + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public JsonObject get_plan_completion() throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/course/plan/completion/my-plan-completion";
+
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                if(json!=null){
+                    // 检查 "business_data" 字段是否存在
+                    if (json.has("business_data")) {
+                        String businessData = json.get("business_data").getAsString();
+
+                        // 检查值是否为对象
+                        if (!businessData.isEmpty()) {
+                            JsonObject jsonObject = null;
+                            // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                            String loginMessage = decodeFromBase64(businessData, "");
+                            JsonParser parser = new JsonParser();
+                            JsonElement element = parser.parse(loginMessage);
+
+                            if (element.isJsonObject()) {
+                                jsonObject = element.getAsJsonObject();
+                            }else{
+                                Log.d("get_plan_completion", "不符合json格式");
+                            }
+                            return jsonObject;
+                        } else {
+                            // 处理 business_data 字段不是对象的情况
+                            System.out.println("business_data 字段不是对象");
+                        }
+                    } else {
+                        // 处理没有 business_data 字段的情况
+                        System.out.println("business_data 字段不存在");
                     }
                 }
-                result.add(rowMap);
+            } else {
+                System.out.println("get_plan_completion失败：" + response.message());
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return result;
+        return null;
+    }
+
+    public JsonObject get_incubation_programs() throws IOException {
+        if (this.token.isEmpty()){
+            login();
+        }
+        String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/student/course/plan/my-plan";
+
+        // Prepare headers
+        Request.Builder requestBuilder = new Request.Builder()
+                .url(url)
+                .addHeader("content-type", "application/x-www-form-urlencoded")
+                .addHeader("token", this.token);
+
+        // Prepare the request body
+        String requestBody = "biz_type_id=1&token=" + this.token;
+        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/x-www-form-urlencoded"));
+
+        // Build the request
+        Request request = requestBuilder.post(body).build();
+        // Execute the request
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                // 将响应数据转换为字符串
+                String responseData = response.body().string();
+
+                // 将字符串转换为 JSON 对象
+                JsonObject json = gson.fromJson(responseData, JsonObject.class);
+
+                if(json!=null){
+                    // 检查 "business_data" 字段是否存在
+                    if (json.has("business_data")) {
+                        String businessData = json.get("business_data").getAsString();
+
+                        // 检查值是否为对象
+                        if (!businessData.isEmpty()) {
+                            JsonObject jsonObject = null;
+                            // 假设响应包含 base64 编码的数据，将其解码为 JSON 对象
+                            String loginMessage = decodeFromBase64(businessData, "");
+                            JsonParser parser = new JsonParser();
+                            JsonElement element = parser.parse(loginMessage);
+
+                            if (element.isJsonObject()) {
+                                jsonObject = element.getAsJsonObject();
+                            }else{
+                                Log.d("get_plan_completion", "不符合json格式");
+                            }
+                            return jsonObject;
+                        } else {
+                            // 处理 business_data 字段不是对象的情况
+                            System.out.println("business_data 字段不是对象");
+                        }
+                    } else {
+                        // 处理没有 business_data 字段的情况
+                        System.out.println("business_data 字段不存在");
+                    }
+                }
+            } else {
+                System.out.println("get_plan_completion失败：" + response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     public String getToken() {
