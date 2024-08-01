@@ -3,9 +3,12 @@ package com.example.newapp.navigation;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -91,8 +94,17 @@ public class HomeFragment extends Fragment {
 
         user=User.getInstance();
 
+        SpannableString qqTextContent = new SpannableString("QQ群:956026820");
+        qqTextContent.setSpan(new UnderlineSpan(), 0, qqTextContent.length(), 0);
+        SpannableString githubTextContent = new SpannableString("GitHub:\nhttps://github.com/WildFox404/AUST-APP");
+        githubTextContent.setSpan(new UnderlineSpan(), 0, githubTextContent.length(), 0);
+
         TextView qqTextView =view.findViewById(R.id.qqlink);
+        qqTextView.setText(qqTextContent);
+        qqTextView.setTextColor(Color.BLUE);
         TextView githubTextView=view.findViewById(R.id.githublink);
+        githubTextView.setText(githubTextContent);
+        githubTextView.setTextColor(Color.BLUE);
         qqTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,7 +268,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected JsonArray doInBackground(Void... voids) {
             try {
-                JsonObject Semester_Date=myDBHelper.getJsonDataBySemesterId(String.valueOf(year+term));
+                JsonObject Semester_Date = myDBHelper.getJsonDataBySemesterId(String.valueOf(year + term));
                 JsonArray weekArray = Semester_Date.get("weekArray").getAsJsonArray();
                 if (week < weekArray.size()) {
                     JsonElement element = weekArray.get(week);
@@ -265,7 +277,7 @@ public class HomeFragment extends Fragment {
                         String startDate = weekObject.get("startDate").getAsString();
                         String endDate = weekObject.get("endDate").getAsString();
                         return user.get_class(String.valueOf(year + term), startDate, endDate);
-                    }else{
+                    } else {
                         // 创建一个空的JsonArray
                         JsonArray emptyArray = new JsonArray();
                         return emptyArray;
@@ -277,18 +289,32 @@ public class HomeFragment extends Fragment {
                     return emptyArray;
                     // 处理索引超出范围的情况，可以选择抛出异常或者返回默认值
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                Log.e("课表获取", "处理结果时出现异常: " + e.getMessage());
             }
+            // 创建一个空的JsonArray
+            JsonArray emptyArray = new JsonArray();
+            return emptyArray;
         }
 
         @Override
         protected void onPostExecute(JsonArray result) {
-            if (result != null) {
-                // Assuming grade_result is a field in your class to store the JSON data
-                class_results = result;
-                Log.d("课表获取", "课表获取成功");
-                UpdateCourseTable();
+            try {
+                if (result != null) {
+                    // Assuming class_results is a field in your class to store the JSON data
+                    class_results = result;
+                    Log.d("课表获取", "课表获取成功");
+                    UpdateCourseTable();
+                } else {
+                    // Handle the case where result is null, if needed
+                    Log.e("课表获取", "返回结果为空");
+                    // Possibly throw an exception or handle accordingly
+                }
+            } catch (Exception e) {
+                // Handle any exception that might occur during the execution of onPostExecute
+                Log.e("课表获取", "处理结果时出现异常: " + e.getMessage());
+                // Optionally, you can re-throw the exception if it should propagate further
+                // throw e;
             }
         }
     }

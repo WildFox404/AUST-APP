@@ -33,7 +33,7 @@ public class CampusCalendarActivity extends AppCompatActivity {
     private MyDBHelper myDBHelper;
     private SharedPreferences sharedPreferences;
     private User user = User.getInstance(); // 获取User类的实例
-    private JsonArray campus_calender_results;
+    private JsonArray campus_calender_results=null;
     private String startDate;
     private String endDate;
     private ImageView image_left;
@@ -407,7 +407,6 @@ public class CampusCalendarActivity extends AppCompatActivity {
                     for (String month : month_list) {
                         Log.d("getDateRange", month);
                     }
-
                 }
             }
             if(!find_Bool){
@@ -426,16 +425,21 @@ public class CampusCalendarActivity extends AppCompatActivity {
             JsonObject Semester_Date = null;
             try {
                 Semester_Date = user.update_semester();
+                if(Semester_Date!=null){
+                    JsonArray semesters=Semester_Date.get("semesters").getAsJsonArray();
+                    current_date_id=Semester_Date.get("cur_semester_id").getAsString();
+                    return semesters;
+                }else {
+                    // 创建一个空的JsonArray
+                    JsonArray emptyArray = new JsonArray();
+                    return emptyArray;
+                }
             } catch (IOException e) {
-
+                Log.e("校历获取", "处理结果时出现异常: " + e.getMessage());
             }
-            if(Semester_Date!=null){
-                JsonArray semesters=Semester_Date.get("semesters").getAsJsonArray();
-                current_date_id=Semester_Date.get("cur_semester_id").getAsString();
-                return semesters;
-            }else {
-                return null;
-            }
+            // 创建一个空的JsonArray
+            JsonArray emptyArray = new JsonArray();
+            return emptyArray;
         }
 
         @Override

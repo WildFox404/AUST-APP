@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class IncubationProgramsChildActivity extends AppCompatActivity {
 
     private User user =User.getInstance();
-    private JsonObject incubation_programs_results;
+    private JsonObject incubation_programs_results=null;
     private LinearLayout incubation_linearlayout;
     private String incubation_data;
 
@@ -59,8 +59,9 @@ public class IncubationProgramsChildActivity extends AppCompatActivity {
 
                 return user.get_incubation_programs();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Log.e("培养计划", "处理结果时出现异常: " + e.getMessage());
             }
+            return null;
         }
 
         @Override
@@ -69,14 +70,14 @@ public class IncubationProgramsChildActivity extends AppCompatActivity {
                 // Assuming grade_result is a field in your class to store the JSON data
                 incubation_programs_results = result;
                 Log.d("考试安排获取", "考试安排获取成功");
-            }
-            if(incubation_data.equals("incubation1")){
-                initUI1();
-            }else if(incubation_data.equals("incubation2")){
-                initUI2();
+                if(incubation_data.equals("incubation1")){
+                    initUI1();
+                }else if(incubation_data.equals("incubation2")){
+                    initUI2();
 
-            }else{
-                //啥也不做
+                }else{
+                    //啥也不做
+                }
             }
         }
     }
@@ -167,7 +168,7 @@ public class IncubationProgramsChildActivity extends AppCompatActivity {
         i=0;
         for(Float credits:credits_list){
             float v = (credits/total_credits)*360;
-            String formattedResult = String.format("%.2f", v/360);
+            String formattedResult = String.format("%.2f", 100*v/360);
             textview1_list.get(i).setText(formattedResult+"%");
             Log.d("IncubationPrograms", String.valueOf(v));
             angle_list.add(v);

@@ -5,7 +5,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import com.example.newapp.db.MyDBHelper;
 import com.example.newapp.R;
 import com.example.newapp.entries.SharedViewModel;
@@ -17,7 +22,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.gson.JsonObject;
+import org.w3c.dom.Text;
+
 import java.io.IOException;
+import java.util.Random;
 
 
 public class GradeViewerActivity extends AppCompatActivity {
@@ -56,7 +64,7 @@ public class GradeViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gradeview);
+        setContentView(R.layout.gradeview1);
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
@@ -64,11 +72,9 @@ public class GradeViewerActivity extends AppCompatActivity {
         user = User.getInstance(); // 获取User类的实例
         ImageView exitButton =findViewById(R.id.exitButton);
 
-
         new GradeAsyncTask().execute();
 
         UpdateGradeTable();
-
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +97,9 @@ public class GradeViewerActivity extends AppCompatActivity {
             try {
                 return user.get_grade();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Log.e("成绩获取", "处理结果时出现异常: " + e.getMessage());
             }
+            return null;
         }
 
         @Override
@@ -109,42 +116,27 @@ public class GradeViewerActivity extends AppCompatActivity {
         }
     }
     private void UpdateGradeTable() {
-        TableLayout gpaViewer = findViewById(R.id.gpa_tableLayout);
-        TableLayout headertable = findViewById(R.id.headerRow);
-        TextView gpaResult =findViewById(R.id.gpaResult);
-        gpaResult.setText("绩点:"+total_gp+" 学分:"+total_credits);
+//        ImageView grade_background =findViewById(R.id.grade_background);
+//        int[] backgroundImages = {R.drawable.background};
+        Random rand = new Random();
+//        // 找到子视图并设置内容
+//        int backgroundRandomIndex = rand.nextInt(backgroundImages.length);
+//        grade_background.setImageResource(backgroundImages[backgroundRandomIndex]);
+
+
+        int[] dragonImages = {R.drawable.dragon1, R.drawable.dragon2, R.drawable.dragon3, R.drawable.dragon4, R.drawable.dragon5,
+                R.drawable.dragon6, R.drawable.dragon7, R.drawable.dragon8, R.drawable.dragon9,
+                R.drawable.dragon10,R.drawable.dragon11,R.drawable.dragon12};
+
+        LinearLayout grade_content_linearlayout = findViewById(R.id.grade_content_linearlayout);
+        grade_content_linearlayout.removeAllViews();
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        TextView gpaResult=findViewById(R.id.gpaResult);
+        gpaResult.setText("绩点:"+total_gp+" \t学分:"+total_credits);
         gpaResult.setTextSize(20);
-        headertable.removeAllViews();
-        int i =0 ;
-        // 动态创建表头
-        TableRow headerRow = new TableRow(this);
-        // 创建表头的每一列
-        // 创建并添加总评成绩列
-        TextView totalScoreHeader = new TextView(this);
-        totalScoreHeader.setText("总评成绩");
-        totalScoreHeader.setTextSize(12); // 设置字号为12号
-        headerRow.addView(totalScoreHeader);
 
-        // 创建并添加课程名称列
-        TextView courseNameHeader = new TextView(this);
-        courseNameHeader.setText("课程名称");
-        courseNameHeader.setTextSize(12); // 设置字号为12号
-        headerRow.addView(courseNameHeader);
-
-        // 创建并添加学分列
-        TextView creditHeader = new TextView(this);
-        creditHeader.setText("学分");
-        creditHeader.setTextSize(12); // 设置字号为12号
-        headerRow.addView(creditHeader);
-
-        // 创建并添加绩点列
-        TextView GPAHeader = new TextView(this);
-        GPAHeader.setText("绩点");
-        GPAHeader.setTextSize(12); // 设置字号为12号
-        headerRow.addView(GPAHeader);
-
-        // 将表头行添加到表格中
-        headertable.addView(headerRow);
         if (semester_lessons != null) {
         for (JsonElement semester_lesson : semester_lessons) {
             JsonObject semesterLessonObject = semester_lesson.getAsJsonObject();
@@ -153,57 +145,106 @@ public class GradeViewerActivity extends AppCompatActivity {
             String semester_gp=semesterLessonObject.get("semester_gp").getAsString();
             JsonArray lessons =semesterLessonObject.getAsJsonArray("lessons");
 
-            TextView headCategory = new TextView(this);
-            headCategory.setText(code+"学分:"+semester_credits+"绩点:"+semester_gp);
-            headCategory.setTextSize(20); // 设置字号为12号
-            headCategory.setTextColor(Color.parseColor("#344CAA"));
-            headCategory.setMinHeight(180);
-            gpaViewer.addView(headCategory);
-            for (JsonElement lesson : lessons) {
-                TableRow row = new TableRow(this);
+            int partLength = 4; // 计算每部分的长度
 
+            // 第一部分
+            String part1 = code.substring(0, partLength);
+            // 第二部分
+            String part2 = code.substring(partLength, 2 * partLength);
+            // 第三部分（余数部分也加入第三部分）
+            String part3 = code.substring(2 * partLength);
+            if(part3.equals("01")){
+                part3="第一学期";
+            }else{
+                part3="第二学期";
+            }
+            View contentView =new View(this);
+            contentView = inflater.inflate(R.layout.gradeviewcontent, null);
+
+            //确保找到视图后再操作，避免空指针异常
+            TextView course_name_content = contentView.findViewById(R.id.course_name);
+            if (course_name_content != null) {
+                course_name_content.setText(part1 + "-" + part2 + " " + part3);
+            }
+
+            TextView credit_content = contentView.findViewById(R.id.credit_content);
+            if (credit_content != null) {
+                credit_content.setText("学分:" + semester_credits);
+            }
+
+            TextView gpa_content = contentView.findViewById(R.id.gpa_content);
+            if (gpa_content != null) {
+                gpa_content.setText("绩点:" + semester_gp);
+            }
+
+            LinearLayout gradeview_content_child = contentView.findViewById(R.id.gradeview_content_child);
+            // 如果gradeview_content_child是一个LinearLayout，确保在使用之前进行类型检查
+
+
+            for (JsonElement lesson : lessons) {
                 JsonObject lessonJson = lesson.getAsJsonObject();
                 String course_name=lessonJson.get("course_name").getAsString();
                 String course_credit=lessonJson.get("course_credit").getAsString();
                 String course_gp=lessonJson.get("course_gp").getAsString();
                 String score_text=lessonJson.get("score_text").getAsString();
 
-                TextView totalScoreColumn = new TextView(this);
-                String totalScore = score_text;
-                totalScoreColumn.setText(totalScore != null ? insertNewlines(totalScore) : "");
-                totalScoreColumn.setTextSize(12); // 设置字号为12号
-                totalScoreColumn.setMinHeight(200);
-                row.addView(totalScoreColumn);
+                View contentChildView =new View(this);
+                contentChildView = inflater.inflate(R.layout.gradeviewcontentchild, null);
 
-                TextView courseNameColumn = new TextView(this);
-                String courseName = course_name;
-                courseNameColumn.setText(courseName != null ? insertNewlines(courseName) : "");
-                courseNameColumn.setTextSize(12); // 设置字号为12号
-                courseNameColumn.setMinHeight(200);
-                row.addView(courseNameColumn);
-
-                TextView creditColumn = new TextView(this);
-                String credit = course_credit;
-                creditColumn.setText(credit != null ? insertNewlines(credit) : "");
-                creditColumn.setTextSize(12); // 设置字号为12号
-                creditColumn.setMinHeight(200);
-                row.addView(creditColumn);
-
-                TextView GPAColumn = new TextView(this);
-                String GPA = course_gp;
-                GPAColumn.setText(GPA != null ? insertNewlines(GPA) : "");
-                GPAColumn.setTextSize(12); // 设置字号为12号
-                GPAColumn.setMinHeight(200);
-                row.addView(GPAColumn);
-
-                // 设置偶数行背景色为#BCBCBC
-                if (i % 2 == 1) {
-                    row.setBackgroundColor(Color.parseColor("#22BFFFFF"));
+                // 找到子视图并设置内容
+                int randomIndex = rand.nextInt(dragonImages.length);
+                ImageView dragon_icon = contentChildView.findViewById(R.id.dragon_icon);
+                if (dragon_icon != null) {
+                    dragon_icon.setImageResource(dragonImages[randomIndex]);
                 }
-                // 将表格行添加到表格中
-                gpaViewer.addView(row);
-                i+=1;
+
+                TextView course_name_child = contentChildView.findViewById(R.id.course_name_child);
+                if (course_name_child != null) {
+                    course_name_child.setText(course_name);
+                }
+
+                TextView score_content_child = contentChildView.findViewById(R.id.score);
+                if (score_content_child != null) {
+                    String fullText = "成绩:"+score_text;
+                    if(Float.parseFloat(score_text)>=60){
+                        SpannableString spannableString = new SpannableString(fullText);
+
+                        // 设置从第五个字符到最后一个字符的文本颜色
+                        ForegroundColorSpan colorSpan = new ForegroundColorSpan(getResources().getColor(R.color.green1)); // 替换成你想要的颜色
+                        spannableString.setSpan(colorSpan, 3, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        score_content_child.setText(spannableString);
+                    }else{
+                        SpannableString spannableString = new SpannableString(fullText);
+
+                        // 设置从第五个字符到最后一个字符的文本颜色
+                        ForegroundColorSpan colorSpan = new ForegroundColorSpan(getResources().getColor(R.color.fire_red)); // 替换成你想要的颜色
+                        spannableString.setSpan(colorSpan, 3, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        score_content_child.setText(spannableString);
+                    }
+                }
+
+                TextView credit_content_child = contentChildView.findViewById(R.id.credit);
+                if (credit_content_child != null) {
+                    credit_content_child.setText("学分:" + course_credit);
+                }
+
+                TextView gpa_content_child = contentChildView.findViewById(R.id.gpa);
+                if (gpa_content_child != null) {
+                    gpa_content_child.setText("绩点:" + course_gp);
+                }
+
+                if (gradeview_content_child instanceof LinearLayout) {
+                    gradeview_content_child.addView(contentChildView);
+                }
             }
+            
+            grade_content_linearlayout.addView(contentView);
+            LinearLayout empty_linearlayout =new LinearLayout(this);
+            LinearLayout.LayoutParams linearlayout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 20); // 这里的数字是宽和高，单位是像素
+            empty_linearlayout.setLayoutParams(linearlayout_params);
+            grade_content_linearlayout.addView(empty_linearlayout);
         }}
     }
 }

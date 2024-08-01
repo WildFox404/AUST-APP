@@ -36,7 +36,7 @@
         <activity android:name=".navigation.BottomNavigationViewActivity"/>
         <activity android:name=".navigation.ServiceFragment" />
         <activity android:name=".navigation.HomeFragment" />
-        <activity android:name=".SettingFragment" />
+        <activity android:name=".softwareplan.SoftwarePlanActivity" />
         <activity android:name=".navigation.UserFragment" />
         <activity android:name=".grade.GradeViewerActivity" />
         <activity android:name=".test.TestViewerActivity" />

@@ -134,13 +134,18 @@ public class StudyDetailsAdapter extends BaseExpandableListAdapter {
             childHolder.main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent =new Intent(context, StudyDetailsCoursesActivity.class);
-                    // 将JsonArray转换为字符串
-                    String jsonArrayString = item_list.get(groupPosition).get(childPosition).getPlan_course_audit_results();
-                    intent.putExtra("jsonArray", jsonArrayString);
-                    Log.d("getChildView", jsonArrayString);
-                    intent.putExtra("group_course_type_name", item_list.get(groupPosition).get(childPosition).getGroup_course_type_name());
-                    context.startActivity(intent);
+                    try {
+                        Intent intent = new Intent(context, StudyDetailsCoursesActivity.class);
+                        // 将JsonArray转换为字符串
+                        String jsonArrayString = item_list.get(groupPosition).get(childPosition).getPlan_course_audit_results();
+                        intent.putExtra("jsonArray", jsonArrayString);
+                        Log.d("getChildView", jsonArrayString);
+                        intent.putExtra("group_course_type_name", item_list.get(groupPosition).get(childPosition).getGroup_course_type_name());
+                        context.startActivity(intent);
+                    } catch (Exception e) {
+                        Log.e("StudyDetailsAdapter", "Error starting StudyDetailsCoursesActivity: " + e.getMessage());
+                        // 可以选择在这里显示Toast或者采取其他适当的错误处理措施
+                    }
                 }
             });
             convertView.setTag(childHolder);

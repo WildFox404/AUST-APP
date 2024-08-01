@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+    <ImageView
+            android:id="@+id/grade_background"
+            android:src="@drawable/background1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:alpha="1" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent">
+    </ImageView>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/linearLayout8">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/linearLayout7">
+            <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+
+                        android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:text="成绩"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#244CAA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+
+                        android:id="@+id/textView22"/>
+                <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/exitButton"
+                        app:srcCompat="@drawable/exit_button"
+                        android:layout_marginEnd="25dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="5dp" android:id="@+id/linearLayout4">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/imageView40"
+                        app:srcCompat="@drawable/selectbutton3" app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" android:id="@+id/imageView47"
+                        app:srcCompat="@drawable/gpa"
+                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp" android:layout_marginBottom="10dp"/>
+                <TextView
+                        android:text="当前GPA:"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/gpaResult"
+                        app:layout_constraintStart_toEndOf="@+id/imageView47"
+                        app:layout_constraintTop_toTopOf="@+id/imageView47"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView47" android:layout_marginStart="13dp"
+                        android:textStyle="bold" android:typeface="normal" android:textSize="20sp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="match_parent" app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        >
+            <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+                <LinearLayout
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/grade_content_linearlayout"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

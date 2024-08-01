@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_marginBottom="15sp"
+              android:layout_height="match_parent"
+              android:background="@drawable/selectbutton5"
+              android:id="@+id/main_layout"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/selectbutton4"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/course_name"
+                    android:text="2022-2023 第二学期"
+                    android:textSize="18sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textStyle="bold">
+
+            </TextView>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/credit_icon"
+                        android:layout_width="22sp"
+                        android:layout_height="22sp">
+
+                </ImageView>
+                <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/credit_content"
+                        android:text="学分:30.5"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:textStyle="bold">
+
+                </TextView>
+                <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/gpa_icon"
+                        android:layout_width="22sp"
+                        android:layout_height="22sp">
+
+                </ImageView>
+                <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/gpa_content"
+                        android:text="绩点:3.18"
+                        android:textSize="18sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:textStyle="bold">
+
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:id="@+id/gradeview_content_child"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    </LinearLayout>
+</LinearLayout>

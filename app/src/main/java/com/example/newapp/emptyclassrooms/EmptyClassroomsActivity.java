@@ -29,7 +29,7 @@ import java.util.*;
 
 public class EmptyClassroomsActivity extends AppCompatActivity {
     private User user =User.getInstance();
-    private JsonArray classrooms_results;
+    private JsonArray classrooms_results=null;
     private String building_id;
     private String date_param;
     private LinearLayout classroom_linearLayout;
@@ -69,8 +69,11 @@ public class EmptyClassroomsActivity extends AppCompatActivity {
             try {
                 return user.get_empty_classrooms_byId(building_id,date_param);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Log.e("空教室获取", "处理结果时出现异常: " + e.getMessage());
             }
+            // 创建一个空的JsonArray
+            JsonArray emptyArray = new JsonArray();
+            return emptyArray;
         }
 
         @Override

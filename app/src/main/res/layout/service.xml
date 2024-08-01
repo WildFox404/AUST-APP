@@ -30,7 +30,7 @@
         <TextView
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="课表相关"
+                android:text="--------------"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="90dp"
@@ -61,9 +61,9 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
                     <ImageView
-                            android:layout_width="43dp"
-                            android:layout_height="50dp"
-                            app:srcCompat="@drawable/q3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service1"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/campus_calender"
                             app:layout_constraintStart_toStartOf="@+id/campus_calender"
@@ -99,10 +99,9 @@
                             android:id="@+id/getEmptyRooms" app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/q2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service2"
                             app:layout_constraintTop_toTopOf="@+id/getEmptyRooms"
                             app:layout_constraintEnd_toEndOf="@+id/getEmptyRooms"
                             app:layout_constraintStart_toStartOf="@+id/getEmptyRooms"
@@ -139,9 +138,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             android:id="@+id/planComplete"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/q6" app:layout_constraintEnd_toEndOf="@+id/planComplete"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service3"
+                            app:layout_constraintEnd_toEndOf="@+id/planComplete"
                             app:layout_constraintBottom_toBottomOf="@+id/planComplete"
                             app:layout_constraintStart_toStartOf="@+id/planComplete"
                             app:layout_constraintTop_toTopOf="@+id/planComplete"/>
@@ -175,10 +175,9 @@
                             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            android:id="@+id/white2"
-                            app:srcCompat="@drawable/q7"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service4"
                             app:layout_constraintEnd_toEndOf="@+id/incubationPrograms"
                             app:layout_constraintStart_toStartOf="@+id/incubationPrograms"
                             app:layout_constraintBottom_toBottomOf="@+id/incubationPrograms"
@@ -198,7 +197,7 @@
         <TextView
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="考试成绩"
+                android:text="--------------"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9" app:layout_constraintTop_toTopOf="parent"
@@ -222,31 +221,32 @@
                         android:layout_height="match_parent" android:layout_weight="1">
 
                     <TextView
-                            android:text=""
+                            android:text="胖乖无广"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/jishibenview"
                             android:layout_weight="1"
                             android:typeface="normal" android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="@+id/getGrade"
-                            app:layout_constraintStart_toStartOf="@+id/getGrade"
-                            app:layout_constraintTop_toBottomOf="@+id/getGrade"/>
+                            app:layout_constraintEnd_toEndOf="@+id/pangguai"
+                            app:layout_constraintStart_toStartOf="@+id/pangguai"
+                            app:layout_constraintTop_toBottomOf="@+id/pangguai"/>
                     <ImageView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/getGrade"
+                            android:id="@+id/pangguai"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
+                            app:srcCompat="@drawable/b7"
                             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp" android:id="@+id/jishibentext"
-                            app:layout_constraintTop_toTopOf="@+id/getGrade"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintStart_toStartOf="@+id/getGrade"
-                            app:layout_constraintBottom_toBottomOf="@+id/getGrade"
-                            app:layout_constraintEnd_toEndOf="@+id/getGrade"/>
+                            android:id="@+id/jishibentext"
+                            app:layout_constraintTop_toTopOf="@+id/pangguai"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service5"
+                            app:layout_constraintStart_toStartOf="@+id/pangguai"
+                            app:layout_constraintBottom_toBottomOf="@+id/pangguai"
+                            app:layout_constraintEnd_toEndOf="@+id/pangguai"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
             <LinearLayout
@@ -273,10 +273,12 @@
                             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp" android:id="@+id/gradeview"
+                            android:id="@+id/gradeview"
                             app:layout_constraintTop_toTopOf="@+id/course"
-                            app:srcCompat="@drawable/q0" app:layout_constraintEnd_toEndOf="@+id/course"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service8"
+                            app:layout_constraintEnd_toEndOf="@+id/course"
                             app:layout_constraintStart_toStartOf="@+id/course"
                             app:layout_constraintBottom_toBottomOf="@+id/course"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -327,9 +329,10 @@
                             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/testview"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/q1" app:layout_constraintBottom_toBottomOf="@+id/testview"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/service10"
+                            app:layout_constraintBottom_toBottomOf="@+id/testview"
                             app:layout_constraintEnd_toEndOf="@+id/testview"
                             app:layout_constraintStart_toStartOf="@+id/testview"
                             app:layout_constraintTop_toTopOf="@+id/testview"/>
@@ -348,6 +351,7 @@
         <TextView
                 android:textStyle="bold"
                 android:textSize="15sp"
+                android:text="--------------"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -378,10 +382,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text=""
                             android:typeface="normal"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView21"
+                            app:layout_constraintTop_toBottomOf="@+id/softwareplanning"
                             app:layout_constraintStart_toStartOf="parent"/>
                     <ImageView
 
@@ -390,14 +395,14 @@
                             android:layout_weight="1"
                             app:srcCompat="@drawable/white"
                             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/imageView21"/>
+                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/softwareplanning"/>
                     <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView21"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView21"
-                            app:layout_constraintStart_toStartOf="@+id/imageView21"
-                            app:layout_constraintTop_toTopOf="@+id/imageView21"/>
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/softwareplanning"
+                            app:layout_constraintBottom_toBottomOf="@+id/softwareplanning"
+                            app:layout_constraintStart_toStartOf="@+id/softwareplanning"
+                            app:layout_constraintTop_toTopOf="@+id/softwareplanning"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
             <LinearLayout

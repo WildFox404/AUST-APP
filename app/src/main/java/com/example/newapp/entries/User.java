@@ -19,6 +19,8 @@ public class User {
     private String token;
     private String username;
     private String password;
+    private String user_name;
+    private String depart_name;
     private static User instance;
     private OkHttpClient client;
     private String[] years;
@@ -162,24 +164,6 @@ public class User {
         this.password = password;
     }
 
-    public String SHA1(String data) {
-        String encryptedData = null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");
-            byte[] hash = digest.digest(data.getBytes(StandardCharsets.UTF_8));
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            encryptedData = hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-//        Log.d("UserCreation", "SHA1加密完成");
-        return encryptedData;
-    }
 
     public void login() throws IOException {
         String url = "https://jwglyd.aust.edu.cn/app-ws/ws/app-service/login";
@@ -235,24 +219,40 @@ public class User {
     }
 
     private void saveUserMessage(JsonObject loginMessage) {
-        if (username.length() >= 4) {
-            String firstFourChars = username.substring(0, 4);
-            if (firstFourChars.matches("\\d+")) {
-                coverage_year=Integer.parseInt(firstFourChars);
-                int year = Integer.parseInt(firstFourChars);
-                years = new String[]{year + "-" + (year + 1), (year + 1) + "-" + (year + 2), (year + 2) + "-" + (year + 3), (year + 3) + "-" + (year + 4)};
-                Log.d("入学年份", "入学年份:" + firstFourChars);
-            }
-        }
         if (loginMessage != null) {
             // 检查 token 是否存在
             if (loginMessage.has("token") && !loginMessage.get("token").isJsonNull()) {
                 String token = loginMessage.get("token").getAsString();
+                JsonObject user_info = loginMessage.get("user_info").getAsJsonObject();
+
+                if (user_info.has("user_name") && !user_info.get("user_name").isJsonNull()) {
+                    this.user_name = user_info.get("user_name").getAsString();
+                }else{
+                    this.user_name ="";
+                }
+                if (user_info.has("depart_name") && !user_info.get("depart_name").isJsonNull()) {
+                    this.depart_name = user_info.get("depart_name").getAsString();
+                }else{
+                    this.depart_name ="";
+                }
                 // 处理 token
                 Log.d("saveToken", "token获取成功: " + token);
                 this.token = token; // 保存 token
             } else {
                 Log.e("saveToken", "token 不存在或为 null");
+            }
+        }
+        if (username.length() >= 4) {
+            String firstFourChars = username.substring(0, 4);
+            if (firstFourChars.matches("\\d+")) {
+                coverage_year=Integer.parseInt(firstFourChars);
+                int year = Integer.parseInt(firstFourChars);
+                if(depart_name.contains("医")){
+                    years = new String[]{year + "-" + (year + 1), (year + 1) + "-" + (year + 2), (year + 2) + "-" + (year + 3), (year + 3) + "-" + (year + 4),(year + 4) + "-" + (year + 5)};
+                }else{
+                    years = new String[]{year + "-" + (year + 1), (year + 1) + "-" + (year + 2), (year + 2) + "-" + (year + 3), (year + 3) + "-" + (year + 4)};
+                }
+                Log.d("入学年份", "入学年份:" + firstFourChars);
             }
         }
     }
@@ -785,5 +785,21 @@ public class User {
 
     public void setYears(String[] years) {
         this.years = years;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getDepart_name() {
+        return depart_name;
+    }
+
+    public void setDepart_name(String depart_name) {
+        this.depart_name = depart_name;
     }
 }

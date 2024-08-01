@@ -1,5 +1,6 @@
 package com.example.newapp.emptyclassrooms;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.newapp.R;
 import com.example.newapp.entries.User;
 import com.example.newapp.utils.DeviceDataUtils;
+import com.example.newapp.utils.NetworkUtils;
+import com.example.newapp.utils.ToastUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,8 +26,9 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 
 public class EmptyBuildingsActivity extends AppCompatActivity {
+    private Context context =this;
     private User user = User.getInstance();
-    private JsonArray building_results;
+    private JsonArray building_results=null;
     private DeviceDataUtils deviceDataUtils = DeviceDataUtils.getInstance();
 
     @Override
@@ -49,8 +53,11 @@ public class EmptyBuildingsActivity extends AppCompatActivity {
             try {
                 return user.get_empty_classrooms();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Log.e("空楼层获取", "处理结果时出现异常: " + e.getMessage());
             }
+            // 创建一个空的JsonArray
+            JsonArray emptyArray = new JsonArray();
+            return emptyArray;
         }
 
         @Override
@@ -58,7 +65,7 @@ public class EmptyBuildingsActivity extends AppCompatActivity {
             if (result != null) {
                 // Assuming grade_result is a field in your class to store the JSON data
                 building_results = result;
-                Log.d("考试安排获取", "考试安排获取成功");
+                Log.d("空楼层获取", "空楼层获取成功");
                 UpdateBuildingTable();
             }
         }
@@ -131,13 +138,17 @@ public class EmptyBuildingsActivity extends AppCompatActivity {
                 elementslinearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(EmptyBuildingsActivity.this, EmptyClassroomsActivity.class);
 
-                        // 将 int 类型的数据添加到 Intent 中
-                        intent.putExtra("building_id", building_id);
-
-                        // 启动 EmptyClassroomsActivity，并传递Intent
-                        startActivity(intent);
+                        if(NetworkUtils.isNetworkConnected(context)){
+                            //网络已链接
+                            Intent intent = new Intent(EmptyBuildingsActivity.this, EmptyClassroomsActivity.class);
+                            // 将 int 类型的数据添加到 Intent 中
+                            intent.putExtra("building_id", building_id);
+                            // 启动 EmptyClassroomsActivity，并传递Intent
+                            startActivity(intent);
+                        }else{
+                            ToastUtils.showToastShort(context,"网络去开小差去了:)");
+                        }
                     }
                 });
                 TextView BuildingColumn = new TextView(this);

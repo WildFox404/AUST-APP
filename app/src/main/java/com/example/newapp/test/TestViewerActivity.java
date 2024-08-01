@@ -2,28 +2,26 @@ package com.example.newapp.test;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.newapp.db.MyDBHelper;
 import com.example.newapp.R;
 import com.example.newapp.entries.User;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 public class TestViewerActivity extends AppCompatActivity {
-    private List<Map<String, String>> grade_result;
     private User user = User.getInstance(); // 获取User类的实例
-    private MyDBHelper myDBHelper;
     JsonArray test_results;
     private SharedPreferences sharedPreferences;
     private int year;
@@ -36,7 +34,6 @@ public class TestViewerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testview);
         ImageView exitButton =findViewById(R.id.exitButton);
-        myDBHelper = new MyDBHelper(this); // 实例化 MyDBHelper 对象
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         // 从 SharedPreferences 中加载上次存储的数据
         String savedYear = sharedPreferences.getString(KEY_YEAR, "0");
@@ -45,8 +42,7 @@ public class TestViewerActivity extends AppCompatActivity {
         Log.d("考试安排savedTerm", "考试安排savedTerm: "+savedTerm);
         Spinner yearSpinner = findViewById(R.id.testYearSpinner);
         Spinner termSpinner = findViewById(R.id.testTermSpinner);
-        //初始化UI界面
-        initUI();
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,46 +123,8 @@ public class TestViewerActivity extends AppCompatActivity {
 
         new TestAsyncTask().execute();
     }
-    private void initUI() {
-        TableLayout headertable = findViewById(R.id.headerRow);
-        int i =0 ;
-        // 动态创建表头
-        TableRow headerRow = new TableRow(this);
-        // 创建表头的每一列
-        // 创建并添加课程类别列
-        TextView courseCategoryHeader = new TextView(this);
-        courseCategoryHeader.setText("课程名称");
-        headerRow.addView(courseCategoryHeader);
 
-        // 创建并添加最终成绩列
-        TextView finalGradeHeader = new TextView(this);
-        finalGradeHeader.setText("考试日期");
-        headerRow.addView(finalGradeHeader);
 
-        // 创建并添加总评成绩列
-        TextView totalScoreHeader = new TextView(this);
-        totalScoreHeader.setText("考试类型");
-        headerRow.addView(totalScoreHeader);
-
-        // 创建并添加课程名称列
-        TextView courseNameHeader = new TextView(this);
-        courseNameHeader.setText("考试地点");
-        headerRow.addView(courseNameHeader);
-
-        // 创建并添加绩点列
-        TextView GPAHeader = new TextView(this);
-        GPAHeader.setText("情况");
-        headerRow.addView(GPAHeader);
-
-        // 创建并添加学分列
-        TextView creditHeader = new TextView(this);
-        creditHeader.setText("时间");
-        headerRow.addView(creditHeader);
-
-        // 将表头行添加到表格中
-        headertable.addView(headerRow);
-
-    }
     private void saveSelection(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -179,9 +137,12 @@ public class TestViewerActivity extends AppCompatActivity {
             try {
 
                 return user.get_test(String.valueOf(year+term));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                Log.e("考试获取", "处理结果时出现异常: " + e.getMessage());
+                // 创建一个空的JsonArray
             }
+            JsonArray emptyArray = new JsonArray();
+            return emptyArray;
         }
 
         @Override
@@ -196,9 +157,11 @@ public class TestViewerActivity extends AppCompatActivity {
     }
 
     private void UpdateTestTable() {
-        TableLayout testViewer = findViewById(R.id.test_tableLayout);
-        testViewer.removeAllViews();
-        int i=0;
+        LinearLayout test_content_linearlayout=findViewById(R.id.test_content_linearlayout);
+        test_content_linearlayout.removeAllViews();
+        // 在Activity中获取LayoutInflater实例
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 
         for (JsonElement test_result : test_results) {
             JsonObject test_object = test_result.getAsJsonObject();
@@ -209,54 +172,45 @@ public class TestViewerActivity extends AppCompatActivity {
             String place_name=test_object.get("place_name").getAsString();
             String time_start=test_object.get("time_start").getAsString();
             String time_end=test_object.get("time_end").getAsString();
+            View view =new View(this);
+            view = inflater.inflate(R.layout.testviewcontent, null);
+            TextView date_textview =view.findViewById(R.id.date);
+            date_textview.setText(date);
+            TextView time_textview =view.findViewById(R.id.time);
+            time_textview.setText(time_start+"-"+time_end);
+            TextView location_textview =view.findViewById(R.id.location);
+            location_textview.setText(place_name);
+            TextView test_status_textview =view.findViewById(R.id.test_status);
+            test_status_textview.setText("考试状态:"+(finished.equals("true") ? "已完成" : "未完成"));
+            if(finished.equals("true")){
+                String fullText = "考试状态:已完成";
+                SpannableString spannableString = new SpannableString(fullText);
 
-            TableRow row = new TableRow(this);
+                // 设置从第五个字符到最后一个字符的文本颜色
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(getResources().getColor(R.color.green)); // 替换成你想要的颜色
+                spannableString.setSpan(colorSpan, 5, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            // 创建并填充每一列
-            TextView courseCategoryColumn = new TextView(this);
-            String courseCategory = course_name;
-            courseCategoryColumn.setText(courseCategory != null ? insertNewlines(courseCategory) : "");
-            courseCategoryColumn.setTextSize(11); // 设置字号为12号
-            courseCategoryColumn.setMinHeight(200);
-            row.addView(courseCategoryColumn);
+                test_status_textview.setText(spannableString);
+            }else{
+                String fullText = "考试状态:未完成";
+                SpannableString spannableString = new SpannableString(fullText);
 
-            TextView finalGradeColumn = new TextView(this);
-            String finalGrade = date;
-            finalGradeColumn.setText(finalGrade != null ? insertNewlines(finalGrade) : "");
-            finalGradeColumn.setTextSize(11); // 设置字号为12号
-            finalGradeColumn.setMinHeight(200);
-            row.addView(finalGradeColumn);
+                // 设置从第五个字符到最后一个字符的文本颜色
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(getResources().getColor(R.color.fire_red)); // 替换成你想要的颜色
+                spannableString.setSpan(colorSpan, 5, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            TextView totalScoreColumn = new TextView(this);
-            String totalScore = exam_type_name;
-            totalScoreColumn.setText(totalScore != null ? insertNewlines(totalScore) : "");
-            totalScoreColumn.setTextSize(11); // 设置字号为12号
-            totalScoreColumn.setMinHeight(200);
-            row.addView(totalScoreColumn);
+                test_status_textview.setText(spannableString);
+            }
+            TextView test_type_textview =view.findViewById(R.id.test_type);
+            test_type_textview.setText("考试类型:"+exam_type_name);
+            TextView course_name_textview =view.findViewById(R.id.course_name);
+            course_name_textview.setText(course_name);
 
-            TextView courseNameColumn = new TextView(this);
-            String courseName = place_name;
-            courseNameColumn.setText(courseName != null ? insertNewlines(courseName) : "");
-            courseNameColumn.setTextSize(11); // 设置字号为12号
-            courseNameColumn.setMinHeight(200);
-            row.addView(courseNameColumn);
-
-            TextView GPAColumn = new TextView(this);
-            String GPA = (finished.equals("true") ? "已完成" : "未完成");
-            GPAColumn.setText(GPA != null ? insertNewlines(GPA) : "");
-            GPAColumn.setTextSize(11); // 设置字号为12号
-            GPAColumn.setMinHeight(200);
-            row.addView(GPAColumn);
-
-            TextView creditColumn = new TextView(this);
-            String credit = time_start+time_end;
-            creditColumn.setText(credit != null ? insertNewlines(credit) : "");
-            creditColumn.setTextSize(11); // 设置字号为12号
-            creditColumn.setMinHeight(200);
-            row.addView(creditColumn);
-
-            // 将表格行添加到表格中
-            testViewer.addView(row);
+            test_content_linearlayout.addView(view);
+            LinearLayout empty_linearlayout =new LinearLayout(this);
+            LinearLayout.LayoutParams linearlayout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 20); // 这里的数字是宽和高，单位是像素
+            empty_linearlayout.setLayoutParams(linearlayout_params);
+            test_content_linearlayout.addView(empty_linearlayout);
         }
     }
 

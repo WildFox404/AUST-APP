@@ -1,5 +1,6 @@
 package com.example.newapp.studydetails;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
@@ -14,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.newapp.emptyclassrooms.EmptyBuildingsActivity;
+import com.example.newapp.emptyclassrooms.EmptyClassroomsActivity;
+import com.example.newapp.utils.NetworkUtils;
+import com.example.newapp.utils.ToastUtils;
 import com.example.newapp.view.CircleView;
 import com.example.newapp.R;
 import com.example.newapp.entries.User;
@@ -27,10 +32,10 @@ import java.util.Map;
 
 public class PlanCompletionActivity extends AppCompatActivity {
     private DeviceDataUtils deviceDataUtils;
-    private JsonObject plan_completion_results;
+    private JsonObject plan_completion_results=null;
     private User user =User.getInstance();
     private LinearLayout plan_complete_linearLayout;
-
+    private Context context =this;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +59,9 @@ public class PlanCompletionActivity extends AppCompatActivity {
             try {
                 return user.get_plan_completion();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Log.e("计划完成", "处理结果时出现异常: " + e.getMessage());
             }
+            return null;
         }
 
         @Override
@@ -66,6 +72,7 @@ public class PlanCompletionActivity extends AppCompatActivity {
                 Log.d("PlanCompletionAsyncTask", "PlanCompletionAsyncTask获取成功");
                 initUI();
             }else {
+                plan_completion_results =null;
                 Log.d("PlanCompletionAsyncTask", "PlanCompletionAsyncTask获取失败");
             }
         }
@@ -156,10 +163,15 @@ public class PlanCompletionActivity extends AppCompatActivity {
                         // 将JsonArray转换为String
                         String jsonString = plan_course_group_audit_results.toString();
                         //跳转修读详情
-                        // 创建 Intent 对象,指定从当前 Activity 跳转到 GradeViewActivity
-                        Intent intent = new Intent(PlanCompletionActivity.this, StudyDetailsActivity.class);
-                        intent.putExtra("json_data", jsonString);
-                        startActivity(intent);
+                        if(NetworkUtils.isNetworkConnected(context)){
+                            //网络已链接
+                            // 创建 Intent 对象,指定从当前 Activity 跳转到 GradeViewActivity
+                            Intent intent = new Intent(PlanCompletionActivity.this, StudyDetailsActivity.class);
+                            intent.putExtra("json_data", jsonString);
+                            startActivity(intent);
+                        }else{
+                            ToastUtils.showToastShort(context,"网络去开小差去了:)");
+                        }
                     }
                 });
 
