@@ -81,20 +81,51 @@
                     app:layout_constraintBottom_toBottomOf="@+id/imageView14"
                     android:inputType="textPassword" app:layout_constraintTop_toTopOf="@+id/imageView14"/>
 
-            <TextView
+            <LinearLayout
+
                     android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="我已阅读 用户手册 和 隐私政策"
-                    android:textColor="#0C0D0F"
-                    android:textSize="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView14" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我已阅读 "
+                        android:textColor="#0C0D0F"
+                        android:textSize="15sp">
 
-
-            </TextView>
+                </TextView>
+                <TextView
+                        android:id="@+id/user_manual"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="用户手册"
+                        android:textColor="@color/bule_white2"
+                        android:textSize="15dp">
+                </TextView>
+                <TextView
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 和 "
+                        android:textColor="#0C0D0F"
+                        android:textSize="15dp">
+                </TextView>
+                <TextView
+                        android:id="@+id/privacy_manual"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="隐私手册"
+                        android:textColor="@color/bule_white2"
+                        android:textSize="15dp">
+                </TextView>
+            </LinearLayout>
             <ImageView
                     android:id="@+id/agreementFalse"
                     android:visibility="visible"

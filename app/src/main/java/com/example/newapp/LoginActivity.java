@@ -1,8 +1,10 @@
 package com.example.newapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.newapp.entries.User;
 import com.example.newapp.navigation.BottomNavigationViewActivity;
@@ -27,6 +30,59 @@ public class LoginActivity extends AppCompatActivity {
         // 初始化 SharedPreferences
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         EditText eduUserName =findViewById(R.id.editTextAccount);
+        TextView privacy_manual =findViewById(R.id.privacy_manual);
+        TextView user_manual =findViewById(R.id.user_manual);
+
+        privacy_manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("隐私手册"); // 设置对话框标题
+                builder.setMessage("本项目在GitHub上开源\n" +
+                        "代码公开,保证用户隐私安全\n" +
+                        "认准作者渠道,防止安装他人修改版本"); // 设置对话框内容
+                // 设置取消按钮及其点击事件（可选）
+                builder.setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 用户点击取消按钮后的处理逻辑，可以留空如果不需要额外处理
+                        dialog.dismiss(); // 关闭对话框
+                    }
+                });
+
+                // 创建自定义的背景Drawable
+                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton3);
+                // 创建并显示对话框
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(drawable);
+                dialog.show();
+            }
+        });
+        user_manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("用户手册"); // 设置对话框标题
+                builder.setMessage("处于初级阶段\n" +
+                        "许多功能需要完善/可能有bug\n" +
+                        "欢迎反馈,QQ群:956026820"); // 设置对话框内容
+                // 设置取消按钮及其点击事件（可选）
+                builder.setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 用户点击取消按钮后的处理逻辑，可以留空如果不需要额外处理
+                        dialog.dismiss(); // 关闭对话框
+                    }
+                });
+
+                // 创建自定义的背景Drawable
+                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton3);
+                // 创建并显示对话框
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(drawable);
+                dialog.show();
+            }
+        });
         eduUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -56,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         ImageView loginView = findViewById(R.id.loginButton);
 
         int[] buildingImages = {R.drawable.chinabuilding1, R.drawable.chinabuilding2, R.drawable.chinabuilding3,
-                R.drawable.chinabuilding4, R.drawable.chinabuilding5, R.drawable.chinabuilding8, 
+                R.drawable.chinabuilding4, R.drawable.chinabuilding5, R.drawable.chinabuilding8,
                 R.drawable.chinabuilding9, R.drawable.chinabuilding10, R.drawable.chinabuilding11,
                 R.drawable.chinabuilding12};
         Random rand = new Random();
