@@ -1,377 +1,536 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-            android:layout_width="586dp"
-            android:layout_height="819dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/top"
-            android:layout_marginTop="-580dp"
-            android:id="@+id/imageView55"/>
-    <TextView
-            android:text="课程表"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#244CAA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp" android:id="@+id/textView22"/>
-    <TextView
-            android:text="QQ群:956026820"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/qqlink"
-            app:layout_constraintBottom_toTopOf="@+id/githublink"
-            app:layout_constraintEnd_toEndOf="@+id/githublink"
-            app:layout_constraintStart_toStartOf="@+id/githublink" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="7dp"/>
-    <TextView
-            android:text="GitHub:\nhttps://github.com/WildFox404/AUST-APP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/githublink"
-            app:layout_constraintStart_toEndOf="@+id/textView22" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            android:textAlignment="center" android:textSize="12sp"
-    />
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
     <LinearLayout
-            android:orientation="horizontal"
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/textView22"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="5dp"
-            android:layout_margin="5dp"
-            android:layout_marginEnd="5dp" android:id="@+id/linearLayout4">
-        <LinearLayout
-                android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="match_parent">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white1"
+                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/linearLayout7">
+            <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="课程表"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#244CAA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+
+                        android:id="@+id/textView22"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:layout_gravity="center"
+                            android:text="QQ群:956026820"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/qqlink"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toTopOf="@+id/githublink"
+                            app:layout_constraintEnd_toEndOf="@+id/githublink"
+                            app:layout_constraintStart_toStartOf="@+id/githublink"
+                            app:layout_constraintTop_toTopOf="parent"/>
+                    <TextView
+                            android:layout_gravity="center"
+                            android:text="GitHub:\nhttps://github.com/WildFox404/AUST-APP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/githublink"
+                            app:layout_constraintStart_toEndOf="@+id/textView22" app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+                            android:textAlignment="center"
+                            android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="5dp" android:id="@+id/linearLayout4">
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" android:layout_weight="1">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/imageView40"
-                        app:srcCompat="@drawable/selectbutton" app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
-                <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" android:id="@+id/imageView47"
-                        app:srcCompat="@drawable/iconcourse4" app:layout_constraintTop_toTopOf="@+id/imageView40"
-                        app:layout_constraintStart_toStartOf="@+id/imageView40" android:layout_marginTop="8dp"
-                        android:layout_marginStart="8dp"/>
-                <TextView
-                        android:text="学年"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView23"
-                        app:layout_constraintStart_toEndOf="@+id/imageView47"
-                        app:layout_constraintTop_toTopOf="@+id/imageView47"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView47" android:layout_marginStart="13dp"
-                        android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
-                <Spinner
-                        android:layout_width="130dp"
-                        android:layout_height="48dp" android:id="@+id/classYearSpinner"
-                        app:layout_constraintStart_toStartOf="@+id/imageView40"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView40"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView47"
-                        android:layout_marginStart="26dp" android:layout_marginEnd="13dp"
-                        android:layout_marginTop="-10dp"
-                        android:entries="@array/yearOptions"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/imageView41"
-                        app:srcCompat="@drawable/selectbutton" app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
-                <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" android:id="@+id/imageView48"
-                        app:layout_constraintTop_toTopOf="@+id/imageView41"
-                        app:layout_constraintStart_toStartOf="@+id/imageView41" android:layout_marginTop="8dp"
-                        android:layout_marginStart="8dp" app:srcCompat="@drawable/iconcourse3"/>
-                <TextView
-                        android:text="学期"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView24"
-                        app:layout_constraintStart_toEndOf="@+id/imageView48"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView48"
-                        app:layout_constraintTop_toTopOf="@+id/imageView48" android:layout_marginStart="13dp"
-                        android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
-                <Spinner
-                        android:layout_width="130dp"
-                        android:layout_height="48dp" android:id="@+id/classTermSpinner"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView48"
-                        app:layout_constraintStart_toStartOf="@+id/imageView41"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView41" android:layout_marginStart="26dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginTop="-10dp"
-                        android:entries="@array/termOptions"/>/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/imageView46"
-                        app:srcCompat="@drawable/selectbutton" app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
-                <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" android:id="@+id/imageView49"
-                        app:srcCompat="@drawable/iconcourse1" app:layout_constraintTop_toTopOf="@+id/imageView46"
-                        app:layout_constraintStart_toStartOf="@+id/imageView46" android:layout_marginTop="8dp"
-                        android:layout_marginStart="8dp"/>
-                <TextView
-                        android:text="周次"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/textView35" android:textStyle="bold"
-                        android:typeface="normal" android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageView49"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView49"
-                        app:layout_constraintTop_toTopOf="@+id/imageView49" android:layout_marginStart="13dp"/>
-                <Spinner
-                        android:layout_width="130dp"
-                        android:layout_height="48dp" android:id="@+id/classWeekSpinner"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView49"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView46"
-                        app:layout_constraintStart_toStartOf="@+id/imageView46" android:layout_marginStart="26dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginTop="-10dp"
-                        android:entries="@array/weekOptions"/>/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="145dp">
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周一"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textView37"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周二"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView39"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周三"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView40"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周四"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView41"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周五"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView42"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周六"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView43"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <TextView
-                    android:text="周日"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView36"
-                    android:typeface="normal"
-                    android:textStyle="bold"
-                    android:textAlignment="center"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="490dp" app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp">
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="18">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView56"
-                        app:srcCompat="@drawable/rectangle" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="13dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView57"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView56"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView56" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView58"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView57"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView57" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView59"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView58"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView58" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView60"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView59"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView59" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView61"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView60"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView60" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView62"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView61"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView61" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView63"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView62"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView62" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView64"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView63"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView63" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView65"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView64"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView64" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView66"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView65"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView65" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView67"
-                        app:srcCompat="@drawable/rectangle3" app:layout_constraintEnd_toEndOf="@+id/imageView66"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView66" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView68"
-                        app:srcCompat="@drawable/rectangle"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView67"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView67" android:layout_marginTop="33dp"/>
-                <ImageView
-                        android:layout_width="13dp"
-                        android:layout_height="wrap_content" android:id="@+id/imageView69"
-                        app:srcCompat="@drawable/rectangle3"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView68"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView68" android:layout_marginTop="33dp"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" android:layout_weight="1">
-            <ScrollView android:layout_width="match_parent" android:layout_height="450dp">
-                <GridLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/gridlayout"
-                        android:rowCount="10"
-                        android:columnCount="7">
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent" android:layout_weight="1">
 
-                </GridLayout>
-            </ScrollView>
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/imageView40"
+                            app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" android:id="@+id/imageView47"
+                            app:srcCompat="@drawable/iconcourse4" app:layout_constraintTop_toTopOf="@+id/imageView40"
+                            app:layout_constraintStart_toStartOf="@+id/imageView40" android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp"/>
+                    <TextView
+                            android:text="学年"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView23"
+                            app:layout_constraintStart_toEndOf="@+id/imageView47"
+                            app:layout_constraintTop_toTopOf="@+id/imageView47"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView47" android:layout_marginStart="13dp"
+                            android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                    <Spinner
+                            android:layout_width="130dp"
+                            android:layout_height="48dp" android:id="@+id/classYearSpinner"
+                            app:layout_constraintStart_toStartOf="@+id/imageView40"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView40"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView47"
+                            android:layout_marginStart="26dp" android:layout_marginEnd="13dp"
+                            android:layout_marginTop="-10dp"
+                            android:entries="@array/yearOptions"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/imageView41"
+                            app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" android:id="@+id/imageView48"
+                            app:layout_constraintTop_toTopOf="@+id/imageView41"
+                            app:layout_constraintStart_toStartOf="@+id/imageView41" android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp" app:srcCompat="@drawable/iconcourse3"/>
+                    <TextView
+                            android:text="学期"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView48"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView48"
+                            app:layout_constraintTop_toTopOf="@+id/imageView48" android:layout_marginStart="13dp"
+                            android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                    <Spinner
+                            android:layout_width="130dp"
+                            android:layout_height="48dp" android:id="@+id/classTermSpinner"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView48"
+                            app:layout_constraintStart_toStartOf="@+id/imageView41"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView41" android:layout_marginStart="26dp"
+                            android:layout_marginEnd="13dp"
+                            android:layout_marginTop="-10dp"
+                            android:entries="@array/termOptions"/>/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/imageView46"
+                            app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" android:id="@+id/imageView49"
+                            app:srcCompat="@drawable/iconcourse1" app:layout_constraintTop_toTopOf="@+id/imageView46"
+                            app:layout_constraintStart_toStartOf="@+id/imageView46" android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp"/>
+                    <TextView
+                            android:text="周次"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView35" android:textStyle="bold"
+                            android:typeface="normal" android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@+id/imageView49"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView49"
+                            app:layout_constraintTop_toTopOf="@+id/imageView49" android:layout_marginStart="13dp"/>
+                    <Spinner
+                            android:layout_width="130dp"
+                            android:layout_height="48dp" android:id="@+id/classWeekSpinner"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView49"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView46"
+                            app:layout_constraintStart_toStartOf="@+id/imageView46" android:layout_marginStart="26dp"
+                            android:layout_marginEnd="13dp"
+                            android:layout_marginTop="-10dp"
+                            android:entries="@array/weekOptions"/>/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="17">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView56"
+                            app:srcCompat="@drawable/rectangle" app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="13dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView57"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView56"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView56" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView58"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView57"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView57" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView59"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView58"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView58" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView60"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView59"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView59" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView61"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView60"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView60" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView62"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView61"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView61" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView63"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView62"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView62" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView64"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView63"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView63" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView65"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView64"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView64" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView66"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView65"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView65" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView67"
+                            app:srcCompat="@drawable/rectangle3" app:layout_constraintEnd_toEndOf="@+id/imageView66"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView66" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView68"
+                            app:srcCompat="@drawable/rectangle"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView67"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView67" android:layout_marginTop="33dp"/>
+                    <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="wrap_content" android:id="@+id/imageView69"
+                            app:srcCompat="@drawable/rectangle3"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView68"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView68" android:layout_marginTop="33dp"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周一"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" android:id="@+id/textView37"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-12"
+                                android:id="@+id/week1"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周二"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView39"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-13"
+                                android:id="@+id/week2"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周三"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView40"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-14"
+                                android:id="@+id/week3"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周四"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView41"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-15"
+                                android:id="@+id/week4"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周五"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView42"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-16"
+                                android:id="@+id/week5"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周六"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView43"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-17"
+                                android:id="@+id/week6"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <TextView
+                                android:text="周日"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView36"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textAlignment="center"/>
+                        <TextView
+                                android:textSize="10sp"
+                                android:text="08-18"
+                                android:id="@+id/week7"
+                                android:textAlignment="center"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            <ImageView
+                                    android:id="@+id/empty_class_image"
+                                    android:src="@drawable/empty_class1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+
+                            </ImageView>
+
+                            <TextView
+                                    android:layout_marginTop="40sp"
+                                    android:id="@+id/empty_class_text"
+                                    android:text="这周没课捏:)"
+                                    android:textSize="32sp"
+                                    android:textColor="@color/grey"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/empty_class_image"
+                                    android:layout_alignLeft="@id/empty_class_image"
+                                    android:layout_alignRight="@id/empty_class_image"
+                                    android:gravity="center">
+
+                            </TextView>
+
+                        </RelativeLayout>
+                        <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent">
+                            <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                <GridLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:id="@+id/gridlayout"
+                                        android:rowCount="10"
+                                        android:columnCount="7">
+
+                                </GridLayout>
+                            </LinearLayout>
+                        </ScrollView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

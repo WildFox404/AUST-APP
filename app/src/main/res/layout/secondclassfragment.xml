@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center">
+    <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:layout_marginBottom="5dp">
+
+    </FrameLayout>
+    <LinearLayout
+            android:background="@drawable/secondclassnavigationbackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="76dp"
+                    android:id="@+id/exit"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/secondclassnavigationicon1"/>
+                <TextView
+                        android:text="退出"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:textStyle="bold" android:textAlignment="center"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="76dp"
+                    android:id="@+id/school"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/secondclassnavigationicon5"/>
+                <TextView
+                        android:text="校友圈"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:textStyle="bold" android:textAlignment="center"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="76dp"
+                    android:id="@+id/todo"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/secondclassnavigationicon2"/>
+                <TextView
+                        android:text="待办"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:textStyle="bold" android:textAlignment="center"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="76dp"
+                    android:id="@+id/home"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/secondclassnavigationicon3"/>
+                <TextView
+                        android:text="首页"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:textStyle="bold" android:textAlignment="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="76dp"
+                    android:id="@+id/user"
+                    android:background="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/secondclassnavigationicon4"/>
+                <TextView
+                        android:text="我的"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:textStyle="bold" android:textAlignment="center"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

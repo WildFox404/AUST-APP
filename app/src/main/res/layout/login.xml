@@ -26,6 +26,14 @@
                 android:layout_marginRight="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+            <TextView
+                    android:textColor="@color/grey"
+                    android:text="账号密码回车完成输入"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintBottom_toTopOf="@+id/imageView11"
+                    app:layout_constraintStart_toStartOf="@+id/imageView11">
+
+            </TextView>
             <ImageView
                     android:layout_width="224dp"
                     android:layout_height="38dp" android:id="@+id/imageView11"

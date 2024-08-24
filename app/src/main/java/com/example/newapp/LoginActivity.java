@@ -1,5 +1,7 @@
 package com.example.newapp;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
@@ -23,15 +26,20 @@ import java.util.Random;
 public class LoginActivity extends AppCompatActivity {
     private User user=User.getInstance();
     SharedPreferences sharedPreferences;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         // 初始化 SharedPreferences
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+
         EditText eduUserName =findViewById(R.id.editTextAccount);
         TextView privacy_manual =findViewById(R.id.privacy_manual);
         TextView user_manual =findViewById(R.id.user_manual);
+
+
 
         privacy_manual.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
                 // 创建自定义的背景Drawable
-                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton3);
+                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton5);
                 // 创建并显示对话框
                 AlertDialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(drawable);
@@ -76,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
                 // 创建自定义的背景Drawable
-                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton3);
+                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton5);
                 // 创建并显示对话框
                 AlertDialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(drawable);
@@ -113,12 +121,23 @@ public class LoginActivity extends AppCompatActivity {
 
         int[] buildingImages = {R.drawable.chinabuilding1, R.drawable.chinabuilding2, R.drawable.chinabuilding3,
                 R.drawable.chinabuilding4, R.drawable.chinabuilding5, R.drawable.chinabuilding8,
-                R.drawable.chinabuilding9, R.drawable.chinabuilding10, R.drawable.chinabuilding11,
+                R.drawable.chinabuilding10, R.drawable.chinabuilding11,
                 R.drawable.chinabuilding12};
         Random rand = new Random();
         int randomIndex = rand.nextInt(buildingImages.length);
         LinearLayout loginview_background =findViewById(R.id.loginview_background);
         loginview_background.setBackground(getResources().getDrawable(buildingImages[randomIndex]));
+        // 设置点击事件监听器
+        loginview_background.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // 关闭键盘
+                InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                return false;
+            }
+        });
+
         agreementFalse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +181,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
     private void hideKeyboard(EditText editText) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

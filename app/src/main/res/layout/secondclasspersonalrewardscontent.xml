@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_marginBottom="15sp"
+              android:layout_height="match_parent"
+              android:background="@drawable/selectbutton5"
+              android:id="@+id/main_layout"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/root"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/personal_rewards_name"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="18sp"
+                    android:text="德馨社开箱晚会"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold">
+            </TextView>
+            <TextView
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/yellow"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:id="@+id/personal_rewards_score"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="18sp"
+                    android:text="+5学时"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <TextView
+                android:layout_marginRight="15dp"
+                android:id="@+id/personal_rewards_type"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:text="综合素质拓展"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </TextView>
+        <TextView
+                android:layout_marginRight="15dp"
+                android:id="@+id/personal_rewards_time"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:text="2023.04.13 19:36"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </TextView>
+        <TextView
+                android:layout_marginRight="15dp"
+                android:id="@+id/personal_rewards_remark"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:text="全体大会加分项"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

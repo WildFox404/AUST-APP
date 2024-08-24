@@ -27,6 +27,83 @@ public class DateUtils {
 
         return -1; // 返回-1表示出错
     }
+
+    public static boolean isCurrentTimeInRange(String startTimeStr, String endTimeStr) {
+        try {
+            long startTime = Long.parseLong(startTimeStr);
+            long endTime = Long.parseLong(endTimeStr);
+            long currentTime = System.currentTimeMillis();
+
+            return currentTime >= startTime && currentTime <= endTime;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean isPastDeadline(String endTimeStr) {
+        try {
+            long endTime = Long.parseLong(endTimeStr);
+            long currentTime = System.currentTimeMillis();
+
+            return currentTime > endTime;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String convertTimestampToDate(String timestamp) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(Long.parseLong(timestamp));
+            return dateFormat.format(date);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static long convertDateToTimestamp(String date) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(date);
+            return parsedDate.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static String[] getDatesForWeek(String startDate) {
+        String[] dates = new String[7];
+        try {
+            // Parse the startDate string to a Date object
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = sdf.parse(startDate);
+
+            // Calendar instance to manipulate dates
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // Reset to the first day of the week (Monday)
+            while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+                calendar.add(Calendar.DATE, -1);
+            }
+
+            // Format each day of the week
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            for (int i = 0; i < 7; i++) {
+                dates[i] = dateFormat.format(calendar.getTime());
+                calendar.add(Calendar.DATE, 1); // Move to the next day
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dates;
+    }
+
     public static List<List<String>> createWeeklyData(String current_date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         List<List<String>> weeklyDataList = new ArrayList<>();
@@ -47,6 +124,9 @@ public class DateUtils {
             Log.d("createWeeklyData", String.valueOf(lastDayOfMonth));
             int day_index=1;
             List<String> first_list =new ArrayList<>();
+            if(firstDayOfWeek==0){
+                firstDayOfWeek=7;
+            }
             for(int i = 1; i<firstDayOfWeek; i++){
                 first_list.add("");
             }
@@ -54,6 +134,7 @@ public class DateUtils {
                 first_list.add(String.valueOf(day_index));
                 day_index++;
             }
+
             weeklyDataList.add(first_list);
 
             int week_index=0;

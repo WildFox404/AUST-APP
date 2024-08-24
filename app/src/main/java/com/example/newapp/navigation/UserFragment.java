@@ -43,9 +43,8 @@ public class UserFragment extends Fragment {
         TextView depart_name=view.findViewById(R.id.depart_name);
 
         ImageView camping_image =view.findViewById(R.id.camping_image);
-        int[] campingImages = {R.drawable.camping1, R.drawable.camping2,
-                R.drawable.camping4, R.drawable.camping5, R.drawable.camping6, R.drawable.camping7,
-                R.drawable.camping8, R.drawable.camping9, R.drawable.camping10, R.drawable.camping11,
+        int[] campingImages = {R.drawable.camping1, R.drawable.camping4, R.drawable.camping5, R.drawable.camping6, R.drawable.camping7,
+                R.drawable.camping8, R.drawable.camping10, R.drawable.camping11,
                 R.drawable.camping12};
         Random rand = new Random();
         int randomIndex = rand.nextInt(campingImages.length);

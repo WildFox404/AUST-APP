@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -114,8 +115,11 @@ public class ServiceFragment extends Fragment {
                     }
                 });
 
+                // 创建自定义的背景Drawable
+                Drawable drawable = getResources().getDrawable(R.drawable.selectbutton5);
                 // 创建并显示对话框
                 AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(drawable);
                 dialog.show();
             }
         });

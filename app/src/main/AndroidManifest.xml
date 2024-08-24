@@ -48,6 +48,18 @@
         <activity android:name=".studydetails.StudyDetailsCoursesActivity" />
         <activity android:name=".incubationprograms.IncubationProgramsActivity" />
         <activity android:name=".incubationprograms.IncubationProgramsChildActivity" />
+        <activity android:name=".navigation.SecondClassActivity" />
+        <activity android:name=".secondclass.SecondClassHomeFragment" />
+        <activity android:name=".secondclass.SecondClassNavigationViewActivity" />
+        <activity android:name=".secondclassactivity.SecondClassPersonalRewardsActivity" />
+        <activity android:name=".secondclassactivity.SecondClassActivity" />
+        <activity android:name=".secondclassactivity.SecondClassActivityContent" />
+        <activity android:name=".secondclassactivity.SecondClassCommentContent" />
+        <activity android:name=".secondclassactivity.SecondClassUserInfoActivity" />
+        <activity android:name=".secondclassactivity.SecondClassGradeListActivity" />
+        <activity android:name=".secondclassactivity.SecondClassRankingActivity" />
+        <activity android:name=".secondclassactivity.SecondClassMyGradeActivity" />
+        <activity android:name=".secondclassactivity.SecondClassMyGradeActivity1" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true">

@@ -33,7 +33,7 @@ public class TestViewerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testview);
-        ImageView exitButton =findViewById(R.id.exitButton);
+
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         // 从 SharedPreferences 中加载上次存储的数据
         String savedYear = sharedPreferences.getString(KEY_YEAR, "0");
@@ -43,6 +43,7 @@ public class TestViewerActivity extends AppCompatActivity {
         Spinner yearSpinner = findViewById(R.id.testYearSpinner);
         Spinner termSpinner = findViewById(R.id.testTermSpinner);
 
+        ImageView exitButton =findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

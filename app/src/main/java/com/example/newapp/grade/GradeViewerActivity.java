@@ -2,14 +2,12 @@ package com.example.newapp.grade;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import com.example.newapp.db.MyDBHelper;
 import com.example.newapp.R;
@@ -22,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.gson.JsonObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Random;
@@ -64,7 +61,7 @@ public class GradeViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gradeview1);
+        setContentView(R.layout.gradeview);
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
         sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 

@@ -2,8 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white1">#88EEEEEE</color>
     <color name="transparent_white">#DDFFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="transparent_bule">#CC1296db</color>
+    <color name="icon_blue">#1296db</color>
+    <color name="bule">#244CAA</color>
     <color name="bule_white">#d5deef</color>
     <color name="bule_white1">#a1caff</color>
     <color name="bule_white2">#3a4d8f</color>
@@ -21,5 +25,7 @@
     <color name="incubation_color4">#103A87</color>
     <color name="green">#c1d95c</color>
     <color name="green1">#80b155</color>
+    <color name="green2">#96ca00</color>
     <color name="fire_red">#ff3300</color>
+    <color name="yellow">#ffc038</color>
 </resources>

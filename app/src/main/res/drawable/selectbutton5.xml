@@ -3,9 +3,9 @@
        android:shape="rectangle">
     <solid android:color="@color/white" /> <!-- 设置为透明 -->
     <corners
-            android:topLeftRadius="30dp"
-            android:topRightRadius="30dp"
-            android:bottomLeftRadius="30dp"
-            android:bottomRightRadius="30dp" /> <!-- 设置左上和右上为圆角，其他角为直角 -->
+            android:topLeftRadius="15dp"
+            android:topRightRadius="15dp"
+            android:bottomLeftRadius="15dp"
+            android:bottomRightRadius="15dp" /> <!-- 设置左上和右上为圆角，其他角为直角 -->
 
 </shape>

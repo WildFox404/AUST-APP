@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/root"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/linearLayout7">
+            <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="成绩"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#244CAA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp">
+
+                </TextView>
+                <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/exitButton"
+                        app:srcCompat="@drawable/exit_button"
+                        android:layout_marginEnd="25dp">
+
+                </ImageView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:textColor="@color/icon_blue"
+                    android:id="@+id/classify_textview"
+                    android:gravity="center"
+                    android:text="分类统计"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+            </TextView>
+            <TextView
+                    android:id="@+id/term_textview"
+                    android:gravity="center"
+                    android:text="学期统计"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="5dp" android:id="@+id/linearLayout4">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent" android:layout_weight="1">
+
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/imageView40"
+                            app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" android:id="@+id/imageView47"
+                            app:srcCompat="@drawable/iconcourse4" app:layout_constraintTop_toTopOf="@+id/imageView40"
+                            app:layout_constraintStart_toStartOf="@+id/imageView40" android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp"/>
+                    <TextView
+                            android:text="学年"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView23"
+                            app:layout_constraintStart_toEndOf="@+id/imageView47"
+                            app:layout_constraintTop_toTopOf="@+id/imageView47"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView47" android:layout_marginStart="13dp"
+                            android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                    <Spinner
+                            android:layout_width="130dp"
+                            android:layout_height="48dp"
+                            android:id="@+id/YearSpinner"
+                            app:layout_constraintStart_toStartOf="@+id/imageView40"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView40"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView47"
+                            android:layout_marginStart="26dp" android:layout_marginEnd="13dp"
+                            android:layout_marginTop="-10dp"
+                            android:entries="@array/yearOptions"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/imageView41"
+                            app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" android:id="@+id/imageView48"
+                            app:layout_constraintTop_toTopOf="@+id/imageView41"
+                            app:layout_constraintStart_toStartOf="@+id/imageView41" android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp" app:srcCompat="@drawable/iconcourse3"/>
+                    <TextView
+                            android:text="学期"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:id="@+id/textView24"
+                            app:layout_constraintStart_toEndOf="@+id/imageView48"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView48"
+                            app:layout_constraintTop_toTopOf="@+id/imageView48" android:layout_marginStart="13dp"
+                            android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                    <Spinner
+                            android:layout_width="130dp"
+                            android:layout_height="48dp"
+                            android:id="@+id/TermSpinner"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView48"
+                            app:layout_constraintStart_toStartOf="@+id/imageView41"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView41" android:layout_marginStart="26dp"
+                            android:layout_marginEnd="13dp"
+                            android:layout_marginTop="-10dp"
+                            android:entries="@array/termOptions"/>/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/my_grade_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

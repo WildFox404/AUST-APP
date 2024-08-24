@@ -4,6 +4,7 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,9 +25,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,11 +37,8 @@ public class HomeFragment extends Fragment {
     private static final String KEY_YEAR = "class_year";
     private static final String KEY_TERM = "class_term";
     private static final String KEY_WEEK = "class_week";
-    private String savedIds;
     private User user;
     private JsonArray class_results;
-    private String savedUsername;
-    private String savedPassword;
     int term=0;
     int year=0;
     int week=0;
@@ -50,7 +46,9 @@ public class HomeFragment extends Fragment {
     String savedTerm;
     String savedWeek;
     private GridLayout gridLayout;
-    private CountDownLatch latch;
+    private String startDate;
+    private String endDate;
+    private View view;
 
     private void saveSelection(String key, String value) {
         Log.d("HomeActivity", "saveSelection: "+key+":"+value);
@@ -73,7 +71,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         myDBHelper = new MyDBHelper(getContext()); // 实例化 MyDBHelper 对象
 
-        View view = inflater.inflate(R.layout.home, container, false);
+        view = inflater.inflate(R.layout.home, container, false);
 
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
@@ -82,10 +80,6 @@ public class HomeFragment extends Fragment {
         Spinner yearSpinner = view.findViewById(R.id.classYearSpinner);
         Spinner termSpinner = view.findViewById(R.id.classTermSpinner);
         Spinner weekSpinner = view.findViewById(R.id.classWeekSpinner);
-
-        // 从SharedPreferences加载之前保存的内容
-        savedUsername = sharedPreferences.getString("username", "");
-        savedPassword = sharedPreferences.getString("password", "");
 
         // 从 SharedPreferences 中加载上次存储的数据
         savedYear = sharedPreferences.getString(KEY_YEAR, "0"); // 从SharedPreferences中获取字符串值
@@ -274,8 +268,8 @@ public class HomeFragment extends Fragment {
                     JsonElement element = weekArray.get(week);
                     if (!element.isJsonNull() && element.isJsonObject()) {
                         JsonObject weekObject = element.getAsJsonObject();
-                        String startDate = weekObject.get("startDate").getAsString();
-                        String endDate = weekObject.get("endDate").getAsString();
+                        startDate = weekObject.get("startDate").getAsString();
+                        endDate = weekObject.get("endDate").getAsString();
                         return user.get_class(String.valueOf(year + term), startDate, endDate);
                     } else {
                         // 创建一个空的JsonArray
@@ -319,6 +313,24 @@ public class HomeFragment extends Fragment {
         }
     }
     private void UpdateCourseTable(){
+        String[] weekDates =DateUtils.getDatesForWeek(startDate);
+        if(weekDates.length==7){
+            TextView week1 = view.findViewById(R.id.week1);
+            TextView week2 = view.findViewById(R.id.week2);
+            TextView week3 = view.findViewById(R.id.week3);
+            TextView week4 = view.findViewById(R.id.week4);
+            TextView week5 = view.findViewById(R.id.week5);
+            TextView week6 = view.findViewById(R.id.week6);
+            TextView week7 = view.findViewById(R.id.week7);
+            week1.setText(weekDates[0].substring(5));
+            week2.setText(weekDates[1].substring(5));
+            week3.setText(weekDates[2].substring(5));
+            week4.setText(weekDates[3].substring(5));
+            week5.setText(weekDates[4].substring(5));
+            week6.setText(weekDates[5].substring(5));
+            week7.setText(weekDates[6].substring(5));
+        }
+
         String yearString = String.valueOf(year);
         String termString = String.valueOf(term);
         String weekString = String.valueOf(week);
@@ -334,6 +346,8 @@ public class HomeFragment extends Fragment {
         datesWithoutData.add(7);
         // 清空之前的内容
         gridLayout.removeAllViews();
+
+        int class_number =0;
         for (JsonElement class_result : class_results) {
             JsonObject arrange_lesson_object = class_result.getAsJsonObject();
             String course_name=arrange_lesson_object.get("course_name").getAsString();
@@ -369,7 +383,26 @@ public class HomeFragment extends Fragment {
             textView.setLayoutParams(params);
             // 将TextView添加到GridLayout中
             gridLayout.addView(textView);
+            class_number++;
         }
+
+        TextView empty_class_text =view.findViewById(R.id.empty_class_text);
+        ImageView empty_class_image =view.findViewById(R.id.empty_class_image);
+        if(class_number>0){
+            empty_class_text.setText("");
+            empty_class_image.setImageDrawable(new ColorDrawable(Color.TRANSPARENT)); // 设置为透明
+        }else{
+            int[] emptyImages = {R.drawable.empty_class1,R.drawable.empty_class5,
+                    R.drawable.empty_class11,R.drawable.empty_class12,
+                    R.drawable.empty_class14};
+            Random rand = new Random();
+            int randomIndex = rand.nextInt(emptyImages.length);
+
+            empty_class_text.setText("这周没课捏AWA");
+            empty_class_image.setImageResource(emptyImages[randomIndex]);
+        }
+
+
         Log.d("更新课表", "不存在数据的星期数: "+datesWithoutData.toString());
         for (Integer missingDate : datesWithoutData) {
             TextView emptyTextView = new TextView(getContext());
