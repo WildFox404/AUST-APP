@@ -4,39 +4,35 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.PopupWindow;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import com.example.newapp.*;
 import com.example.newapp.campuscalender.CampusCalendarActivity;
-import com.example.newapp.db.MyDBHelper;
+import com.example.newapp.chargequery.ChargeQueryActivity;
 import com.example.newapp.emptyclassrooms.EmptyBuildingsActivity;
-import com.example.newapp.entries.SharedViewModel;
-import com.example.newapp.entries.User;
 import com.example.newapp.incubationprograms.IncubationProgramsActivity;
+import com.example.newapp.webview.WebViewActivity;
 import com.example.newapp.studydetails.PlanCompletionActivity;
 import com.example.newapp.test.TestViewerActivity;
 import com.example.newapp.grade.GradeViewerActivity;
 import com.example.newapp.utils.NetworkUtils;
 import com.example.newapp.utils.ToastUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.*;
+import com.example.newapp.wificonnect.WifiConnectActivity;
+import com.squareup.picasso.Picasso;
 
 public class ServiceFragment extends Fragment {
     private SharedPreferences sharedPreferences;
+    private PopupWindow popupWindow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +40,8 @@ public class ServiceFragment extends Fragment {
         String savedUsername = sharedPreferences.getString("username", "");
         String savedPassword = sharedPreferences.getString("password", "");
         View view = inflater.inflate(R.layout.service, container, false);
+
+        ConstraintLayout rootView = view.findViewById(R.id.rootView);
         ImageView gradeView= view.findViewById(R.id.gradeview);
         ImageView testView =view.findViewById(R.id.testview);
         ImageView getEmptyRooms = view.findViewById(R.id.getEmptyRooms);
@@ -51,12 +49,117 @@ public class ServiceFragment extends Fragment {
         ImageView plan_complete =view.findViewById(R.id.planComplete);
         ImageView incubation_programs=view.findViewById(R.id.incubationPrograms);
         ImageView pangguai=view.findViewById(R.id.pangguai);
+        ImageView smart_building=view.findViewById(R.id.smart_building);
+        ImageView second_class=view.findViewById(R.id.second_class);
+        ImageView youth_learning=view.findViewById(R.id.youth_learning);
+        ImageView educational_system = view.findViewById(R.id.educational_system);
+        ImageView year_payment = view.findViewById(R.id.year_payment);
+        ImageView charge_query = view.findViewById(R.id.charge_query);
+        ImageView school_map = view.findViewById(R.id.school_map);
+        ImageView student_system = view.findViewById(R.id.student_system);
+        ImageView wificonnect = view.findViewById(R.id.wificonnect);
+
+        // 初始化弹出窗口
+        popupWindow = new PopupWindow();
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+
+        wificonnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WifiConnectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        student_system.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","http://xsgl.aust.edu.cn/student//wap/main/welcome");
+                startActivity(intent);
+            }
+        });
+        school_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 设置弹出窗口的内容视图
+                View contentView = inflater.inflate(R.layout.popup_image, null);
+                popupWindow.setContentView(contentView);
+                // 在弹出窗口中显示图片
+                ImageView imageView = contentView.findViewById(R.id.image_view);
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.school_map));
+
+                //点击退出
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 关闭弹出窗口
+                        popupWindow.dismiss();
+                    }
+                });
+                ConstraintLayout root =contentView.findViewById(R.id.root);
+                root.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 关闭弹出窗口
+                        popupWindow.dismiss();
+                    }
+                });
+                // 显示弹出窗口
+                popupWindow.showAtLocation(rootView , Gravity.CENTER, 0, 0);
+            }
+        });
+        charge_query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChargeQueryActivity.class);
+                startActivity(intent);
+            }
+        });
+        year_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","http://cwsf.aust.edu.cn/appjf/#/?t=1724565615711");
+                startActivity(intent);
+            }
+        });
+        educational_system.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","https://jwglyd.aust.edu.cn/app-web/#/login");
+                startActivity(intent);
+            }
+        });
+        youth_learning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","http://dxx.ahyouth.org.cn/");
+                startActivity(intent);
+            }
+        });
+        second_class.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","https://win.9xueqi.com/");
+                startActivity(intent);
+            }
+        });
+        smart_building.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("url","https://m.zhtj.youth.cn/zhtj/");
+                startActivity(intent);
+            }
+        });
         pangguai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("胖乖绿色版"); // 设置对话框标题
                 builder.setMessage("链接1:速度慢,下载直接安装(推荐)\n" +

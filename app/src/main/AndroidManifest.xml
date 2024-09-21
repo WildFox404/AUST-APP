@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -12,12 +13,14 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
+            android:usesCleartextTraffic="true"
             android:networkSecurityConfig="@xml/network_security_config"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@mipmap/ic_launcher_new"
             android:label="@string/app_name"
+            android:extractNativeLibs="false"
             android:roundIcon="@mipmap/ic_launcher_circle"
             android:supportsRtl="true"
             android:theme="@style/Theme.NewApp"
@@ -34,9 +37,10 @@
         <activity android:name=".MainNextActivity" />
 
         <activity android:name=".navigation.BottomNavigationViewActivity"/>
+        <activity android:name=".webview.SchoolWifiWebActivity"/>
         <activity android:name=".navigation.ServiceFragment" />
         <activity android:name=".navigation.HomeFragment" />
-        <activity android:name=".softwareplan.SoftwarePlanActivity" />
+        <activity android:name=".webview.SoftwarePlanActivity" />
         <activity android:name=".navigation.UserFragment" />
         <activity android:name=".grade.GradeViewerActivity" />
         <activity android:name=".test.TestViewerActivity" />
@@ -60,6 +64,9 @@
         <activity android:name=".secondclassactivity.SecondClassRankingActivity" />
         <activity android:name=".secondclassactivity.SecondClassMyGradeActivity" />
         <activity android:name=".secondclassactivity.SecondClassMyGradeActivity1" />
+        <activity android:name=".chargequery.ChargeQueryActivity" />
+        <activity android:name=".webview.WebViewActivity" />
+        <activity android:name=".wificonnect.WifiConnectActivity" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true">

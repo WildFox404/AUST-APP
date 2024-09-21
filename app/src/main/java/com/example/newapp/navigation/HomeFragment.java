@@ -1,26 +1,31 @@
 package com.example.newapp.navigation;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.view.animation.TranslateAnimation;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
 import com.example.newapp.*;
 import com.example.newapp.db.MyDBHelper;
 import com.example.newapp.entries.User;
 import com.example.newapp.utils.DateUtils;
+import com.example.newapp.utils.DeviceDataUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -31,13 +36,14 @@ import java.util.regex.Pattern;
 
 public class HomeFragment extends Fragment {
 
-
+    private Boolean image_switch = true;
     private SharedPreferences sharedPreferences;
     private MyDBHelper myDBHelper;
     private static final String KEY_YEAR = "class_year";
     private static final String KEY_TERM = "class_term";
     private static final String KEY_WEEK = "class_week";
     private User user;
+    private DeviceDataUtils deviceDataUtils = DeviceDataUtils.getInstance();
     private JsonArray class_results;
     int term=0;
     int year=0;
@@ -49,7 +55,7 @@ public class HomeFragment extends Fragment {
     private String startDate;
     private String endDate;
     private View view;
-
+    private int gridLayoutWidth;
     private void saveSelection(String key, String value) {
         Log.d("HomeActivity", "saveSelection: "+key+":"+value);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -76,6 +82,16 @@ public class HomeFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
         gridLayout = view.findViewById(R.id.gridlayout);
+        gridLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // 移除监听器以避免重复调用
+                gridLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // 获取宽度
+                gridLayoutWidth = gridLayout.getWidth();
+                // 处理宽度
+            }
+        });
 
         Spinner yearSpinner = view.findViewById(R.id.classYearSpinner);
         Spinner termSpinner = view.findViewById(R.id.classTermSpinner);
@@ -88,55 +104,43 @@ public class HomeFragment extends Fragment {
 
         user=User.getInstance();
 
-        SpannableString qqTextContent = new SpannableString("QQ群:956026820");
-        qqTextContent.setSpan(new UnderlineSpan(), 0, qqTextContent.length(), 0);
-        SpannableString githubTextContent = new SpannableString("GitHub:\nhttps://github.com/WildFox404/AUST-APP");
-        githubTextContent.setSpan(new UnderlineSpan(), 0, githubTextContent.length(), 0);
+        setScrollViewHeight();
 
-        TextView qqTextView =view.findViewById(R.id.qqlink);
-        qqTextView.setText(qqTextContent);
-        qqTextView.setTextColor(Color.BLUE);
-        TextView githubTextView=view.findViewById(R.id.githublink);
-        githubTextView.setText(githubTextContent);
-        githubTextView.setTextColor(Color.BLUE);
-        qqTextView.setOnClickListener(new View.OnClickListener() {
+        LinearLayout linearLayoutHead = view.findViewById(R.id.linearLayoutHead);
+        TextView textView1 = view.findViewById(R.id.textview1);
+        int heightPx = linearLayoutHead.getHeight();
+
+        ImageView more = view.findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String key = "tPPUYS7eP54EcUs6qdDLt4m-Ufr_hzVb"; // 获取TextView中的QQ号
-                // 构造跳转到QQ群页面的Intent
-                Intent intent = new Intent();
-                intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D" + key));
-                // 启动Intent，跳转到QQ群页面
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                    // 未安装手Q或安装的版本不支持
-                }
-            }
-        });
-        githubTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String githubLink = "https://github.com/WildFox404/AUST-APP";  // 替换成你要跳转的 GitHub 链接
+            public void onClick(View view) {
+                ObjectAnimator rotationAnimator;
+                Drawable drawable = more.getDrawable();
+                // 设置颜色过滤器
+                // 将颜色设置为红色
 
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setComponent(null);
-                intent.setSelector(null);
-
-                PackageManager packageManager = getContext().getPackageManager();
-                List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
-                boolean isIntentSafe = activities.size() > 0;
-
-                if (isIntentSafe) {
-                    // 有应用可以处理该 Intent，直接启动
-                    startActivity(intent);
+                if(image_switch){
+                    drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                    rotationAnimator = ObjectAnimator.ofFloat(view.findViewById(R.id.more), "rotation", 0f, 45f);
+                    // 创建并设置动画
+                    TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, 1000);
+                    translateAnimation.setDuration(300); // 设置动画持续时间为1秒
+                    textView1.startAnimation(translateAnimation);
                 } else {
-                    // 没有应用可以处理该 Intent，提示用户打开浏览器
-                    Toast.makeText(getContext(), "没有找到GitHub应用，将在浏览器中打开", Toast.LENGTH_SHORT).show();
-                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
-                    startActivity(intent);
+                    drawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                    rotationAnimator = ObjectAnimator.ofFloat(view.findViewById(R.id.more), "rotation", 45f, 0f);
+                    TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -heightPx);
+                    translateAnimation.setDuration(300); // 设置动画持续时间为1秒
+                    textView1.startAnimation(translateAnimation);
                 }
+
+                image_switch = !image_switch;
+
+                rotationAnimator.setDuration(300);
+
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(rotationAnimator);
+                animatorSet.start();
             }
         });
 
@@ -258,6 +262,18 @@ public class HomeFragment extends Fragment {
         new ClassAsyncTask().execute();
         return view;
     }
+
+    private void setScrollViewHeight() {
+        int linearLayout1 = view.findViewById(R.id.linearLayoutHead).getHeight();
+        int linearLayout2 = view.findViewById(R.id.SpinnerLayout).getHeight();
+        int linearLayout3 = view.findViewById(R.id.WeekLayout).getHeight();
+        int height = deviceDataUtils.getHeight();
+        ScrollView scrollView =  view.findViewById(R.id.scrollView);
+        ViewGroup.LayoutParams params= scrollView.getLayoutParams();
+        params.height = height-linearLayout1-linearLayout2-linearLayout3;
+        scrollView.setLayoutParams(params);
+    }
+
     private class ClassAsyncTask extends AsyncTask<Void, Void, JsonArray> {
         @Override
         protected JsonArray doInBackground(Void... voids) {
@@ -378,7 +394,7 @@ public class HomeFragment extends Fragment {
             params.columnSpec = GridLayout.spec(DateUtils.getDayOfWeek(date) - 1,1); // 同样，周数也需要适当的转换
             params.setGravity(Gravity.FILL);
             // 设置固定的宽度和高度
-            params.width = 146; // 设置为您希望的宽度，单位是像素或dp
+            params.width = gridLayoutWidth/7; // 设置为您希望的宽度，单位是像素或dp
             params.height = 360; // 设置为您希望的高度，单位是像素或dp
             textView.setLayoutParams(params);
             // 将TextView添加到GridLayout中
@@ -392,8 +408,8 @@ public class HomeFragment extends Fragment {
             empty_class_text.setText("");
             empty_class_image.setImageDrawable(new ColorDrawable(Color.TRANSPARENT)); // 设置为透明
         }else{
-            int[] emptyImages = {R.drawable.empty_class1,R.drawable.empty_class5,
-                    R.drawable.empty_class11,R.drawable.empty_class12,
+            int[] emptyImages = {R.drawable.empty_class1, R.drawable.empty_class5,
+                    R.drawable.empty_class11, R.drawable.empty_class12,
                     R.drawable.empty_class14};
             Random rand = new Random();
             int randomIndex = rand.nextInt(emptyImages.length);
@@ -410,7 +426,7 @@ public class HomeFragment extends Fragment {
             params.rowSpec = GridLayout.spec(0,1,1f); // 设置空TextView所在行，默认为0
             params.columnSpec = GridLayout.spec(missingDate - 1); // 设置空TextView所在列
 
-            params.width = 146; // 设置宽度
+            params.width = gridLayoutWidth/7; // 设置宽度
             params.height = 360; // 设置高度
 
             emptyTextView.setLayoutParams(params);

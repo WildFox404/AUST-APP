@@ -7,16 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.example.newapp.R;
 import com.example.newapp.entries.SecondClassUser;
-import com.example.newapp.secondclassactivity.SecondClassCommentContent;
-import com.example.newapp.secondclassactivity.SecondClassGradeListActivity;
-import com.example.newapp.secondclassactivity.SecondClassMyGradeActivity;
-import com.example.newapp.secondclassactivity.SecondClassUserInfoActivity;
+import com.example.newapp.secondclassactivity.*;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +26,14 @@ public class SecondClassUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.secondclassuserview, container, false);
+
+        ImageView test_button = view.findViewById(R.id.test_button);
+        test_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         ImageView my_grade_button = view.findViewById(R.id.my_grade_button);
         my_grade_button.setOnClickListener(new View.OnClickListener() {

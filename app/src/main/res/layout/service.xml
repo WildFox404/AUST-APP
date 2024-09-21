@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent" android:background="#FFFFFF">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                       android:layout_height="match_parent"
-                                                       app:layout_constraintTop_toTopOf="parent"
-                                                       app:layout_constraintBottom_toBottomOf="parent"
-                                                       app:layout_constraintStart_toStartOf="parent"
-                                                       app:layout_constraintEnd_toEndOf="parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rootView"
+        android:background="#FFFFFF">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
 
         <ImageView
@@ -35,627 +39,664 @@
                 android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="90dp"
                 android:layout_marginStart="12dp" android:id="@+id/textView31"/>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="-10dp"
-                android:layout_marginEnd="-10dp"
-                android:id="@+id/linearLayout2"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" android:layout_marginTop="120dp">
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b4"
-                            android:id="@+id/campus_calender"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/campus_calender"
-                            app:layout_constraintStart_toStartOf="@+id/campus_calender"
-                            app:layout_constraintBottom_toBottomOf="@+id/campus_calender"/>
-                    <TextView
-                            android:text="校历查询"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:typeface="normal"
-                            android:textStyle="bold" android:id="@+id/textView"
-                            app:layout_constraintTop_toBottomOf="@+id/campus_calender"
-                            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b9"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:id="@+id/getEmptyRooms" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service2"
-                            app:layout_constraintTop_toTopOf="@+id/getEmptyRooms"
-                            app:layout_constraintEnd_toEndOf="@+id/getEmptyRooms"
-                            app:layout_constraintStart_toStartOf="@+id/getEmptyRooms"
-                            app:layout_constraintBottom_toBottomOf="@+id/getEmptyRooms"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textStyle="bold"
-                            android:typeface="normal"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/getEmptyRooms"
-                            app:layout_constraintEnd_toEndOf="parent" android:text="空闲教室"
-                            android:textAlignment="center"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b7"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:id="@+id/planComplete"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service3"
-                            app:layout_constraintEnd_toEndOf="@+id/planComplete"
-                            app:layout_constraintBottom_toBottomOf="@+id/planComplete"
-                            app:layout_constraintStart_toStartOf="@+id/planComplete"
-                            app:layout_constraintTop_toTopOf="@+id/planComplete"/>
-                    <TextView
-                            android:text="计划完成"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/planComplete" android:typeface="normal"
-                            android:textStyle="bold"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/incubationPrograms"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b8"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service4"
-                            app:layout_constraintEnd_toEndOf="@+id/incubationPrograms"
-                            app:layout_constraintStart_toStartOf="@+id/incubationPrograms"
-                            app:layout_constraintBottom_toBottomOf="@+id/incubationPrograms"
-                            app:layout_constraintTop_toTopOf="@+id/incubationPrograms"/>
-                    <TextView
-                            android:text="培养方案"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/white3"
-                            android:layout_weight="1"
-                            app:layout_constraintTop_toBottomOf="@+id/incubationPrograms" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:text="--------------"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView9" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="230dp"
-                android:layout_marginStart="12dp"/>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="-10dp"
-                android:layout_marginEnd="-10dp"
-                android:id="@+id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" android:layout_marginTop="260dp">
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <TextView
-                            android:text="胖乖无广"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/jishibenview"
-                            android:layout_weight="1"
-                            android:typeface="normal" android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="@+id/pangguai"
-                            app:layout_constraintStart_toStartOf="@+id/pangguai"
-                            app:layout_constraintTop_toBottomOf="@+id/pangguai"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/pangguai"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b7"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                    <ImageView
-                            android:id="@+id/jishibentext"
-                            app:layout_constraintTop_toTopOf="@+id/pangguai"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service5"
-                            app:layout_constraintStart_toStartOf="@+id/pangguai"
-                            app:layout_constraintBottom_toBottomOf="@+id/pangguai"
-                            app:layout_constraintEnd_toEndOf="@+id/pangguai"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <TextView
-                            android:text="查看成绩"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/courseview" android:layout_weight="1"
-                            app:layout_constraintTop_toBottomOf="@+id/course"
-                            android:typeface="normal" android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="@+id/course"
-                            app:layout_constraintStart_toStartOf="@+id/course"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/course" android:layout_weight="1"
-                            app:srcCompat="@drawable/b6"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                    <ImageView
-                            android:id="@+id/gradeview"
-                            app:layout_constraintTop_toTopOf="@+id/course"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service8"
-                            app:layout_constraintEnd_toEndOf="@+id/course"
-                            app:layout_constraintStart_toStartOf="@+id/course"
-                            app:layout_constraintBottom_toBottomOf="@+id/course"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" android:id="@+id/gpaview"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/gpaview"
-                            app:layout_constraintStart_toStartOf="@+id/gpaview"
-                            app:layout_constraintBottom_toBottomOf="@+id/gpaview"
-                            app:layout_constraintTop_toTopOf="@+id/gpaview" android:id="@+id/imageView19"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/gpaview" android:text=""
-                            android:textStyle="bold" android:typeface="normal"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/b4"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/testview"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/service10"
-                            app:layout_constraintBottom_toBottomOf="@+id/testview"
-                            app:layout_constraintEnd_toEndOf="@+id/testview"
-                            app:layout_constraintStart_toStartOf="@+id/testview"
-                            app:layout_constraintTop_toTopOf="@+id/testview"/>
-                    <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="19dp"
-                            android:layout_weight="1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/testview" android:text="考试安排"
-                            android:textAlignment="center" android:textStyle="bold" android:typeface="normal"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:text="--------------"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="360dp"
-                android:layout_marginStart="12dp" android:id="@+id/textView32"/>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <ScrollView
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="-10dp"
                 android:layout_marginEnd="-10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView32" android:layout_marginTop="390dp">
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/softwareplanning"
-                            app:layout_constraintStart_toStartOf="parent"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/softwareplanning"/>
-                    <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/softwareplanning"
-                            app:layout_constraintBottom_toBottomOf="@+id/softwareplanning"
-                            app:layout_constraintStart_toStartOf="@+id/softwareplanning"
-                            app:layout_constraintTop_toTopOf="@+id/softwareplanning"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView23"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-                            android:id="@+id/imageView23"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" android:id="@+id/imageView22"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView23"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-                            app:layout_constraintStart_toStartOf="@+id/imageView23"
-                            app:layout_constraintTop_toTopOf="@+id/imageView23"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView24"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            android:id="@+id/textView4"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/imageView24"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView24"
-                            app:layout_constraintBottom_toTopOf="@+id/textView4"
-                            app:layout_constraintStart_toStartOf="@+id/imageView24"
-                            app:layout_constraintTop_toTopOf="@+id/imageView24"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView25"/>
-                    <ImageView
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/imageView25"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView25"
-                            app:layout_constraintStart_toStartOf="@+id/imageView25"
-                            app:layout_constraintHorizontal_bias="0.473"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView25"
-                            app:layout_constraintTop_toTopOf="@+id/imageView25"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView12"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="490dp"
-                android:layout_marginStart="12dp"/>
-        <LinearLayout
-                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/textView31"
+                android:layout_marginTop="120dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="-10dp"
-                android:layout_marginEnd="-10dp" app:layout_constraintTop_toBottomOf="@+id/textView12"
-                android:layout_marginTop="520dp">
+                android:layout_height="match_parent">
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
-                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_height="match_parent">
+                <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout2"
+                >
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" android:id="@+id/textView5"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView26"/>
-                    <ImageView
+                            android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b4"
+                                    android:id="@+id/campus_calender"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service1"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/campus_calender"
+                                    app:layout_constraintStart_toStartOf="@+id/campus_calender"
+                                    app:layout_constraintBottom_toBottomOf="@+id/campus_calender"/>
+                            <TextView
+                                    android:text="校历查询"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:typeface="normal"
+                                    android:textStyle="bold" android:id="@+id/textView"
+                                    app:layout_constraintTop_toBottomOf="@+id/campus_calender"
+                                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" android:id="@+id/imageView26"
-                    />
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView26"
-                            app:layout_constraintBottom_toTopOf="@+id/textView5"
-                            app:layout_constraintStart_toStartOf="@+id/imageView26"
-                            app:layout_constraintTop_toTopOf="@+id/imageView26"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
+                            android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b9"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/getEmptyRooms" app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service2"
+                                    app:layout_constraintTop_toTopOf="@+id/getEmptyRooms"
+                                    app:layout_constraintEnd_toEndOf="@+id/getEmptyRooms"
+                                    app:layout_constraintStart_toStartOf="@+id/getEmptyRooms"
+                                    app:layout_constraintBottom_toBottomOf="@+id/getEmptyRooms"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:textStyle="bold"
+                                    android:typeface="normal"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/getEmptyRooms"
+                                    app:layout_constraintEnd_toEndOf="parent" android:text="空闲教室"
+                                    android:textAlignment="center"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b7"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/planComplete"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service3"
+                                    app:layout_constraintEnd_toEndOf="@+id/planComplete"
+                                    app:layout_constraintBottom_toBottomOf="@+id/planComplete"
+                                    app:layout_constraintStart_toStartOf="@+id/planComplete"
+                                    app:layout_constraintTop_toTopOf="@+id/planComplete"/>
+                            <TextView
+                                    android:text="计划完成"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/planComplete" android:typeface="normal"
+                                    android:textStyle="bold"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/incubationPrograms"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b8"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service4"
+                                    app:layout_constraintEnd_toEndOf="@+id/incubationPrograms"
+                                    app:layout_constraintStart_toStartOf="@+id/incubationPrograms"
+                                    app:layout_constraintBottom_toBottomOf="@+id/incubationPrograms"
+                                    app:layout_constraintTop_toTopOf="@+id/incubationPrograms"/>
+                            <TextView
+                                    android:text="培养方案"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/white3"
+                                    android:layout_weight="1"
+                                    app:layout_constraintTop_toBottomOf="@+id/incubationPrograms" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:text="--------------"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView9"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp"/>
+                <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/linearLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9"
+                        >
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
 
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" android:id="@+id/imageView27"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView27"
-                            app:layout_constraintStart_toStartOf="@+id/imageView27"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView27"
-                            app:layout_constraintTop_toTopOf="@+id/imageView27"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView27"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
+                            <TextView
+                                    android:text="胖乖无广"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:id="@+id/jishibenview"
+                                    android:layout_weight="1"
+                                    android:typeface="normal" android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="@+id/pangguai"
+                                    app:layout_constraintStart_toStartOf="@+id/pangguai"
+                                    app:layout_constraintTop_toBottomOf="@+id/pangguai"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/pangguai"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b7"
+                                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+                            <ImageView
+                                    android:id="@+id/jishibentext"
+                                    app:layout_constraintTop_toTopOf="@+id/pangguai"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service5"
+                                    app:layout_constraintStart_toStartOf="@+id/pangguai"
+                                    app:layout_constraintBottom_toBottomOf="@+id/pangguai"
+                                    app:layout_constraintEnd_toEndOf="@+id/pangguai"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <TextView
+                                    android:text="查看成绩"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:id="@+id/courseview" android:layout_weight="1"
+                                    app:layout_constraintTop_toBottomOf="@+id/course"
+                                    android:typeface="normal" android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="@+id/course"
+                                    app:layout_constraintStart_toStartOf="@+id/course"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:id="@+id/course" android:layout_weight="1"
+                                    app:srcCompat="@drawable/b6"
+                                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+                            <ImageView
+                                    android:id="@+id/gradeview"
+                                    app:layout_constraintTop_toTopOf="@+id/course"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service8"
+                                    app:layout_constraintEnd_toEndOf="@+id/course"
+                                    app:layout_constraintStart_toStartOf="@+id/course"
+                                    app:layout_constraintBottom_toBottomOf="@+id/course"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:layout_weight="1"
+                                    app:srcCompat="@drawable/b9"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/charge_query"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service13" app:layout_constraintEnd_toEndOf="@+id/charge_query"
+                                    app:layout_constraintStart_toStartOf="@+id/charge_query"
+                                    app:layout_constraintBottom_toBottomOf="@+id/charge_query"
+                                    app:layout_constraintTop_toTopOf="@+id/charge_query" android:id="@+id/imageView19"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/charge_query"
+                                    android:text="充电桩查询"
+                                    android:textStyle="bold"
+                                    android:typeface="normal"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b4"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" android:id="@+id/testview"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service10"
+                                    app:layout_constraintBottom_toBottomOf="@+id/testview"
+                                    app:layout_constraintEnd_toEndOf="@+id/testview"
+                                    app:layout_constraintStart_toStartOf="@+id/testview"
+                                    app:layout_constraintTop_toTopOf="@+id/testview"/>
+                            <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="19dp"
+                                    android:layout_weight="1"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/testview" android:text="考试安排"
+                                    android:textAlignment="center" android:textStyle="bold" android:typeface="normal"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:text="--------------"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp" android:id="@+id/textView32"/>
+                <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView32"
+                        >
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
 
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="智慧团建"
+                                    android:typeface="normal"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/smart_building"
+                                    app:layout_constraintStart_toStartOf="parent"/>
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b4"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/smart_building"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service12" app:layout_constraintEnd_toEndOf="@+id/smart_building"
+                                    app:layout_constraintBottom_toBottomOf="@+id/smart_building"
+                                    app:layout_constraintStart_toStartOf="@+id/smart_building"
+                                    app:layout_constraintTop_toTopOf="@+id/smart_building"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" android:id="@+id/imageView28"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView28"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView28"
-                            app:layout_constraintStart_toStartOf="@+id/imageView28"
-                            app:layout_constraintTop_toTopOf="@+id/imageView28"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView28"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <androidx.constraintlayout.widget.ConstraintLayout
+                            android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:typeface="normal"
+                                    android:textStyle="bold"
+                                    android:text="第二课堂"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/second_class"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b5"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/second_class"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service11" android:id="@+id/imageView22"
+                                    app:layout_constraintEnd_toEndOf="@+id/second_class"
+                                    app:layout_constraintBottom_toBottomOf="@+id/second_class"
+                                    app:layout_constraintStart_toStartOf="@+id/second_class"
+                                    app:layout_constraintTop_toTopOf="@+id/second_class"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:typeface="normal"
+                                    android:textStyle="bold"
+                                    android:text="青年大学习"
+                                    app:layout_constraintTop_toBottomOf="@+id/youth_learning"
+                                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/textView4"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b6"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/youth_learning"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service10" app:layout_constraintEnd_toEndOf="@+id/youth_learning"
+                                    app:layout_constraintBottom_toTopOf="@+id/textView4"
+                                    app:layout_constraintStart_toStartOf="@+id/youth_learning"
+                                    app:layout_constraintTop_toTopOf="@+id/youth_learning"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="教务系统"
+                                    android:typeface="normal"
+                                    android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/educational_system"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b7"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/educational_system"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service9" app:layout_constraintEnd_toEndOf="@+id/educational_system"
+                                    app:layout_constraintStart_toStartOf="@+id/educational_system"
+                                    app:layout_constraintHorizontal_bias="0.473"
+                                    app:layout_constraintBottom_toBottomOf="@+id/educational_system"
+                                    app:layout_constraintTop_toTopOf="@+id/educational_system"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:text="--------------"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView12"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp"/>
+                <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:layout_weight="1">
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12"
+                        >
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1" android:gravity="center">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
 
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:srcCompat="@drawable/white"
-                            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" android:id="@+id/imageView29"/>
-                    <ImageView
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
-                            app:srcCompat="@drawable/white" app:layout_constraintEnd_toEndOf="@+id/imageView29"
-                            app:layout_constraintStart_toStartOf="@+id/imageView29"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView29"
-                            app:layout_constraintTop_toTopOf="@+id/imageView29"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView29"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:typeface="normal"
+                                    android:textStyle="bold"
+                                    android:text="学年缴费"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" android:id="@+id/textView5"
+                                    app:layout_constraintTop_toBottomOf="@+id/year_payment"/>
+                            <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b8"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:id="@+id/year_payment"
+                            />
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service7" app:layout_constraintEnd_toEndOf="@+id/year_payment"
+                                    app:layout_constraintBottom_toTopOf="@+id/textView5"
+                                    app:layout_constraintStart_toStartOf="@+id/year_payment"
+                                    app:layout_constraintTop_toTopOf="@+id/year_payment"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b9"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/school_map"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service14" app:layout_constraintEnd_toEndOf="@+id/school_map"
+                                    app:layout_constraintStart_toStartOf="@+id/school_map"
+                                    app:layout_constraintBottom_toBottomOf="@+id/school_map"
+                                    app:layout_constraintTop_toTopOf="@+id/school_map"/>
+                            <TextView
+                                    android:text="校园地图"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/school_map"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b10"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/student_system"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service15" app:layout_constraintEnd_toEndOf="@+id/student_system"
+                                    app:layout_constraintBottom_toBottomOf="@+id/student_system"
+                                    app:layout_constraintStart_toStartOf="@+id/student_system"
+                                    app:layout_constraintTop_toTopOf="@+id/student_system"/>
+                            <TextView
+                                    android:text="学工系统"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/student_system"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/b11"
+                                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:id="@+id/wificonnect"/>
+                            <ImageView
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    app:srcCompat="@drawable/service19" app:layout_constraintEnd_toEndOf="@+id/wificonnect"
+                                    app:layout_constraintStart_toStartOf="@+id/wificonnect"
+                                    app:layout_constraintBottom_toBottomOf="@+id/wificonnect"
+                                    app:layout_constraintTop_toTopOf="@+id/wificonnect"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="校园网"
+                                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/wificonnect"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

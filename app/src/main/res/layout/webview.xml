@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/linearLayout3">
+        <ImageView
+                android:src="@drawable/background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:alpha="0.6"
+        >
+        </ImageView>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/linearLayout7">
+            <LinearLayout
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:id="@+id/refresh_text"
+                        android:gravity="right"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="刷新"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#244CAA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"/>
+                <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/refresh"
+                        app:srcCompat="@drawable/refresh"
+                        android:layout_marginEnd="25dp"/>
+                <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/exitButton"
+                        app:srcCompat="@drawable/exit_button"
+                        android:layout_marginEnd="25dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+        >
+            <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

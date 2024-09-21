@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_marginBottom="15sp"
+              android:layout_height="wrap_content"
+              android:background="@drawable/selectbutton5"
+              android:id="@+id/main_layout"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/charge_name"
+                android:text="安徽理工大学图书馆楼顶停车场"
+                android:textSize="21sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textStyle="bold">
+
+        </TextView>
+        <LinearLayout
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selectbutton4"
+                android:id="@+id/charge_layout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

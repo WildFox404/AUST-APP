@@ -100,32 +100,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" 
                 android:orientation="vertical">
-            <ScrollView 
+            <ScrollView
                     android:layout_width="match_parent" 
                     android:layout_height="match_parent">
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_margin="15dp"
-                        android:id="@+id/login_out"
-                        android:layout_height="50dp" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/textView30">
-                    <ImageView
-                            android:layout_gravity="center"
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:id="@+id/imageView32"
-                            app:srcCompat="@drawable/exit"
-                    />
-                    <TextView
-                            android:layout_gravity="center"
-                            android:text="退出登录"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView45"
-                            android:typeface="normal"
-                            android:textStyle="bold"
-                            android:textSize="20sp"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                    <LinearLayout
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="match_parent"
+                            android:id="@+id/login_out"
+                            android:layout_height="50dp">
+                        <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:id="@+id/imageView32"
+                                app:srcCompat="@drawable/exit"
+                        />
+                        <TextView
+                                android:layout_gravity="center"
+                                android:text="退出登录"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/textView45"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textSize="20sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_width="match_parent"
+                            android:id="@+id/about_our"
+                            android:layout_height="50dp">
+                        <ImageView
+                                android:layout_gravity="center"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                app:srcCompat="@drawable/warning"
+                        />
+                        <TextView
+                                android:layout_gravity="center"
+                                android:text="关于我们"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:typeface="normal"
+                                android:textStyle="bold"
+                                android:textSize="20sp"/>
+                    </LinearLayout>
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

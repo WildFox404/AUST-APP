@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <ImageView
-                        android:id="@+id/activity_activity"
+                        android:id="@+id/test_button"
                         android:layout_gravity="center"
                         android:src="@drawable/secondclassusericon1"
                         android:layout_width="50sp"
@@ -553,4 +553,5 @@
             </TextView>
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

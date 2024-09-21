@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.WindowManager;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.newapp.navigation.BottomNavigationViewActivity;
 import com.example.newapp.utils.DeviceDataUtils;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }, 1000); // 延迟1秒执行
     }
     public void getDeviceResolution(Activity activity){
-        float marginDp = 1; // 10dp 的距离
+        float marginDp = 1; // 1dp 的距离
         float marginPx = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, marginDp, getResources().getDisplayMetrics());
         int margin_width=Math.round(marginPx);
@@ -100,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                 users[0].login(); // 执行登录操作
                 token = users[0].getToken(); // 获取token
                 return !token.equals(""); // 返回登录是否成功
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                return false; // 超时处理
             } catch (IOException e) {
                 e.printStackTrace();
                 return false; // 登录失败
@@ -110,12 +115,17 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean success) {
             Intent intent;
             if (success) {
-                intent = new Intent(MainActivity.this, BottomNavigationViewActivity.class);
+
             } else {
-                intent = new Intent(MainActivity.this, LoginActivity.class);
+                toastShow("请求超时,检查网络,或者官网网络波动");
             }
+            intent = new Intent(MainActivity.this, BottomNavigationViewActivity.class);
             startActivity(intent);
             finish(); // 结束当前Activity，防止用户按返回键回到MainActivity
         }
+    }
+
+    private void toastShow(String content){
+        Toast.makeText(this, content, Toast.LENGTH_LONG).show();
     }
 }
