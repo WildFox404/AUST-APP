@@ -41,7 +41,7 @@
                         android:layout_height="match_parent">
                     <ImageView
                             android:src="@drawable/time_icon"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:layout_width="20sp"
                             android:layout_height="20sp">
 

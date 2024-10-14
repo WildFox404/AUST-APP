@@ -18,6 +18,7 @@ import com.example.newapp.backgroundprocess.MyWorker;
 import com.example.newapp.db.MyDBHelper;
 import com.example.newapp.entries.User;
 import com.example.newapp.navigation.BottomNavigationViewActivity;
+import com.example.newapp.navigation.BottomNavigationViewActivity2;
 import com.example.newapp.utils.DeviceDataUtils;
 
 import java.io.IOException;
@@ -67,15 +68,22 @@ public class MainActivity extends AppCompatActivity {
                     savedPassword = sharedPreferences.getString("password", "");
                     user = User.getInstance(savedUsername, savedPassword);
 
-                    // 使用 AsyncTask 执行登录操作
-                    new LoginTask().execute(user);
+                    if(savedUsername.equals("000000")&&savedPassword.equals("000000")){
+                        //研究生登录
+                        intent = new Intent(MainActivity.this, BottomNavigationViewActivity2.class);
+                        startActivity(intent);
+                        finish(); // 结束当前Activity，防止用户按返回键回到MainActivity
+                    }else{
+                        // 使用 AsyncTask 执行登录操作
+                        new LoginTask().execute(user);
+                    }
                 } else {
                     intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish(); // 结束当前Activity，防止用户按返回键回到MainActivity
                 }
             }
-        }, 1000); // 延迟1秒执行
+        }, 700); // 延迟0.7秒执行
     }
     public void getDeviceResolution(Activity activity){
         float marginDp = 1; // 1dp 的距离

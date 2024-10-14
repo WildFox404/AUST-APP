@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="586dp"
+            android:layout_height="819dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/top"
+            android:layout_marginTop="-580dp" android:id="@+id/imageView55"/>
+    <TextView
+            android:text="添加课程"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:textColor="#244CAA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp" android:id="@+id/activityheader"/>
+    <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp" android:id="@+id/exitButton"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@+id/activityheader"
+            app:srcCompat="@drawable/exit_button" android:layout_marginEnd="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/activityheader"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="650dp" app:layout_constraintTop_toBottomOf="@+id/activityheader"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp" android:id="@+id/linearLayout5">
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+            <LinearLayout
+                    android:id="@+id/study_details_courses_linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@+id/linearLayoutHead"
+                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_margin="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:id="@+id/SpinnerLayout">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_margin="5dp"
+                                android:layout_height="match_parent" android:layout_weight="1">
+
+
+                            <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" android:id="@+id/imageView40"
+                                    app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                            <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp" android:id="@+id/imageView47"
+                                    app:srcCompat="@drawable/iconcourse4" app:layout_constraintTop_toTopOf="@+id/imageView40"
+                                    app:layout_constraintStart_toStartOf="@+id/imageView40" android:layout_marginTop="8dp"
+                                    android:layout_marginStart="8dp"/>
+                            <TextView
+                                    android:text="学年"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:id="@+id/textView23"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView47"
+                                    app:layout_constraintTop_toTopOf="@+id/imageView47"
+                                    app:layout_constraintBottom_toBottomOf="@+id/imageView47" android:layout_marginStart="13dp"
+                                    android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                            <Spinner
+                                    android:layout_width="130dp"
+                                    android:layout_height="48dp" android:id="@+id/classYearSpinner"
+                                    app:layout_constraintStart_toStartOf="@+id/imageView40"
+                                    app:layout_constraintEnd_toEndOf="@+id/imageView40"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView47"
+                                    android:layout_marginStart="26dp" android:layout_marginEnd="13dp"
+                                    android:layout_marginTop="-10dp"
+                                    android:entries="@array/yearOptions"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:layout_weight="1">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_margin="5dp"
+                                android:layout_height="match_parent">
+
+                            <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" android:id="@+id/imageView41"
+                                    app:srcCompat="@drawable/selectbutton2" app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                            <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp" android:id="@+id/imageView48"
+                                    app:layout_constraintTop_toTopOf="@+id/imageView41"
+                                    app:layout_constraintStart_toStartOf="@+id/imageView41" android:layout_marginTop="8dp"
+                                    android:layout_marginStart="8dp" app:srcCompat="@drawable/iconcourse3"/>
+                            <TextView
+                                    android:text="学期"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" android:id="@+id/textView24"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView48"
+                                    app:layout_constraintBottom_toBottomOf="@+id/imageView48"
+                                    app:layout_constraintTop_toTopOf="@+id/imageView48" android:layout_marginStart="13dp"
+                                    android:textStyle="bold" android:typeface="normal" android:textSize="16sp"/>
+                            <Spinner
+                                    android:layout_width="130dp"
+                                    android:layout_height="48dp" android:id="@+id/classTermSpinner"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView48"
+                                    app:layout_constraintStart_toStartOf="@+id/imageView41"
+                                    app:layout_constraintEnd_toEndOf="@+id/imageView41" android:layout_marginStart="26dp"
+                                    android:layout_marginEnd="13dp"
+                                    android:layout_marginTop="-10dp"
+                                    android:entries="@array/termOptions"/>/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd1"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="课程名称"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="必填"
+                                android:textColorHint="@color/fire_red"
+                                android:id="@+id/course_name"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd3"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="周数"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="必填"
+                                android:textColorHint="@color/fire_red"
+                                android:id="@+id/course_week"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="请输入周数(用逗号分隔)\t例如:1,3,5,7,9"
+                                android:layout_marginLeft="5dp"
+                                android:gravity=""
+                                android:textColor="@color/grey"
+                                android:textSize="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd4"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="节课"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="必填"
+                                android:textColorHint="@color/fire_red"
+                                android:id="@+id/course_section"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="请输入节课数(只输入一个数字)\t 例如:2(三四节课)"
+                                android:layout_marginLeft="5dp"
+                                android:gravity=""
+                                android:textColor="@color/grey"
+                                android:textSize="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd4"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="星期"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="必填"
+                                android:textColorHint="@color/fire_red"
+                                android:id="@+id/course_week_num"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="请输入星期数(只输入一个数字)\t 例如:1(星期一的课)"
+                                android:layout_marginLeft="5dp"
+                                android:gravity=""
+                                android:textColor="@color/grey"
+                                android:textSize="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd2"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="教师名称"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="可选"
+                                android:id="@+id/course_teacher"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <ImageView
+                                android:src="@drawable/courseadd5"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp">
+
+                        </ImageView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                                android:text="课程地址"
+                                android:gravity="center"
+                                android:textSize="20dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:hint="可选"
+                                android:id="@+id/course_address"
+                                android:paddingLeft="10dp"
+                                android:background="@drawable/selectbutton7"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
+
+                        </androidx.appcompat.widget.AppCompatEditText>
+                    </LinearLayout>
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:text=""
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/warning"
+                        android:gravity=""
+                        android:textColor="@color/fire_red"
+                        android:textSize="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+                <TextView
+                        android:id="@+id/add_check_button"
+                        android:text="确认添加"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@drawable/selectbutton6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintBottom_toTopOf="@+id/loginButton1"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6"
+                        >
+                </TextView>
+                <LinearLayout
+                        android:id="@+id/gridlayout_linearlayout"
+                        android:orientation="vertical"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/gridlayout"
+                            android:rowCount="10"
+                            android:columnCount="7">
+                    </GridLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

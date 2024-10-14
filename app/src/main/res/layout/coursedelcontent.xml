@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_marginBottom="15sp"
+              android:layout_height="match_parent"
+              android:background="@drawable/selectbutton5"
+              android:id="@+id/main_layout"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/course_name"
+                android:text="课程名称"
+                android:textSize="21sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textStyle="bold">
+
+        </TextView>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/selectbutton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="75sp">
+                <LinearLayout
+                        android:layout_margin="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <ImageView
+                            android:src="@drawable/courseadd2"
+                            android:layout_weight="1"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp">
+
+                    </ImageView>
+                    <TextView
+                            android:id="@+id/teacher"
+                            android:layout_weight="1"
+                            android:text="教师名称"
+                            android:textSize="13sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:textStyle="bold">
+
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selectbutton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="75sp">
+                <LinearLayout
+                        android:layout_margin="12dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <ImageView
+                            android:src="@drawable/location_icon"
+                            android:layout_weight="1"
+                            android:layout_width="30sp"
+                            android:layout_height="30sp">
+
+                    </ImageView>
+                    <TextView
+                            android:id="@+id/address"
+                            android:textSize="13sp"
+                            android:text="教室地点"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:textStyle="bold">
+
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_marginTop="4sp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/weeks"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:text="weeks:期末考试"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textStyle="bold">
+            </TextView>
+            <TextView
+                    android:id="@+id/week_num"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:text="week_num:已完成"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_marginTop="4sp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/section"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:text="section:第几节"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textStyle="bold">
+            </TextView>
+            <TextView
+                    android:id="@+id/id"
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:text="id:1231"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_marginTop="4sp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text=""
+                    android:layout_weight="1"
+                    android:textColor="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">>
+
+            </TextView>
+            <TextView
+                    android:gravity="center"
+                    android:text="删除"
+                    android:id="@+id/delete_button"
+                    android:background="@drawable/selectbutton8"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp">>
+
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -20,9 +20,8 @@ import java.util.Map;
 public class MyDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "my_database";
-    private static final int DATABASE_VERSION = 6;
-    private Gson gson = new Gson();;
-
+    private static final int DATABASE_VERSION = 9;
+    private Gson gson = new Gson();
     private SQLiteDatabase db;
 
     public MyDBHelper(Context context) {
@@ -31,23 +30,56 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
+        String createTableCourse = "CREATE TABLE IF NOT EXISTS courseDB (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + // 新增的自增主键
+                "username TEXT, " +
+                "semester_id TEXT, " +
+                "weeks TEXT, " +
+                "course_name TEXT, " +
+                "start_unit TEXT," +
+                "course_address TEXT, " +
+                "week_num TEXT, " +
+                "course_teacher TEXT)";
+        db.execSQL(createTableCourse);
         String createTableQuery = "CREATE TABLE IF NOT EXISTS semesterDB (" +
                 "SEMESTER VARCHAR(10) PRIMARY KEY," +
                 "COLUMN_JSON_DATA TEXT)";
         db.execSQL(createTableQuery);
-        Log.d("数据库onCreate", "数据库onCreate成功");
+    }
 
-        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='semesterDB'", null);
-        boolean tableExists = cursor.moveToFirst();
-        cursor.close();
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // 创建第一个表 courseDB
+        String createTableCourse = "CREATE TABLE IF NOT EXISTS courseDB (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + // 新增的自增主键
+                "username TEXT, " +
+                "semester_id TEXT, " +
+                "weeks TEXT, " +
+                "course_name TEXT, " +
+                "start_unit TEXT," +
+                "course_address TEXT, " +
+                "week_num TEXT, " +
+                "course_teacher TEXT)";
+        db.execSQL(createTableCourse);
 
-        if (tableExists) {
-            Log.d("onCreate", "表已成功创建");
+        // 创建第二个表 semesterDB
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS semesterDB (" +
+                "SEMESTER VARCHAR(10) PRIMARY KEY," +
+                "COLUMN_JSON_DATA TEXT)";
+        db.execSQL(createTableQuery);
+
+        // 检测表 courseDB 是否创建成功
+        Cursor cursorCourse = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='courseDB'", null);
+        boolean courseTableExists = cursorCourse.moveToFirst();
+        cursorCourse.close();
+
+        // 检测表 semesterDB 是否创建成功
+        Cursor cursorSemester = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='semesterDB'", null);
+        boolean semesterTableExists = cursorSemester.moveToFirst();
+        cursorSemester.close();
+
+        if (courseTableExists && semesterTableExists) {
+            Log.d("onCreate", "两个表都成功创建");
         } else {
             Log.w("onCreate", "表创建失败");
         }
@@ -940,82 +972,44 @@ public class MyDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public void insertCourseData(String username, String year, String term, String week, HashMap<Integer, List<Course>> content) {
+
+    public boolean insertCourse(String username, String semesterId, String weeks, String courseName,String start_unit, String courseAddress, String courseTeacher,String week_num) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(content);
         values.put("username", username);
-        values.put("year", year);
-        values.put("term", term);
-        values.put("week", week);
-        values.put("content", jsonContent);
-        db.insert("my_course", null, values);
+        values.put("semester_id", semesterId);
+        values.put("weeks", weeks);
+        values.put("course_name", courseName);
+        values.put("start_unit",start_unit);
+        values.put("course_address", courseAddress);
+        values.put("course_teacher", courseTeacher);
+        values.put("week_num", week_num);
+        Log.d("MyDBHelper", "insertCourse: "+username);
+        Log.d("MyDBHelper", "insertCourse: "+semesterId);
+        Log.d("MyDBHelper", "insertCourse: "+weeks);
+        Log.d("MyDBHelper", "insertCourse: "+courseName);
+        Log.d("MyDBHelper", "insertCourse: "+start_unit);
+        Log.d("MyDBHelper", "insertCourse: "+courseAddress);
+        Log.d("MyDBHelper", "insertCourse: "+courseTeacher);
+        Log.d("MyDBHelper", "insertCourse: "+week_num);
+
+        long result = db.insert("courseDB", null, values);
         db.close();
+
+        return result != -1; // 返回插入操作是否成功的布尔值
     }
 
-    public void deleteAllDataByUsername(String username) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("my_course", "username=?", new String[]{username});
-        db.close();
-    }
-
-    public HashMap<Integer, List<Course>> getCourseData(String username, String year, String term, String week) {
-        HashMap<Integer, List<Course>> result = new HashMap<>();
+    public Cursor getCourseByUsernameAndSemesterId(String username, String semesterId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Gson gson = new Gson();
-
-        String[] columns = {"content"};
-        String selection = "username = ? AND year = ? AND term = ? AND week = ?";
-        String[] selectionArgs = {username, year, term, week};
-
-        Cursor cursor = db.query("my_course", columns, selection, selectionArgs, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            String jsonContent = null;
-            int columnIndex = cursor.getColumnIndex("content");
-            if (columnIndex != -1) {
-                jsonContent = cursor.getString(columnIndex);
-                // 这里继续处理jsonContent
-            } else {
-                // 处理列索引不存在的情况
-            }
-            Type type = new TypeToken<HashMap<Integer, List<Course>>>() {}.getType();
-            result = gson.fromJson(jsonContent, type);
+        Cursor cursor = db.query("courseDB", null, "username=? AND semester_id=?", new String[]{username, semesterId}, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
         }
-
-        cursor.close();
-        db.close();
-
-        return result;
+        return cursor;
     }
 
-    public List<Map<String, String>> getGradeData(String username, String year, String term) {
-        List<Map<String, String>> result = new ArrayList<>();
+    public boolean deleteCourseById(String courseId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Gson gson = new Gson();
-
-        String[] columns = {"content"};
-        String selection = "username = ? AND year = ? AND term = ?";
-        String[] selectionArgs = {username, year, term};
-
-        Cursor cursor = db.query("my_grade", columns, selection, selectionArgs, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            String jsonContent = null;
-            int columnIndex = cursor.getColumnIndex("content");
-            if (columnIndex != -1) {
-                jsonContent = cursor.getString(columnIndex);
-                Type type = new TypeToken<List<Map<String, String>>>() {}.getType();
-                result = gson.fromJson(jsonContent, type);
-            } else {
-                // 处理列索引不存在的情况
-            }
-        }
-
-        cursor.close();
-        db.close();
-
-        return result;
+        return db.delete("courseDB", "id=?", new String[]{courseId}) > 0;
     }
 }

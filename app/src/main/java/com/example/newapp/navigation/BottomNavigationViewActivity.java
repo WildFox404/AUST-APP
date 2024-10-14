@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.newapp.*;
+import com.example.newapp.entries.User;
 
 public class BottomNavigationViewActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
@@ -19,11 +20,13 @@ public class BottomNavigationViewActivity extends AppCompatActivity {
     private ServiceFragment serviceFragment;
     private SecondClassActivity secondClassActivity;
     private Fragment currentFragment; // 用于跟踪当前显示的Fragment
+    private User user = User.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment); // 设置活动的布局文件
+        String user_name = user.getUser_name();
 
         homeFragment = new HomeFragment();
         userFragment = new UserFragment();

@@ -3,9 +3,11 @@ package com.example.newapp.navigation;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -23,9 +25,13 @@ import android.widget.*;
 import androidx.fragment.app.Fragment;
 import com.example.newapp.*;
 import com.example.newapp.db.MyDBHelper;
+import com.example.newapp.emptyclassrooms.EmptyBuildingsActivity;
 import com.example.newapp.entries.User;
+import com.example.newapp.navigation.homemore.CourseAdd;
+import com.example.newapp.navigation.homemore.CourseDel;
 import com.example.newapp.utils.DateUtils;
 import com.example.newapp.utils.DeviceDataUtils;
+import com.example.newapp.utils.ToastUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -35,7 +41,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HomeFragment extends Fragment {
-
+    private static final int REQUEST_CODE = 1;
+    private static final int DEL_CODE = 2;
     private Boolean image_switch = true;
     private SharedPreferences sharedPreferences;
     private MyDBHelper myDBHelper;
@@ -71,7 +78,17 @@ public class HomeFragment extends Fragment {
         }
         return 0; // 默认返回第一个选项
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            new ClassAsyncTask().execute();
+        }
+        if (requestCode == DEL_CODE && resultCode == Activity.RESULT_OK) {
+            new ClassAsyncTask().execute();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -104,12 +121,41 @@ public class HomeFragment extends Fragment {
 
         user=User.getInstance();
 
-        setScrollViewHeight();
+
+
+        TextView textView1 = view.findViewById(R.id.textview1);
+        TextView textView2 = view.findViewById(R.id.textview2);
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CourseAdd.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CourseDel.class);
+                startActivityForResult(intent, DEL_CODE);
+            }
+        });
 
         LinearLayout linearLayoutHead = view.findViewById(R.id.linearLayoutHead);
-        TextView textView1 = view.findViewById(R.id.textview1);
-        int heightPx = linearLayoutHead.getHeight();
+        final int[] heightInPx = new int[1];
 
+        linearLayoutHead.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                heightInPx[0] = linearLayoutHead.getHeight();
+                // 在这里可以使用获取到的高度值
+                Log.d("HomeFragment", "LinearLayout的高度: " + heightInPx[0]);
+
+                // 确保只获取一次高度后移除监听器，避免重复调用
+                linearLayoutHead.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+        float density = getResources().getDisplayMetrics().density;
+        float pixels = density; // 四舍五入取整
         ImageView more = view.findViewById(R.id.more);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,28 +165,60 @@ public class HomeFragment extends Fragment {
                 // 设置颜色过滤器
                 // 将颜色设置为红色
 
+                ObjectAnimator translationAnimator1;
+                ObjectAnimator translationAnimator2;
                 if(image_switch){
                     drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
                     rotationAnimator = ObjectAnimator.ofFloat(view.findViewById(R.id.more), "rotation", 0f, 45f);
-                    // 创建并设置动画
-                    TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, 1000);
-                    translateAnimation.setDuration(300); // 设置动画持续时间为1秒
-                    textView1.startAnimation(translateAnimation);
+                    translationAnimator1 = ObjectAnimator.ofFloat(textView1, "translationY", 0, heightInPx[0]);
+                    translationAnimator2 = ObjectAnimator.ofFloat(textView2, "translationY", 0, heightInPx[0]+40*pixels);
+                    textView1.setTranslationY(heightInPx[0]);
+                    textView2.setTranslationY(heightInPx[0]+40*pixels);
                 } else {
                     drawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
                     rotationAnimator = ObjectAnimator.ofFloat(view.findViewById(R.id.more), "rotation", 45f, 0f);
-                    TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -heightPx);
-                    translateAnimation.setDuration(300); // 设置动画持续时间为1秒
-                    textView1.startAnimation(translateAnimation);
+                    translationAnimator1 = ObjectAnimator.ofFloat(textView1, "translationY", heightInPx[0], 0);
+                    translationAnimator2 = ObjectAnimator.ofFloat(textView2, "translationY", heightInPx[0]+40*pixels, 0);
+                    textView1.setTranslationY(0);
+                    textView2.setTranslationY(0);
                 }
+                Log.d("HomeFragment", "textview移动距离: "+String.valueOf(heightInPx[0]));
 
                 image_switch = !image_switch;
 
                 rotationAnimator.setDuration(300);
+                translationAnimator1.setDuration(150);
+                translationAnimator2.setDuration(200);
 
                 AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.playTogether(rotationAnimator);
+                animatorSet.playTogether(rotationAnimator,translationAnimator1,translationAnimator2);
                 animatorSet.start();
+            }
+        });
+
+        LinearLayout contentLayout = view.findViewById(R.id.ContentLayout);
+        contentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!image_switch){
+                    more.performClick();
+                }
+            }
+        });
+
+        ScrollView scrollView = view.findViewById(R.id.scrollView);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            private float startY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        if(!image_switch){
+                            more.performClick();
+                        }
+                }
+                return false;
             }
         });
 
@@ -263,28 +341,20 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void setScrollViewHeight() {
-        int linearLayout1 = view.findViewById(R.id.linearLayoutHead).getHeight();
-        int linearLayout2 = view.findViewById(R.id.SpinnerLayout).getHeight();
-        int linearLayout3 = view.findViewById(R.id.WeekLayout).getHeight();
-        int height = deviceDataUtils.getHeight();
-        ScrollView scrollView =  view.findViewById(R.id.scrollView);
-        ViewGroup.LayoutParams params= scrollView.getLayoutParams();
-        params.height = height-linearLayout1-linearLayout2-linearLayout3;
-        scrollView.setLayoutParams(params);
-    }
-
     private class ClassAsyncTask extends AsyncTask<Void, Void, JsonArray> {
         @Override
         protected JsonArray doInBackground(Void... voids) {
             try {
                 JsonObject Semester_Date = myDBHelper.getJsonDataBySemesterId(String.valueOf(year + term));
+                Log.d("课表获取", "startDate: "+Semester_Date.toString());
                 JsonArray weekArray = Semester_Date.get("weekArray").getAsJsonArray();
+                Log.d("课表获取", "startDate: "+weekArray.toString());
                 if (week < weekArray.size()) {
                     JsonElement element = weekArray.get(week);
                     if (!element.isJsonNull() && element.isJsonObject()) {
                         JsonObject weekObject = element.getAsJsonObject();
                         startDate = weekObject.get("startDate").getAsString();
+                        Log.d("课表获取", "startDate: "+startDate);
                         endDate = weekObject.get("endDate").getAsString();
                         return user.get_class(String.valueOf(year + term), startDate, endDate);
                     } else {
@@ -314,6 +384,7 @@ public class HomeFragment extends Fragment {
                     // Assuming class_results is a field in your class to store the JSON data
                     class_results = result;
                     Log.d("课表获取", "课表获取成功");
+                    Log.d("课表获取", "startDate: "+startDate);
                     UpdateCourseTable();
                 } else {
                     // Handle the case where result is null, if needed
@@ -329,6 +400,96 @@ public class HomeFragment extends Fragment {
         }
     }
     private void UpdateCourseTable(){
+
+        int class_number =0;
+        List<Integer> datesWithoutData = new ArrayList<>();
+        datesWithoutData.add(1);
+        datesWithoutData.add(2);
+        datesWithoutData.add(3);
+        datesWithoutData.add(4);
+        datesWithoutData.add(5);
+        datesWithoutData.add(6);
+        datesWithoutData.add(7);
+
+        // 清空之前的内容
+        gridLayout.removeAllViews();
+        int[] numbers = {0, 2, 4, 6, 8};
+
+        for (int number : numbers) {
+            TextView emptyTextView = new TextView(getContext());
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.rowSpec = GridLayout.spec(number,1,1f); // 设置空TextView所在行，默认为0
+            params.columnSpec = GridLayout.spec(0); // 设置空TextView所在列
+
+            params.width = gridLayoutWidth/7; // 设置宽度
+            params.height = 360; // 设置高度
+
+            emptyTextView.setLayoutParams(params);
+
+            gridLayout.addView(emptyTextView);
+        }
+
+        Cursor cursor = myDBHelper.getCourseByUsernameAndSemesterId(user.getUsername(), String.valueOf(year+term));
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // 从 cursor 中提取数据
+                String courseName = cursor.getString(cursor.getColumnIndex("course_name"));
+                String weeks = cursor.getString(cursor.getColumnIndex("weeks"));
+                String startUnit = cursor.getString(cursor.getColumnIndex("start_unit"));
+                String courseAddress = cursor.getString(cursor.getColumnIndex("course_address"));
+                String courseTeacher = cursor.getString(cursor.getColumnIndex("course_teacher"));
+                String week_num = cursor.getString(cursor.getColumnIndex("week_num"));
+                // 处理获取到的数据
+                String[] weekArray =  weeks.split("[,，]");
+                boolean isElement = false;
+                for (String element : weekArray) {
+                    if (element.equals(String.valueOf(week+1))) {
+                        isElement = true;
+                        break; // 如果找到目标字符串，跳出循环
+                    }
+                }
+                Log.d("HomeFragment", "courseName: "+courseName.toString());
+                Log.d("HomeFragment", "weeks: "+weeks.toString());
+                Log.d("HomeFragment", "startUnit: "+startUnit.toString());
+                Log.d("HomeFragment", "courseAddress: "+courseAddress.toString());
+                Log.d("HomeFragment", "courseTeacher: "+courseTeacher.toString());
+                Log.d("HomeFragment", "week_num: "+week_num.toString());
+
+                if (isElement) {
+                    System.out.println("目标字符串是数组中的一个元素");
+                    // 创建TextView来显示课程名称和地点
+                    RoundedColorTextView roundedColorTextView = new RoundedColorTextView();
+                    TextView textView = roundedColorTextView.createTextViewWithRoundedColorBackground(getContext(), "Your Text Here");
+                    textView.setText(courseName + "\n" + courseAddress+"\n"+courseTeacher);
+                    textView.setTextSize(10);
+                    textView.setGravity(Gravity.CENTER);
+                    // 设置TextView在GridLayout中的位置
+                    GridLayout.Spec rowSpec = GridLayout.spec((Integer.parseInt(startUnit)*2)-2); // 指定行
+                    GridLayout.Spec columnSpec = GridLayout.spec(Integer.parseInt(week_num)-1); // 指定列
+                    GridLayout.LayoutParams params = new GridLayout.LayoutParams(rowSpec, columnSpec);
+                    params.setGravity(Gravity.FILL);
+                    // 设置固定的宽度和高度
+                    params.width = gridLayoutWidth/7; // 设置为您希望的宽度，单位是像素或dp
+                    params.height = 360; // 设置为您希望的高度，单位是像素或dp
+                    textView.setLayoutParams(params);
+                    // 将TextView添加到GridLayout中
+                    gridLayout.addView(textView);
+
+                    if(datesWithoutData.contains(Integer.valueOf(week_num))){
+                        datesWithoutData.remove(Integer.valueOf(week_num));
+                    }
+
+                    class_number++;
+                } else {
+                    System.out.println("目标字符串不是数组中的一个元素");
+                }
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
         String[] weekDates =DateUtils.getDatesForWeek(startDate);
         if(weekDates.length==7){
             TextView week1 = view.findViewById(R.id.week1);
@@ -352,18 +513,6 @@ public class HomeFragment extends Fragment {
         String weekString = String.valueOf(week);
         Log.d("查询参数", "学年"+yearString+"学期"+termString+"周"+weekString);
 
-        List<Integer> datesWithoutData = new ArrayList<>();
-        datesWithoutData.add(1);
-        datesWithoutData.add(2);
-        datesWithoutData.add(3);
-        datesWithoutData.add(4);
-        datesWithoutData.add(5);
-        datesWithoutData.add(6);
-        datesWithoutData.add(7);
-        // 清空之前的内容
-        gridLayout.removeAllViews();
-
-        int class_number =0;
         for (JsonElement class_result : class_results) {
             JsonObject arrange_lesson_object = class_result.getAsJsonObject();
             String course_name=arrange_lesson_object.get("course_name").getAsString();

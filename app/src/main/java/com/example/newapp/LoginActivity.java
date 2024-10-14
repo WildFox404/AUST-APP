@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.newapp.entries.User;
 import com.example.newapp.navigation.BottomNavigationViewActivity;
 import android.view.inputmethod.InputMethodManager;
+import com.example.newapp.navigation.BottomNavigationViewActivity2;
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -117,7 +119,8 @@ public class LoginActivity extends AppCompatActivity {
 
         ImageView agreementFalse = findViewById(R.id.agreementFalse);
         ImageView agreementTrue = findViewById(R.id.agreementTrue);
-        ImageView loginView = findViewById(R.id.loginButton);
+        TextView loginView = findViewById(R.id.loginButton);
+        TextView graduateStudent = findViewById(R.id.graduateStudent);
 
         int[] buildingImages = {R.drawable.chinabuilding1, R.drawable.chinabuilding2, R.drawable.chinabuilding3,
                 R.drawable.chinabuilding4, R.drawable.chinabuilding5, R.drawable.chinabuilding8,
@@ -164,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         loginView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,7 +186,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        graduateStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("username", "000000");
+                editor.putString("password", "000000");
+                editor.apply();
 
+                Intent intent = new Intent(LoginActivity.this, BottomNavigationViewActivity2.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
     private void hideKeyboard(EditText editText) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

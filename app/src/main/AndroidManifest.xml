@@ -37,6 +37,7 @@
         <activity android:name=".MainNextActivity" />
 
         <activity android:name=".navigation.BottomNavigationViewActivity"/>
+        <activity android:name=".navigation.BottomNavigationViewActivity2"/>
         <activity android:name=".webview.SchoolWifiWebActivity"/>
         <activity android:name=".navigation.ServiceFragment" />
         <activity android:name=".navigation.HomeFragment" />
@@ -67,6 +68,8 @@
         <activity android:name=".chargequery.ChargeQueryActivity" />
         <activity android:name=".webview.WebViewActivity" />
         <activity android:name=".wificonnect.WifiConnectActivity" />
+        <activity android:name=".navigation.homemore.CourseAdd" />
+        <activity android:name=".navigation.homemore.CourseDel" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
